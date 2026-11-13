@@ -10,13 +10,11 @@ of "Poor or worse" air.
 
 ## Easiest way: the app (Windows)
 
-Double-click **VayuVaani.bat**. The first time, it sets everything up (3–5 minutes,
-needs internet) and adds a VayuVaani shortcut to your desktop. After that it opens
-straight into the dashboard in your browser. Keep the black window open while you
-use the app; close it to stop.
+Double-click `VayuVaani.bat`. The first time, it sets everything up (3 to 10 minutes, needs internet) and adds a VayuVaani shortcut to your desktop. After that, the shortcut opens VayuVaani in its own window. Closing the window stops the app.
 
-In the app, choose **Try it with demo data** or **Use real Bengaluru data**
-(paste your free OpenAQ key in Settings first). Everything else is buttons.
+In the app, choose **Try it with demo data** or **Use real Bengaluru data** (paste your free OpenAQ key in Settings first). Everything else is buttons.
+
+Pages: Today's air, Stations, Plan outdoors, Alerts (SMS and voice in English, Kannada and Hindi), Accuracy and About. Settings also has a dark mode and an optional second language (Kannada or Hindi) for the menu labels.
 
 ## Setup for the command line
 
@@ -104,12 +102,11 @@ Outputs:
 - **Backend.** LightGBM is used if installed (it is in requirements). Otherwise the
   code falls back to scikit-learn's HistGradientBoosting.
 
-## Next steps
+## Still to do
 
-2. SHAP explanations in plain language and "what would change it" hints; LSTM baseline
-3. Ward-level estimates (kriging with road density and land use), FastAPI backend, React map dashboard, safe-time planner
-4. SMS and missed-call alerts in Kannada, Hindi and English (mock mode first)
-5. Citizen reports and final evaluation
+- Ward-level estimates between stations (kriging with road density and land use)
+- Real SMS and missed-call alerts through an SMS gateway (the app previews them in mock mode)
+- Citizen reports
 
 ## Tests
 
