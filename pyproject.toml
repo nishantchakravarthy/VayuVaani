@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vayuvaani"
+version = "0.1.0"
+description = "Ward-level air quality forecasting and multilingual health alerts for Bengaluru"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas>=2.0",
+    "numpy>=1.24",
+    "scikit-learn>=1.3",
+    "requests>=2.31",
+    "python-dotenv>=1.0",
+    "joblib>=1.3",
+    "openpyxl>=3.1",
+    "gTTS>=2.5",
+]
+
+[project.optional-dependencies]
+fast = ["lightgbm>=4.0"]
+dev = ["pytest>=7.4"]
+
+[project.scripts]
+vayu = "vayuvaani.cli:main"
+vayuvaani-app = "vayuvaani.app.server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+vayuvaani = ["app/static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

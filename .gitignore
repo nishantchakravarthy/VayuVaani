@@ -1,0 +1,17 @@
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+data/raw/
+data/processed/
+models/
+reports/
+.tools/
+.python/
+setup_log.txt
+app_log.txt
+.icon_v*
+data/cache/

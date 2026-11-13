@@ -1,0 +1,84 @@
+{
+  "city": {
+    "name": "Bengaluru",
+    "timezone": "Asia/Kolkata",
+    "bbox": [
+      77.35,
+      12.75,
+      77.85,
+      13.2
+    ],
+    "centre": [
+      12.9716,
+      77.5946
+    ]
+  },
+  "paths": {
+    "raw": "data/raw",
+    "processed": "data/processed",
+    "events": "data/events/bengaluru_events.csv",
+    "models": "models",
+    "reports": "reports"
+  },
+  "sources": {
+    "openaq": {
+      "base_url": "https://api.openaq.org/v3",
+      "pm25_parameter_id": 2,
+      "pm10_parameter_id": 1
+    },
+    "open_meteo": {
+      "archive_url": "https://archive-api.open-meteo.com/v1/archive",
+      "forecast_url": "https://api.open-meteo.com/v1/forecast",
+      "hourly": [
+        "temperature_2m",
+        "relative_humidity_2m",
+        "precipitation",
+        "wind_speed_10m",
+        "wind_direction_10m",
+        "surface_pressure",
+        "cloud_cover"
+      ]
+    },
+    "firms": {
+      "base_url": "https://firms.modaps.eosdis.nasa.gov/api/area/csv",
+      "source_history": "VIIRS_SNPP_SP",
+      "source_recent": "VIIRS_SNPP_NRT",
+      "bbox": [
+        76.0,
+        11.5,
+        79.0,
+        14.5
+      ],
+      "radius_km": 150
+    },
+    "data_gov_in": {
+      "resource_id": "3b01bcb8-0b14-4abf-b6f2-c1bfd384ba69",
+      "base_url": "https://api.data.gov.in/resource"
+    }
+  },
+  "cpcb_csv_stations": [],
+  "model": {
+    "max_horizon_hours": 48,
+    "horizons_per_origin": 8,
+    "quantiles": [
+      0.1,
+      0.25,
+      0.5,
+      0.75,
+      0.9
+    ],
+    "test_days": 60,
+    "calibration_days": 30,
+    "alert_probability": 0.3,
+    "random_state": 42,
+    "lightgbm": {
+      "n_estimators": 600,
+      "learning_rate": 0.05,
+      "num_leaves": 63,
+      "min_child_samples": 40,
+      "subsample": 0.8,
+      "subsample_freq": 1,
+      "colsample_bytree": 0.8
+    }
+  }
+}

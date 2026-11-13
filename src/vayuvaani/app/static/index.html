@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VayuVaani, Bengaluru air forecast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Tiro+Kannada&family=Tiro+Devanagari+Hindi&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<style>
+:root{
+  --ink:#1b2a24;--muted:#5b6a62;--faint:#8a968f;--line:#d9e0da;--bg:#eef1ec;--card:#fbfcfa;
+  --teal:#1f5a45;--teal-2:#2c7a5e;--teal-dark:#163f31;--teal-soft:#e1ebe4;--side:#17332a;--jac:#7a5ba6;
+  --kn:"Tiro Kannada","Noto Serif Kannada","Nirmala UI",serif;
+  --good:#2e9e4f;--satisfactory:#8cc63f;--moderate:#e8b400;--poor:#f07f12;--verypoor:#e03131;--severe:#9c1c1c;
+  --shadow:0 1px 2px rgba(16,40,50,.05),0 4px 14px rgba(16,40,50,.05);
+  --hover:#fbfdfd;--track:#eef2f3;--grid:#e3e9ec;--grid2:#eef2f4;--ghost-border:#b9d9d6;--dash:#cfdbe0;
+  --warn-bg:#fff6dc;--warn-line:#f1df9e;--warn-ink:#5c4700;--err-bg:#fdecec;--err-ink:#8b1a1a;
+  --phone-frame:#1b2a24;--phone-bg:#e9eee8;--bubble:#fff;--glow1:#e3ece2;--glow2:#ebe6f2;
+}
+[data-theme=dark]{
+  --ink:#e3ebe6;--muted:#9aaba2;--faint:#76877e;--line:#25312c;--bg:#0f1513;--card:#151d1a;
+  --teal:#3f9a73;--teal-2:#6cc49b;--teal-dark:#2f8060;--teal-soft:#1a2b24;--side:#0b110f;--jac:#a98ad6;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25);
+  --hover:#16252c;--track:#1d2c33;--grid:#22323a;--grid2:#1b2a31;--ghost-border:#2a5652;--dash:#2b3d45;
+  --warn-bg:#2a2410;--warn-line:#4e421a;--warn-ink:#efd98f;--err-bg:#3a1717;--err-ink:#f3b0b0;
+  --phone-frame:#050807;--phone-bg:#18221e;--bubble:#22302a;--glow1:#14241d;--glow2:#1a1726;
+  color-scheme:dark;
+}
+[data-theme=dark] .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.8) contrast(.9) saturate(.6)}
+[data-theme=dark] .leaflet-container{background:#0b1519}
+
+[data-theme=dark] .chip[style*="#e8b400"],[data-theme=dark] .chip[style*="#8cc63f"]{color:#14240f}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{font-family:"Schibsted Grotesk","Segoe UI",system-ui,sans-serif;font-feature-settings:"tnum" 1;color:var(--ink);display:flex;align-items:flex-start;
+  background:radial-gradient(1200px 600px at 85% -10%,var(--glow1) 0%,transparent 60%),radial-gradient(900px 500px at 20% 110%,var(--glow2) 0%,transparent 60%),var(--bg);background-attachment:fixed}
+button{font:inherit;cursor:pointer}
+a{color:var(--teal)}
+/* sidebar */
+aside{width:228px;flex:none;background:var(--side);color:#d8ebe9;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+.brand{display:flex;gap:11px;align-items:center;padding:20px 18px 18px}
+.brand svg{width:36px;height:36px;flex:none}
+.brand b{display:block;color:#fff;font-size:19px;letter-spacing:.3px}
+.brand span{font-size:11.5px;opacity:.75}
+nav{display:flex;flex-direction:column;padding:6px 10px;gap:2px}
+nav a{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:9px;color:#cfe3e1;text-decoration:none;font-size:14.5px}
+nav a svg{width:18px;height:18px;opacity:.85}
+nav a:hover{background:rgba(255,255,255,.06)}
+nav a.on{background:rgba(255,255,255,.12);color:#fff;font-weight:600}
+.side-foot{margin-top:auto;padding:16px 16px 18px;font-size:12px;border-top:1px solid rgba(255,255,255,.08)}
+.side-foot .pill{display:inline-block;padding:3px 9px;border-radius:99px;background:rgba(255,255,255,.12);margin-bottom:8px}
+.side-foot .pill.demo{background:#f7d774;color:#4a3800}
+.side-btn{width:100%;margin-top:8px;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:8px}
+.side-btn:hover{background:rgba(255,255,255,.18)}
+.side-btn:disabled{opacity:.45;cursor:default}
+/* main */
+main{flex:1;min-width:0;padding:24px 30px 40px;max-width:1320px}
+.page-head{display:flex;align-items:flex-end;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.page-head h1{margin:0;font-size:24px}
+.page-head p{margin:3px 0 0;color:var(--muted);font-size:14px}
+.page-head .right{margin-left:auto;display:flex;gap:8px;align-items:center}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px 22px}
+.card h3{font-size:16px;font-weight:700;letter-spacing:-.1px}
+.card h3{margin:0 0 4px;font-size:15px}
+.card .sub{color:var(--muted);font-size:13px;margin:0 0 10px}
+.muted{color:var(--muted)}.small{font-size:12.5px}
+.row{display:grid;gap:16px;margin-bottom:16px}
+.r2{grid-template-columns:1fr 1fr}.r3{grid-template-columns:repeat(3,1fr)}.r4{grid-template-columns:repeat(4,1fr)}
+.r-hero{grid-template-columns:1.25fr 1fr}.r-map{grid-template-columns:1.2fr 1fr}
+.kpi .label{font-size:12.5px;color:var(--muted)}
+.kpi .val{font-size:27px;font-weight:700;margin:3px 0 1px;letter-spacing:-.3px}
+.kpi .note{font-size:12.5px;color:var(--muted)}
+.btn{background:var(--teal);color:#fff;border:0;border-radius:9px;padding:9px 15px;font-weight:600}
+.btn:hover{background:var(--teal-dark)}
+.btn.ghost{background:var(--card);color:var(--teal-2);border:1px solid var(--ghost-border)}
+.btn:disabled{opacity:.5;cursor:default}
+select,input[type=text],input[type=password],input[type=number]{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
+.chip{display:inline-block;font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;color:#fff;white-space:nowrap}
+.tag{display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:6px;background:var(--teal-soft);color:var(--teal-dark);font-weight:600}
+.warn{background:var(--warn-bg);border:1px solid var(--warn-line);color:var(--warn-ink);border-radius:10px;padding:10px 14px;font-size:13.5px;margin-bottom:16px}
+.error{background:var(--err-bg);color:var(--err-ink);border-radius:8px;padding:10px 12px;font-size:14px}
+/* hero */
+.hero{background:linear-gradient(135deg,#0f6e6e,#13897e 60%,#2aa58d);color:#fff;border:0}
+.hero .sub{color:rgba(255,255,255,.8)}
+.hero-grid{display:flex;gap:22px;align-items:center}
+.pollutants{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;flex:1}
+.pollutants div{background:rgba(255,255,255,.13);border-radius:10px;padding:8px 10px}
+.pollutants b{display:block;font-size:17px}
+.pollutants span{font-size:11.5px;opacity:.85}
+.wx{display:flex;gap:18px;align-items:center}
+.wx .temp{font-size:44px;font-weight:700;letter-spacing:-1px}
+.wx-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px;font-size:13.5px;margin-top:10px}
+.wx-grid span{color:var(--muted);display:block;font-size:12px}
+
+/* sky hero */
+.sky{position:relative;overflow:hidden;border-radius:22px;min-height:330px;margin-bottom:16px;color:#fff;box-shadow:0 10px 30px rgba(15,60,70,.18);isolation:isolate}
+.sky.day{color:#0e2a36}
+.sky .bg{position:absolute;inset:0;z-index:-3}
+.sky .haze{position:absolute;inset:0;z-index:-2;mix-blend-mode:multiply;transition:background 1s}
+.sky .scene{position:absolute;inset:0;z-index:-1;width:100%;height:100%}
+.sky .content{position:relative;display:flex;gap:24px;padding:26px 30px 92px;align-items:flex-start}
+.sky .greet{font-size:14px;opacity:.85;letter-spacing:.3px}
+.sky h1{font-size:34px;margin:4px 0 6px;font-weight:700;letter-spacing:-.4px;line-height:1.15}
+.sky h1 b{font-weight:800}
+.sky .lede{font-size:15px;opacity:.92;max-width:620px;line-height:1.5}
+.glass{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:12px}
+.sky.day .glass{background:rgba(255,255,255,.55);border-color:rgba(255,255,255,.7)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chips .glass{padding:7px 11px;font-size:13px}
+.chips b{font-size:15px;margin-right:3px}
+.orb{margin-left:auto;flex:none;width:210px;height:210px;border-radius:50%;display:grid;place-items:center;position:relative}
+.orb .ring{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(255,255,255,.45);animation:breathe 6s ease-in-out infinite}
+.orb .ring.r2{inset:-14px;opacity:.45;animation-delay:-3s}
+.orb .core{width:176px;height:176px;border-radius:50%;display:grid;place-items:center;text-align:center}
+.orb .num{font-size:52px;font-weight:800;line-height:1}
+.orb .lab{font-size:12px;opacity:.85;margin-top:4px}
+.orb .cat{margin-top:8px}
+.breath{font-size:12.5px;opacity:.9;margin-top:10px;display:flex;align-items:center;gap:8px}
+.breath i{width:10px;height:10px;border-radius:50%;background:currentColor;opacity:.8;animation:breathe 6s ease-in-out infinite}
+.cloud{animation:drift linear infinite}
+.wind{fill:none;stroke-linecap:round;animation:flow linear infinite}
+.star{animation:twinkle 4s ease-in-out infinite}
+@keyframes drift{from{transform:translateX(-25%)}to{transform:translateX(125%)}}
+@keyframes flow{to{stroke-dashoffset:-800}}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.06);opacity:1}}
+@keyframes twinkle{0%,100%{opacity:.25}50%{opacity:.95}}
+.pulse,.ripple,.breathe,.sway{transform-box:fill-box;transform-origin:center}
+.pulse{animation:pulse 2.6s ease-out infinite}
+.ripple{animation:ripple 4.4s ease-out infinite}
+.breathe{animation:breathe 5s ease-in-out infinite}
+.rise{animation:rise linear infinite}
+.sway{animation:sway 6s ease-in-out infinite}
+@keyframes pulse{0%{transform:scale(1);opacity:.85}100%{transform:scale(3.4);opacity:0}}
+@keyframes ripple{0%{transform:scale(1);opacity:.7}100%{transform:scale(6);opacity:0}}
+@keyframes rise{0%{transform:translateY(20px);opacity:0}15%{opacity:1}100%{transform:translateY(-170px);opacity:0}}
+@keyframes sway{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(8px,-6px) rotate(12deg)}}
+@keyframes fadeUp{from{opacity:.35;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.offline{font-size:13px;color:var(--muted);background:var(--card);border:1px dashed var(--dash);border-radius:12px;padding:9px 14px;margin-bottom:16px}
+.offline b{color:var(--ink)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}
+  /* the progress spinner is information, not decoration: keep it turning, just slower */
+  .running .dot{animation:spin 1.6s linear infinite!important}}
+@media (max-width:900px){.orb{display:none}.sky h1{font-size:26px}}
+
+/* page heroes (smaller sky banner on every other page) */
+.phero{position:relative;overflow:hidden;border-radius:20px;margin-bottom:16px;color:#fff;isolation:isolate;box-shadow:0 8px 24px rgba(15,60,70,.14)}
+.phero.day{color:#0e2a36}
+.phero .bg{position:absolute;inset:0;z-index:-3}
+.phero .haze{position:absolute;inset:0;z-index:-2}
+.phero svg.scene{position:absolute;inset:0;z-index:-1;width:100%;height:100%}
+.phero .content{display:flex;align-items:center;gap:18px;padding:30px 30px;min-height:160px}
+.phero .ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;flex:none}
+.phero .ic svg{width:26px;height:26px}
+.phero h1{margin:0;font-size:26px;letter-spacing:-.3px}
+.phero p{margin:4px 0 0;font-size:14px;opacity:.9;max-width:760px}
+.phero .right{margin-left:auto;display:flex;gap:8px;align-items:center}
+.phero select{background:rgba(255,255,255,.9);border-color:rgba(255,255,255,.9);color:#122430;font-weight:600;max-width:420px}
+
+
+.reading{margin-left:auto;flex:none;text-align:right;align-self:flex-end;padding-bottom:6px}
+.reading .num{font-size:112px;font-weight:700;letter-spacing:-5px;line-height:.9}
+.reading .unit{font-size:13px;opacity:.85;margin-top:6px}
+.reading .idx{margin-top:10px;font-size:13px;opacity:.95}
+@media (max-width:900px){.reading .num{font-size:72px}}
+/* reading strip: one instrument panel instead of four look-alike cards */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:16px}
+.strip .kpi{padding:16px 22px 18px;border-left:1px solid var(--line);min-width:0}
+.strip .kpi:first-child{border-left:0}
+.kpi .val{font-size:34px;font-weight:600;letter-spacing:-1px;line-height:1.1;margin:6px 0 4px}
+.kpi .val span{font-size:14px;font-weight:500;letter-spacing:0;color:var(--muted)}
+.kpi .label{font-size:13px;color:var(--muted)}
+/* Kannada as part of the type system */
+.kn{font-family:var(--kn)}
+nav a .l2{display:block;font-size:12px;opacity:.6;line-height:1.1;margin-top:1px}
+.l2,.wordmark{font-family:var(--l2font)}
+nav a .t{line-height:1.15}
+.brand b{font-size:21px;letter-spacing:-.2px}
+.brand .l2{display:block;font-size:15px;color:#fff;opacity:.8;line-height:1.2}
+.brand .l2:empty{display:none}
+.brand span{font-size:11.5px;opacity:.7}
+.wordmark{position:absolute;right:30px;bottom:40px;font-size:150px;line-height:1;color:#fff;opacity:.1;pointer-events:none;white-space:nowrap;z-index:-2}
+.phero .wordmark{z-index:-1}
+.phero .wordmark{font-size:118px;bottom:-24px;right:30px}
+.phero.has-right .wordmark{right:auto;left:46%}
+/* station rows: where each station sits on the AQI scale */
+.srow{display:grid;grid-template-columns:1fr auto;gap:4px 14px;align-items:center;padding:12px 4px;border-bottom:1px solid var(--line);cursor:pointer;width:100%;background:none;border-left:0;border-right:0;border-top:0;text-align:left;color:var(--ink)}
+.srow:hover{background:var(--hover)}
+.srow .nm{font-weight:600;font-size:14.5px}
+.srow .big{font-size:26px;font-weight:600;letter-spacing:-.6px;text-align:right;line-height:1}
+.srow .big small{display:block;font-size:11px;font-weight:500;letter-spacing:0;color:var(--muted);margin-top:2px}
+.scale{grid-column:1/-1;position:relative;height:10px;border-radius:5px;display:flex;overflow:visible;margin:4px 0 2px}
+.scale i{height:100%;opacity:.28}
+.scale i:first-child{border-radius:5px 0 0 5px}.scale i:last-child{border-radius:0 5px 5px 0}
+.scale .now,.scale .pk{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;transform:translate(-50%,-50%)}
+.scale .now{border:2px solid var(--ink);background:var(--card)}
+.scale .pk{border:2px solid var(--card);box-shadow:0 0 0 1px var(--ink)}
+.scale .rng{position:absolute;top:2px;height:6px;border-radius:3px;background:var(--ink);opacity:.22}
+.srow .st{grid-column:1/-1;font-size:12.5px;color:var(--muted)}
+.list{max-height:520px}
+/* particles in the dashboard sky: density follows the live PM2.5 */
+.pt{animation:drift2 linear infinite}
+@keyframes drift2{from{transform:translate(0,0)}to{transform:translate(-60px,-18px)}}
+@media (max-width:1100px){.strip{grid-template-columns:1fr 1fr}.strip .kpi:nth-child(3){border-left:0}.strip .kpi:nth-child(n+3){border-top:1px solid var(--line)}}
+/* map & list */
+#map,#mapFallback{height:410px;border-radius:10px}
+#mapFallback{background:var(--teal-soft)}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted);margin-top:10px}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;background:var(--c);vertical-align:-1px}
+.list{max-height:452px;overflow:auto;margin:0 -6px;padding:0 6px}
+.station{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--line);border-radius:11px;margin-bottom:8px;background:var(--card);color:var(--ink);width:100%;text-align:left}
+.station:hover{border-color:var(--ghost-border);background:var(--hover)}
+.swatch{width:46px;height:46px;border-radius:11px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:15px;flex:none;line-height:1}
+.swatch small{display:block;font-size:9px;font-weight:600;opacity:.9}
+.station .nm{font-weight:600;font-size:14px}
+.station .st{font-size:12.5px;color:var(--muted);margin-top:2px}
+/* heat strip */
+.heat{display:grid;grid-template-columns:170px 1fr;gap:4px 10px;align-items:center;font-size:12.5px}
+.heat .cells{display:grid;grid-template-columns:repeat(48,1fr);gap:1px;height:22px;cursor:pointer}
+.heat .cells i{border-radius:2px}
+.heat .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.heat .axis{display:grid;grid-template-columns:repeat(8,1fr);font-size:11px;color:var(--faint)}
+/* station page */
+.stripe{display:grid;grid-template-columns:repeat(48,1fr);gap:2px;margin-top:6px}
+.stripe div{height:34px;border-radius:3px;position:relative}
+.stripe div:hover{outline:2px solid var(--ink)}
+.stripe-axis{display:grid;grid-template-columns:repeat(8,1fr);font-size:11px;color:var(--faint);margin-top:4px}
+svg.chart{width:100%;display:block}
+svg.chart text{font-size:11px;fill:var(--muted)}
+.toggle{display:flex;gap:6px;font-size:13px;align-items:center;color:var(--muted)}
+.drivers .d{display:grid;grid-template-columns:170px 1fr 58px;gap:10px;align-items:center;margin:8px 0;font-size:13.5px}
+.bar{height:12px;background:var(--track);border-radius:6px;position:relative;overflow:hidden}
+.bar i{position:absolute;top:0;bottom:0;border-radius:6px}
+.drivers .why{grid-column:1/-1;font-size:12.5px;color:var(--muted);margin-top:-6px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+td,th{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:12px;color:var(--muted);font-weight:600}
+tr.hl td{font-weight:700;color:var(--teal)}
+.advice{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.advice div{background:var(--bg);border-radius:11px;padding:12px 13px;font-size:13.5px;line-height:1.45}
+.advice b{display:flex;align-items:center;gap:7px;margin-bottom:5px;font-size:13px}
+.advice svg{width:18px;height:18px;color:var(--teal)}
+/* planner */
+.windows .w{display:flex;gap:14px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:11px;margin-bottom:10px}
+.windows .rank{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--teal-soft);color:var(--teal-dark);font-weight:700}
+.windows .w.best{border-color:var(--teal);background:#f5fbfa}
+.form{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+.form label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:4px}
+/* alerts */
+.phone{width:300px;border:10px solid var(--phone-frame);border-radius:34px;background:var(--phone-bg);padding:14px 12px 22px;min-height:470px;flex:none;box-shadow:var(--shadow)}
+.phone .bar-top{text-align:center;font-size:11px;color:var(--muted);margin-bottom:10px}
+.bubble{background:var(--bubble);color:var(--ink);border-radius:16px 16px 16px 4px;padding:11px 13px;font-size:13.5px;line-height:1.45;box-shadow:0 1px 1px rgba(0,0,0,.06)}
+.sender{font-size:11.5px;font-weight:600;color:var(--muted);margin:0 0 4px 4px}
+.tabs{display:flex;gap:6px;margin-bottom:12px}
+.tabs button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:6px 13px;font-size:13px}
+.tabs button.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.flow{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap}
+.flow div{flex:1;min-width:120px;background:var(--bg);border-radius:10px;padding:10px 12px;font-size:13px}
+.flow b{display:block;color:var(--teal-dark);margin-bottom:3px}
+/* model */
+.steps-h{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.steps-h div{background:var(--bg);border-radius:10px;padding:11px 12px;font-size:13px;line-height:1.4}
+.steps-h b{display:block;margin-bottom:3px}
+/* about */
+.aqi-table td:first-child{width:140px}
+.aqi-table .c{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:7px;vertical-align:-1px}
+.team{display:flex;gap:12px;flex-wrap:wrap}
+.team div{background:var(--bg);border-radius:11px;padding:12px 14px;min-width:190px}
+.team b{display:block}
+/* progress */
+.steps{list-style:none;padding:0;margin:12px 0}
+.steps li{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:14px}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;flex:none}
+.done .dot{background:var(--good);border-color:var(--good);color:#fff}
+.running .dot{border-color:var(--teal);border-top-color:transparent;animation:spin 1s linear infinite}
+.failed .dot{background:var(--verypoor);border-color:var(--verypoor);color:#fff}
+@keyframes spin{to{transform:rotate(360deg)}}
+details summary{cursor:pointer;font-size:13px;color:var(--muted)}
+pre.log{background:#0f1b22;color:#c7d5dc;font-size:12px;padding:12px;border-radius:8px;max-height:220px;overflow:auto;white-space:pre-wrap}
+.welcome{text-align:center;padding:40px 24px}
+.welcome h2{font-size:26px;margin:0 0 6px}
+.welcome>p{max-width:640px;margin:0 auto 24px;color:var(--muted);line-height:1.5}
+.choices{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+.choice{width:310px;text-align:left;border:1px solid var(--line);border-radius:12px;padding:18px;background:var(--card)}
+.choice p{font-size:14px;color:var(--muted);line-height:1.45;min-height:62px}
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(10,25,30,.45);display:none;align-items:center;justify-content:center;z-index:3000}
+.modal.open{display:flex}
+.modal .card{width:min(560px,92vw)}
+.modal label{display:block;font-size:13px;font-weight:600;margin:14px 0 5px}
+.modal input{width:100%}
+.hint{font-size:12.5px;color:var(--muted);margin-top:4px}
+.end{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+.tip{position:fixed;pointer-events:none;background:#122430;color:#fff;font-size:12px;padding:6px 9px;border-radius:7px;z-index:4000;display:none;line-height:1.4}
+footer{font-size:12px;color:var(--faint);margin-top:26px;line-height:1.5}
+@media (max-width:1100px){.r-hero,.r-map,.r2{grid-template-columns:1fr}.r4{grid-template-columns:1fr 1fr}.advice{grid-template-columns:1fr 1fr}.steps-h{grid-template-columns:1fr 1fr}}
+@media (max-width:760px){aside{display:none}.r3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<aside>
+  <div class="brand">
+    <svg viewBox="0 0 40 40" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><circle cx="20" cy="20" r="17" stroke-width="2.5"/><path d="M10 15 q5-4 10 0 t10 0"/><path d="M10 21 q5-4 10 0 t10 0"/><path d="M10 27 q5-4 10 0 t10 0"/></svg>
+    <div><b>VayuVaani</b><span class="l2" id="brandL2"></span><span>Bengaluru's air forecast</span></div>
+  </div>
+  <nav id="nav"></nav>
+  <div class="side-foot">
+    <span id="modePill" class="pill" hidden></span>
+    <div id="updated" class="small" style="opacity:.8"></div>
+    <button id="refreshBtn" class="side-btn" hidden>↻ Update forecast</button>
+    <button id="themeBtn" class="side-btn"></button>
+    <button id="settingsBtn" class="side-btn">⚙ Settings</button>
+  </div>
+</aside>
+
+<main>
+  <section id="progress" class="card" hidden style="margin-bottom:16px">
+    <h3 id="progTitle" style="font-size:17px">Working…</h3>
+    <p class="sub" style="margin:0">You can keep using the app. This updates by itself.</p>
+    <ul id="steps" class="steps"></ul>
+    <div id="progError" class="error" hidden></div>
+    <details><summary>Show details</summary><pre id="log" class="log"></pre></details>
+  </section>
+  <div id="view"></div>
+  <footer>VayuVaani, Societal Based Mini Project (24CSE57), Dept. of CSE, New Horizon College of Engineering.
+  AQI values are the PM2.5 sub-index of the CPCB National AQI, shown hour by hour. Forecasts are estimates, not medical advice.</footer>
+</main>
+
+<div class="modal" id="settings">
+  <div class="card">
+    <form id="settingsForm" onsubmit="return false">
+    <h3 style="font-size:18px">Settings</h3>
+    <p class="sub">API keys are free and stay on this computer, in the .env file.</p>
+    <label for="kOpenaq">OpenAQ API key <span class="muted" id="kOpenaqState"></span></label>
+    <input id="kOpenaq" type="password" placeholder="Paste key" autocomplete="off">
+    <div class="hint">Needed for real station data. Sign up at <a href="https://explore.openaq.org/register" target="_blank" rel="noopener">explore.openaq.org</a>, then copy the key from your account settings.</div>
+    <label for="kFirms">NASA FIRMS map key (optional) <span class="muted" id="kFirmsState"></span></label>
+    <input id="kFirms" type="password" placeholder="Paste key" autocomplete="off">
+    <div class="hint">Adds fire data. Request one at <a href="https://firms.modaps.eosdis.nasa.gov/api/map_key/" target="_blank" rel="noopener">firms.modaps.eosdis.nasa.gov</a>; it arrives by email.</div>
+    <label for="lang2Sel">Second language for menu labels</label>
+    <select id="lang2Sel" style="width:100%"><option value="none">None (English only)</option><option value="kn">Kannada (ಕನ್ನಡ)</option><option value="hi">Hindi (हिंदी)</option></select>
+    <div class="hint">Shows the menu and page names in a second language alongside English. Alerts can always be previewed in all three languages.</div>
+    <div class="end"><button type="button" class="btn ghost" id="closeSettings">Cancel</button><button type="submit" class="btn" id="saveSettings">Save</button></div>
+    </form>
+    <hr style="border:0;border-top:1px solid var(--line);margin:20px 0 12px">
+    <h3>Start over</h3>
+    <div class="end" style="justify-content:flex-start;margin-top:8px">
+      <button class="btn ghost" data-run="demo">Rebuild with demo data</button>
+      <button class="btn" data-run="real">Rebuild with real data</button>
+    </div>
+    <div class="end" style="justify-content:flex-start;margin-top:8px">
+      <button class="btn ghost" data-run="retrain">Retrain on downloaded data</button>
+      <span class="hint" style="align-self:center">Skips the download; about 5–10 minutes.</span>
+    </div>
+  </div>
+</div>
+<div class="tip" id="tip"></div>
+
+<script>
+/* ------------------------------------------------------------------ constants */
+const CATS = [
+  {name:"Good",hex:"#2e9e4f",max:30,aqi:"0–50",impact:"Minimal impact."},
+  {name:"Satisfactory",hex:"#8cc63f",max:60,aqi:"51–100",impact:"Minor breathing discomfort for sensitive people."},
+  {name:"Moderate",hex:"#e8b400",max:90,aqi:"101–200",impact:"Breathing discomfort for people with lung or heart disease, children and older adults."},
+  {name:"Poor",hex:"#f07f12",max:120,aqi:"201–300",impact:"Breathing discomfort for most people on long exposure."},
+  {name:"Very Poor",hex:"#e03131",max:250,aqi:"301–400",impact:"Respiratory illness on long exposure."},
+  {name:"Severe",hex:"#9c1c1c",max:Infinity,aqi:"401–500",impact:"Affects healthy people; serious for those with existing disease."},
+];
+const PM_EDGES=[0,30,60,90,120,250,380], AQI_EDGES=[0,50,100,200,300,400,500];
+const catOf = n => CATS.find(c=>c.name===n) || CATS[0];
+const catOfPm = pm => CATS.find(c=>pm<=c.max) || CATS[5];
+function pmIndex(pm){ if(pm==null) return null; for(let i=1;i<PM_EDGES.length;i++){ if(pm<=PM_EDGES[i]) return Math.round(AQI_EDGES[i-1]+(AQI_EDGES[i]-AQI_EDGES[i-1])*(pm-PM_EDGES[i-1])/(PM_EDGES[i]-PM_EDGES[i-1])); } return 500; }
+
+const GROUPS = [
+  {key:"children", name:"Children", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="6" r="3"/><path d="M8 21v-6l-2-3 3-2h6l3 2-2 3v6"/></svg>'},
+  {key:"elderly", name:"Elderly", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="5" r="2.5"/><path d="M11 9v6l-3 6M11 15l3 6M8 12l3-3 4 2M18 13v8"/></svg>'},
+  {key:"asthma", name:"Asthma / lung conditions", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v8M12 11c-2 0-3-2-5-2-2 0-3 3-3 7 0 3 2 4 4 4s4-2 4-5M12 11c2 0 3-2 5-2 2 0 3 3 3 7 0 3-2 4-4 4s-4-2-4-5"/></svg>'},
+  {key:"workers", name:"Outdoor workers", icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15a8 8 0 0 1 16 0M2 15h20v3H2zM10 7V4h4v3"/></svg>'},
+];
+const ADVICE = {
+  "Good":["Outdoor play is fine.","Normal activity is fine.","Normal activity is fine.","No change needed."],
+  "Satisfactory":["Outdoor play is fine.","Fine for most. Rest if you feel breathless.","Keep your inhaler with you.","No change needed."],
+  "Moderate":["Shorten long, hard outdoor games.","Prefer walks in the cleaner hours.","Limit hard outdoor exercise; keep your inhaler with you.","Take short breaks away from traffic."],
+  "Poor":["Move PE and play indoors.","Stay in at peak hours; avoid walks near traffic.","Avoid outdoor exertion; follow your doctor's plan.","Wear a well-fitting N95 mask; rest away from traffic."],
+  "Very Poor":["Keep children indoors.","Stay indoors; keep windows shut at peak hours.","Stay indoors; get medical help if symptoms worsen.","Wear an N95 mask; ask to move heavy work to cleaner hours."],
+  "Severe":["Keep children indoors.","Stay indoors.","Stay indoors; get medical help if symptoms worsen.","Avoid outdoor work where possible; wear an N95 mask."],
+};
+const ICONS = {
+  dash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>',
+  station:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>',
+  plan:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 15h3"/></svg>',
+  alert:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 16V11a6 6 0 0 0-12 0v5l-2 3h16zM10 21h4"/></svg>',
+  model:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
+  about:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>',
+};
+const PAGES = [["dashboard","Today's air","dash"],["station","Stations","station"],["planner","Plan outdoors","plan"],["alerts","Alerts","alert"],["model","Accuracy","model"],["about","About","about"]];
+// Optional second language for labels (Settings). English only by default.
+const L2 = {
+  kn:{font:'"Tiro Kannada","Noto Serif Kannada","Nirmala UI",serif', brand:"ವಾಯುವಾಣಿ",
+      nav:{dashboard:"ಇಂದಿನ ಗಾಳಿ",station:"ನಿಲ್ದಾಣಗಳು",planner:"ಹೊರಾಂಗಣ ಯೋಜನೆ",alerts:"ಎಚ್ಚರಿಕೆಗಳು",model:"ನಿಖರತೆ",about:"ಪರಿಚಯ"},
+      word:{dashboard:"ವಾಯು",station:"ನಿಲ್ದಾಣ",planner:"ಹೊರಗೆ",alerts:"ಎಚ್ಚರಿಕೆ",model:"ನಿಖರತೆ",about:"ಪರಿಚಯ"}},
+  hi:{font:'"Tiro Devanagari Hindi","Noto Serif Devanagari","Nirmala UI",serif', brand:"वायुवाणी",
+      nav:{dashboard:"आज की हवा",station:"स्टेशन",planner:"बाहर की योजना",alerts:"चेतावनियाँ",model:"सटीकता",about:"परिचय"},
+      word:{dashboard:"वायु",station:"स्टेशन",planner:"बाहर",alerts:"चेतावनी",model:"सटीकता",about:"परिचय"}},
+};
+function lang2(){ try{ return localStorage.getItem("vv-lang2")||"none"; }catch(e){ return "none"; } }
+function l2(){ return L2[lang2()]||null; }
+
+/* ------------------------------------------------------------------ state + helpers */
+let S = {status:null, stations:[], acc:null, live:null, explain:{}, cams:{}, lastJobEnd:"x", map:null, sel:null, lang:"en", group:"general"};
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const pct = v => v==null ? "–" : Math.round(v*100)+"%";
+const r0 = v => v==null ? "–" : Math.round(v);
+const D = s => new Date(s);
+const fmtT = s => D(s).toLocaleString("en-IN",{weekday:"short",hour:"numeric",hour12:true});
+const fmtH = s => D(s).toLocaleTimeString("en-IN",{hour:"numeric",hour12:true});
+const shortName = n => String(n).replace(/\s*[-,]\s*(Bengaluru|Bangalore).*$/i,"").replace(/\s*\(.*\)\s*$/,"");
+async function api(path, body){
+  const opt = body ? {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)} : {};
+  const r = await fetch(path,opt); return r.json();
+}
+function tip(e, html){ const t=$("tip"); if(!html){t.style.display="none";return;} t.innerHTML=html; t.style.display="block"; t.style.left=(e.clientX+14)+"px"; t.style.top=(e.clientY+12)+"px"; }
+// Station readings arrive 1–3 hours late, so a forecast can start a little in the
+// past. "Next 24 hours" always means from the current hour on.
+function upcoming(st){ const t=Date.now()-3600e3, f=st.hours.filter(h=>D(h.time).getTime()>=t); return (f.length?f:st.hours); }
+function next24(st){ return upcoming(st).slice(0,24); }
+function peak24(st){ const n=next24(st); return n.reduce((a,b)=>b.q50>a.q50?b:a,n[0]); }
+function enrich(){ S.stations.forEach(s=>{ s.peak=peak24(s); s.maxPoor=Math.max(...next24(s).map(h=>h.p_poor||0)); s.nowCat=s.now_pm25==null?null:catOfPm(s.now_pm25); }); S.stations.sort((a,b)=>b.peak.q50-a.peak.q50); }
+
+/* ------------------------------------------------------------------ svg charts */
+function lineChart({w=1000,h=280,series=[],bands=[],dots=[],yLabel="µg/m³",xTimes=[],catBg=true,yMax=null,bars=null}){
+  const L=48,R=14,T=14,B=30, n=xTimes.length;
+  const all=[...series.flatMap(s=>s.values),...bands.flatMap(b=>b.hi),...dots.map(d=>d.v)].filter(v=>v!=null);
+  const ymax=yMax || Math.max(60,...all)*1.1;
+  const x=i=>L+i/Math.max(n-1,1)*(w-L-R), y=v=>h-B-v/ymax*(h-T-B);
+  let g="";
+  if(catBg){ let lo=0; for(const c of CATS){ const hi=Math.min(c.max,ymax); if(lo<ymax) g+=`<rect x="${L}" y="${y(hi)}" width="${w-L-R}" height="${y(lo)-y(hi)}" fill="${c.hex}" opacity=".09"/>`; lo=c.max; } }
+  const step = ymax>300?100:ymax>150?50:ymax>80?25:20;
+  for(let v=0;v<=ymax;v+=step) g+=`<line x1="${L}" x2="${w-R}" y1="${y(v)}" y2="${y(v)}" style="stroke:var(--grid)"/><text x="${L-8}" y="${y(v)+4}" text-anchor="end">${v}</text>`;
+  xTimes.forEach((t,i)=>{ const d=D(t); if(d.getHours()%6===0){ const lab=d.getHours()===0?d.toLocaleDateString("en-IN",{weekday:"short",day:"numeric"}):fmtH(t); g+=`<line x1="${x(i)}" x2="${x(i)}" y1="${T}" y2="${h-B}" style="stroke:var(--grid2)"/><text x="${x(i)}" y="${h-10}" text-anchor="middle">${lab}</text>`; }});
+  if(bars){ const bw=(w-L-R)/n*.7; bars.values.forEach((v,i)=>{ if(v>0){ const bh=Math.min(v/bars.max,1)*(h-T-B)*.35; g+=`<rect x="${x(i)-bw/2}" y="${h-B-bh}" width="${bw}" height="${bh}" fill="${bars.color}" opacity=".55"/>`; } }); }
+  bands.forEach(b=>{ const pts=b.hi.map((v,i)=>`${x(i)},${y(v)}`).join(" ")+" "+b.lo.map((v,i)=>`${x(i)},${y(v)}`).reverse().join(" "); g+=`<polygon points="${pts}" fill="${b.color}" opacity="${b.opacity||.16}"/>`; });
+  series.forEach(s=>{ let d="", pen=false; s.values.forEach((v,i)=>{ if(v==null){pen=false;return;} d+=(pen?"L":"M")+x(i)+","+y(v)+" "; pen=true; }); g+=`<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.width||2.6}" ${s.dash?`stroke-dasharray="${s.dash}"`:""} stroke-linejoin="round"/>`; });
+  dots.forEach(d=>{ g+=`<circle cx="${x(d.i)}" cy="${y(d.v)}" r="3" style="fill:${d.color||"var(--ink)"}"/>`; });
+  g+=`<text x="${L+6}" y="${T+11}" style="font-weight:600">${yLabel}</text>`;
+  g+=`<rect class="hover" x="${L}" y="${T}" width="${w-L-R}" height="${h-T-B}" fill="transparent"/>`;
+  return {svg:`<svg class="chart" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="height:${h}px">${g}</svg>`, x, L, R, w, n};
+}
+function attachHover(container, n, L, R, w, html){
+  const svg=container.querySelector("svg"); if(!svg) return;
+  svg.addEventListener("mousemove",e=>{ const r=svg.getBoundingClientRect(); const px=(e.clientX-r.left)/r.width*w; const i=Math.round((px-L)/(w-L-R)*(n-1)); if(i<0||i>=n){tip(e);return;} tip(e,html(i)); });
+  svg.addEventListener("mouseleave",e=>tip(e));
+}
+function gauge(value, max=500, label="", color="#fff"){
+  const a = Math.min(value||0,max)/max*180, r=70, cx=90, cy=86;
+  const pt = deg => [cx - r*Math.cos(deg*Math.PI/180), cy - r*Math.sin(deg*Math.PI/180)];
+  let segs=""; CATS.forEach((c,i)=>{ const a0=AQI_EDGES[i]/500*180, a1=AQI_EDGES[i+1]/500*180; const [x0,y0]=pt(a0),[x1,y1]=pt(a1); segs+=`<path d="M${x0},${y0} A${r},${r} 0 0 1 ${x1},${y1}" stroke="${c.hex}" stroke-width="13" fill="none"/>`; });
+  const [nx,ny]=pt(a);
+  return `<svg viewBox="0 0 180 104" width="190" style="flex:none">${segs}<circle cx="${nx}" cy="${ny}" r="9" fill="#fff" stroke="#122430" stroke-width="3"/>
+    <text x="90" y="80" text-anchor="middle" font-size="30" font-weight="700" fill="${color}">${value==null?"–":Math.round(value)}</text>
+    <text x="90" y="100" text-anchor="middle" font-size="11" fill="${color}" opacity=".85">${label}</text></svg>`;
+}
+
+/* ------------------------------------------------------------------ shell */
+function renderNav(){
+  const page=(location.hash.slice(2).split("/")[0])||"dashboard";
+  const L=l2();
+  document.documentElement.style.setProperty("--l2font", L?L.font:"inherit");
+  $("brandL2").textContent = L?L.brand:"";
+  $("nav").innerHTML = PAGES.map(([k,label,ic])=>`<a href="#/${k}" class="${k===page?"on":""}">${ICONS[ic]}<span class="t">${label}${L?`<span class="l2" lang="${lang2()}">${L.nav[k]}</span>`:""}</span></a>`).join("");
+}
+function renderShell(){
+  const s=S.status, job=s.job, busy=job.running;
+  $("progress").hidden = !(busy || job.error);
+  if(busy||job.error){
+    const titles={demo:"Setting up with demo data",real:"Setting up with real Bengaluru data",refresh:"Updating the forecast",retrain:"Retraining the model"};
+    $("progTitle").textContent = job.error ? "Something went wrong" : (titles[job.name]||"Working…");
+    $("steps").innerHTML = job.steps.map(st=>`<li class="${st.status}"><span class="dot">${st.status==="done"?"✓":st.status==="failed"?"!":""}</span>${esc(st.label)}</li>`).join("");
+    $("progError").hidden=!job.error; $("progError").textContent=job.error||"";
+    $("log").textContent=job.log.join("\n");
+  }
+  $("modePill").hidden=!s.mode; $("modePill").className="pill"+(s.mode==="demo"?" demo":"");
+  $("modePill").textContent = s.mode==="demo"?"Demo data (not real)":"Live station data";
+  $("updated").textContent = s.forecast_updated ? "Forecast updated "+s.forecast_updated : "";
+  $("refreshBtn").hidden=!(s.forecast_ready&&s.mode); $("refreshBtn").disabled=busy;
+  document.querySelectorAll("[data-run]").forEach(b=>b.disabled=busy);
+  $("kOpenaqState").textContent = s.keys.openaq?"· saved":""; $("kFirmsState").textContent = s.keys.firms?"· saved":"";
+}
+function ready(){ return S.status && S.status.forecast_ready && S.status.mode && S.stations.length; }
+
+function route(){
+  renderNav();
+  const [page, arg] = location.hash.slice(2).split("/");
+  const v=$("view");
+  if(!S.status){ v.innerHTML=""; return; }
+  if(!ready() && page!=="about"){ v.innerHTML = welcomeHTML(); bindRun(); return; }
+  ({dashboard:pageDashboard, station:pageStation, planner:pagePlanner, alerts:pageAlerts, model:pageModel, about:pageAbout}[page||"dashboard"] || pageDashboard)(v, arg && decodeURIComponent(arg));
+  bindRun();
+}
+function bindRun(){ document.querySelectorAll("[data-run]").forEach(b=>b.onclick=()=>run(b.dataset.run)); }
+function demoNote(){ return S.status.mode==="demo" ? `<div class="warn"><b>Demo mode.</b> Stations and readings here are made up so you can try the app. Live weather and the CAMS estimate on the dashboard are real. Add an OpenAQ key in Settings and rebuild with real data for real Bengaluru stations.</div>` : ""; }
+function skyPhase(){
+  const w=(S.live&&S.live.weather)||{}, d=new Date(), h=d.getHours()+d.getMinutes()/60;
+  const toH=t=>{ if(!t) return null; const x=D(t); return x.getHours()+x.getMinutes()/60; };
+  const rise=toH(w.sunrise)??6.2, set=toH(w.sunset)??18;
+  const phase=(h<rise-.6||h>set+.6)?"night":(Math.abs(h-rise)<=1.1||Math.abs(h-set)<=1.1)?"dusk":"day";
+  return {phase, pal:{night:["#0b1d3a","#183a5e","#2b5d78"],dusk:["#22365c","#7a6e9c","#f0b08f"],day:["#5fb0de","#9fd3ea","#e4f4f1"]}[phase]};
+}
+const PAGE_ICON={station:"station",planner:"plan",alerts:"alert",model:"model",about:"about"};
+// Each page gets its own banner scene, all in the same calm style.
+const HZ={Good:"rgba(0,0,0,0)",Satisfactory:"rgba(214,226,170,.16)",Moderate:"rgba(236,198,110,.26)",Poor:"rgba(232,150,80,.36)","Very Poor":"rgba(205,95,70,.44)",Severe:"rgba(150,60,50,.52)"};
+function sceneStations(W,H){
+  let g="";
+  // contour lines, like a terrain map of the city
+  for(let k=0;k<3;k++){ const cx=[760,980,560][k], cy=[70,120,150][k];
+    for(let r=1;r<=5;r++){ const rx=r*46+hash(k*10+r)*20, ry=r*20+hash(k*10+r+5)*10; g+=`<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="none" stroke="#fff" stroke-opacity="${.16-r*.02}" stroke-width="1.2" transform="rotate(${-8+k*6} ${cx} ${cy})"/>`; } }
+  const st=(S.stations||[]), off=(S.offline||[]);
+  const all=st.map(x=>({lat:x.lat,lon:x.lon,c:catOf(x.peak?x.peak.category:"Good").hex,on:true}));
+  if(all.length){
+    const la=all.map(a=>a.lat), lo=all.map(a=>a.lon), [a0,a1,o0,o1]=[Math.min(...la),Math.max(...la),Math.min(...lo),Math.max(...lo)];
+    const X=o=>780+(o-o0)/((o1-o0)||1)*380, Y=a=>H-26-(a-a0)/((a1-a0)||1)*(H-52);
+    all.forEach((a,i)=>{ const b=all[(i+1)%all.length]; g+=`<line x1="${X(a.lon)}" y1="${Y(a.lat)}" x2="${X(b.lon)}" y2="${Y(b.lat)}" stroke="#fff" stroke-opacity=".18" stroke-dasharray="3 5"/>`; });
+    all.forEach((a,i)=>{ g+=`<circle class="pulse" cx="${X(a.lon)}" cy="${Y(a.lat)}" r="6" fill="none" stroke="${a.c}" stroke-width="2" style="animation-delay:${-i*.4}s"/><circle cx="${X(a.lon)}" cy="${Y(a.lat)}" r="6" fill="${a.c}" stroke="#fff" stroke-width="2"/>`; });
+  }
+  return {bg:"linear-gradient(115deg,#17332a 0%,#1f5a45 55%,#3d7d63 100%)", g};
+}
+function scenePlanner(W,H){
+  const w=(S.live&&S.live.weather)||{}, toH=t=>{ if(!t) return null; const x=D(t); return x.getHours()+x.getMinutes()/60; };
+  const rise=toH(w.sunrise)??6.2, set=toH(w.sunset)??18, now=new Date(), h=now.getHours()+now.getMinutes()/60, day=h>=rise&&h<=set;
+  const x0=640,x1=1150,base=H-52, arcH=46;
+  const f=day?(h-rise)/(set-rise):0.5, sx=x0+(x1-x0)*f, sy=base-Math.sin(Math.PI*f)*arcH*2*0.5*2;
+  const lab=v=>fmtH(new Date(2000,0,1,Math.floor(v),Math.round(v%1*60)));
+  let g=`<path d="M0 ${H-30} C 200 ${H-60}, 420 ${H-14}, 640 ${H-40} S 1000 ${H-70}, 1200 ${H-36} L1200 ${H} L0 ${H}Z" fill="#2f8a6c" opacity=".55"/>`;
+  g+=`<path d="M0 ${H-14} C 260 ${H-38}, 520 ${H-6}, 760 ${H-24} S 1080 ${H-30}, 1200 ${H-12} L1200 ${H} L0 ${H}Z" fill="#1d6450" opacity=".9"/>`;
+  for(let i=0;i<14;i++){ const x=hash(i+700)*W, r=6+hash(i+710)*8, y=H-14-hash(i+720)*10; g+=`<rect x="${x-1}" y="${y}" width="2" height="${r}" fill="#164a3b"/><circle cx="${x}" cy="${y-r*.3}" r="${r}" fill="#1f6a52"/>`; }
+  g+=`<path d="M${x0} ${base} Q ${(x0+x1)/2} ${base-arcH*2} ${x1} ${base}" fill="none" stroke="#fff" stroke-opacity=".55" stroke-dasharray="4 6"/>`;
+  g+=`<text x="${x0}" y="${base-8}" fill="#fff" fill-opacity=".85" font-size="11" text-anchor="middle">↑ ${lab(rise)}</text><text x="${x1}" y="${base-8}" fill="#fff" fill-opacity=".85" font-size="11" text-anchor="middle">↓ ${lab(set)}</text>`;
+  if(day){ const py=base-Math.sin(Math.PI*f)*arcH; g+=`<circle cx="${sx}" cy="${py}" r="30" fill="#fff6d0" opacity=".18"/><circle class="breathe" cx="${sx}" cy="${py}" r="13" fill="#ffe7a3"/>`; }
+  else g+=`<circle cx="${(x0+x1)/2}" cy="${base-58}" r="12" fill="#f4f1e6" opacity=".9"/><circle cx="${(x0+x1)/2+6}" cy="${base-62}" r="10" fill="#2f7f93"/><text x="${(x0+x1)/2}" y="${base-28}" fill="#fff" fill-opacity=".75" font-size="11" text-anchor="middle">sunrise ${lab(rise)}</text>`;
+  return {bg:"linear-gradient(180deg,#2d7d95 0%,#4aa3a4 60%,#8fcfb2 100%)", g};
+}
+function sceneAlerts(W,H){
+  const cx=1010, cy=H/2+6;
+  let g="";
+  for(let i=0;i<4;i++) g+=`<circle class="ripple" cx="${cx}" cy="${cy}" r="22" fill="none" stroke="#fff" stroke-width="1.6" style="animation-delay:${-i*1.1}s"/>`;
+  g+=`<rect x="${cx-15}" y="${cy-26}" width="30" height="52" rx="6" fill="#fff" fill-opacity=".92"/><rect x="${cx-11}" y="${cy-20}" width="22" height="36" rx="2" fill="#5f4688" fill-opacity=".85"/><circle cx="${cx}" cy="${cy+21}" r="2" fill="#5f4688"/>`;
+  // one bubble per lane, so they never sit on top of each other
+  const msgs=[["EN",40],["SMS",50],["KN",40],["☎",36],["HI",40],["SMS",50]];
+  msgs.forEach(([t,w2],i)=>{ const x=560+i*68;
+    g+=`<g class="rise" style="animation-duration:${8+i%3*2}s;animation-delay:${-i*1.7}s"><rect x="${x}" y="${H-30}" width="${w2}" height="20" rx="10" fill="#fff" fill-opacity=".16" stroke="#fff" stroke-opacity=".3"/><text x="${x+w2/2}" y="${H-16}" fill="#fff" fill-opacity=".85" font-size="10" text-anchor="middle">${t}</text></g>`; });
+  return {bg:"linear-gradient(120deg,#33244f 0%,#5f4688 55%,#8d6fb8 100%)", g};
+}
+function sceneModel(W,H){
+  let g="";
+  for(let x=560;x<W;x+=24) for(let y=14;y<H;y+=24) g+=`<circle cx="${x}" cy="${y}" r="1.1" fill="#fff" fill-opacity=".18"/>`;
+  const waves=[["#9fd8b9",.9,0],["#c3aee6",.7,1.7],["#f2c46b",.6,3.1]];
+  waves.forEach(([c,o,ph],k)=>{ let d=""; for(let x=520;x<=W+20;x+=10){ const y=H*.55+Math.sin(x/70+ph)*18*(1+k*.3)+Math.sin(x/23+ph*2)*5; d+=(x===520?"M":"L")+x+" "+y.toFixed(1)+" "; }
+    g+=`<path d="${d}" fill="none" stroke="${c}" stroke-opacity="${o*.35}" stroke-width="6"/><path class="wind" d="${d}" stroke="${c}" stroke-opacity="${o}" stroke-width="2.2" stroke-dasharray="160 640" style="animation-duration:${8+k*2}s;animation-delay:${-k*2}s"/>`; });
+  for(let i=0;i<12;i++){ const bh=10+hash(i+900)*42; g+=`<rect x="${880+i*22}" y="${H-bh}" width="14" height="${bh}" rx="2" fill="#fff" fill-opacity="${.08+hash(i+910)*.1}"/>`; }
+  return {bg:"linear-gradient(120deg,#16241f 0%,#203a32 55%,#2d5446 100%)", g};
+}
+function sceneAbout(W,H){
+  let g="";
+  for(let i=0;i<26;i++){ const x=520+hash(i+1000)*680, r=3+hash(i+1010)*16, o=.06+hash(i+1020)*.16;
+    g+=`<circle class="rise" cx="${x}" cy="${H-10}" r="${r}" fill="#e9fff4" fill-opacity="${o}" style="animation-duration:${10+hash(i+1030)*10}s;animation-delay:${-hash(i+1040)*16}s"/>`; }
+  for(let i=0;i<6;i++){ const x=600+hash(i+1100)*560, y=30+hash(i+1110)*90, rot=hash(i+1120)*360;
+    g+=`<g class="sway" style="animation-delay:${-i*1.3}s;transform-origin:${x}px ${y}px"><path d="M${x} ${y} q 12 -14 24 0 q -12 14 -24 0z" fill="#bfe8c9" fill-opacity=".35" transform="rotate(${rot} ${x+12} ${y})"/></g>`; }
+  g+=`<path d="M0 ${H-18} C 300 ${H-34}, 600 ${H-6}, 900 ${H-22} S 1150 ${H-26}, 1200 ${H-16} L1200 ${H} L0 ${H}Z" fill="#0f3d33" opacity=".55"/>`;
+  return {bg:"linear-gradient(120deg,#17332a 0%,#2c6b50 55%,#5e9a6f 100%)", g};
+}
+function head(title, sub, right="", cat=null, below=""){
+  const W=1200, H=160, page=(location.hash.slice(2).split("/")[0])||"dashboard";
+  const sc=({station:sceneStations,planner:scenePlanner,alerts:sceneAlerts,model:sceneModel,about:sceneAbout}[page]||sceneModel)(W,H);
+  const icon=ICONS[PAGE_ICON[page]]||ICONS.dash;
+  const L=l2();
+  return `<section class="phero ${right?"has-right":""}"><div class="bg" style="background:${sc.bg}"></div>${L?`<div class="wordmark" lang="${lang2()}">${L.word[page]||""}</div>`:""}
+    ${cat?`<div class="haze" style="background:linear-gradient(90deg,rgba(0,0,0,0) 40%,${HZ[cat]||"rgba(0,0,0,0)"})"></div>`:""}
+    <svg class="scene" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">${sc.g}</svg>
+    <div class="content"><div class="ic glass">${icon}</div><div style="min-width:0"><h1>${title}</h1><p>${sub}</p>${below?`<div style="margin-top:12px">${below}</div>`:""}</div><div class="right">${right}</div></div></section>`;
+}
+
+function welcomeHTML(){
+  return `<div class="card welcome">
+    <h2>Welcome to VayuVaani</h2>
+    <p>VayuVaani forecasts PM2.5 air pollution at every monitoring station in Bengaluru for the next 48 hours, shows how sure each forecast is and why, and turns it into health advice and alerts for the people most at risk.</p>
+    <div class="choices">
+      <div class="choice"><h3>Use real Bengaluru data</h3><p>Downloads 2 years of CPCB station, weather and fire data and trains on it. Needs a free OpenAQ key. Takes 15–30 minutes.</p><button class="btn" data-run="real">Set up real data</button></div>
+      <div class="choice"><h3>Try it with demo data</h3><p>Made-up stations that behave like Bengaluru's. No sign-up needed. Takes 2–5 minutes.</p><button class="btn ghost" data-run="demo">Start demo</button></div>
+    </div></div>`;
+}
+
+/* ------------------------------------------------------------------ dashboard */
+function pageDashboard(v){
+  const st=S.stations, worst=st[0];
+  const nowAvg = st.filter(s=>s.now_pm25!=null).reduce((a,s,_,arr)=>a+s.now_pm25/arr.length,0);
+  const off=S.offline||[];
+  v.innerHTML = `<section class="sky" id="sky">${skyHTML(S.live)}</section>` + demoNote() +
+  (off.length?`<div class="offline"><b>${st.length} stations reporting</b>, ${off.length} offline (no reading in the last 6 hours): ${off.map(o=>esc(shortName(o.name))).join(", ")}. They come back automatically when their readings resume.</div>`:"") + `
+  <div class="strip">
+    <div class="kpi"><div class="label">Cleanest place in the next 24 h</div><div class="val" style="color:${catOf(st[st.length-1].peak.category).hex}">${r0(st[st.length-1].peak.q50)} <span>µg/m³ at worst</span></div><div class="note">${esc(shortName(st[st.length-1].name))}</div></div>
+    <div class="kpi"><div class="label">Worst place in the next 24 h</div><div class="val" style="color:${catOf(worst.peak.category).hex}">${r0(worst.peak.q50)} <span>µg/m³</span></div><div class="note">${esc(shortName(worst.name))}, ${fmtT(worst.peak.time)}</div></div>
+    <div class="kpi"><div class="label">Stations that may reach Poor</div><div class="val">${st.filter(s=>s.maxPoor>=.3).length} <span>of ${st.length}</span></div><div class="note">30%+ chance in the next 24 h</div></div>
+    <div class="kpi"><div class="label">Forecast error (tested)</div><div class="val">${S.acc&&S.acc.model?S.acc.model.mae.toFixed(1):"–"} <span>µg/m³</span></div><div class="note">${S.acc&&S.acc.model?Math.round(S.acc.skill_vs_persistence*100)+"% better than \"stays the same\"":""}</div></div>
+  </div>
+  <div class="row r-map">
+    <div class="card"><h3>Map: worst hour in the next 24 h</h3><p class="sub">Click a station for its full forecast.</p><div id="map"></div><div id="mapFallback" hidden></div><div class="legend">${CATS.map(c=>`<span style="--c:${c.hex}">${c.name}</span>`).join("")}</div></div>
+    <div class="card"><h3>Stations, worst first</h3><p class="sub">Each bar is the AQI scale. Hollow dot: now. Filled dot: worst hour in the next 24 hours, with its likely range.</p><div class="list">${st.map(s=>stationRow(s)).join("")}</div></div>
+  </div>
+  <div class="card"><h3>Next 48 hours at every station</h3><p class="sub">Each square is one hour, coloured by its AQI category. Hover for details; click a row to open the station.</p>
+    <div class="heat" id="heat"></div></div>`;
+  // heat grid
+  const t0=st[0].hours;
+  let h=`<div></div><div class="axis">${[0,6,12,18,24,30,36,42].map(i=>`<span>${t0[i]?fmtT(t0[i].time).replace(",",""):""}</span>`).join("")}</div>`;
+  st.forEach(s=>{ h+=`<div class="nm" onclick="location.hash='#/station/${encodeURIComponent(s.id)}'">${esc(shortName(s.name))}</div><div class="cells" data-id="${esc(s.id)}" onclick="location.hash='#/station/${encodeURIComponent(s.id)}'">${s.hours.map((x,i)=>`<i data-i="${i}" style="background:${catOf(x.category).hex}"></i>`).join("")}</div>`; });
+  $("heat").innerHTML=h;
+  document.querySelectorAll(".heat .cells").forEach(row=>{ const s=st.find(z=>z.id===row.dataset.id); row.addEventListener("mousemove",e=>{ const i=e.target.dataset.i; if(i==null) return tip(e); const x=s.hours[i]; tip(e,`<b>${esc(shortName(s.name))}</b><br>${fmtT(x.time)}<br>${r0(x.q50)} µg/m³, ${x.category}`); }); row.addEventListener("mouseleave",e=>tip(e)); });
+  drawMap(st);
+  $("sky").classList.toggle("day", !!$("sky").querySelector(".content.day"));
+  loadLive();
+}
+async function loadLive(){
+  if(!S.live) S.live = await api("/api/live").catch(()=>({air_error:"offline",weather_error:"offline"}));
+  if($("sky")){ $("sky").innerHTML = skyHTML(S.live); $("sky").classList.toggle("day", !!$("sky").querySelector(".content.day")); }
+}
+const COMPASS=["north","north-east","east","south-east","south","south-west","west","north-west"];
+const compass = d => COMPASS[Math.round(((d||0)%360)/45)%8];
+function hash(i){ const x=Math.sin(i*127.1)*43758.5453; return x-Math.floor(x); }
+function skyHTML(L){
+  L = L || {};
+  const w=L.weather||{}, a=L.air||{}, now=new Date();
+  const toH = t => { if(!t) return null; const d=D(t); return d.getHours()+d.getMinutes()/60; };
+  const h=now.getHours()+now.getMinutes()/60, rise=toH(w.sunrise)??6.2, set=toH(w.sunset)??18;
+  const phase = (h<rise-.6||h>set+.6)?"night":(Math.abs(h-rise)<=1.1||Math.abs(h-set)<=1.1)?"dusk":"day";
+  const PAL={night:["#0b1d3a","#183a5e","#2b5d78"],dusk:["#22365c","#7a6e9c","#f0b08f"],day:["#5fb0de","#9fd3ea","#e4f4f1"]}[phase];
+  // Average of fresh stations, or the CAMS city estimate when there are no stations yet.
+  const st=S.stations||[], fresh=st.filter(x=>x.now_pm25!=null);
+  const pm = fresh.length ? fresh.reduce((t,x)=>t+x.now_pm25,0)/fresh.length : a.pm25;
+  const src = fresh.length ? `average of ${fresh.length} reporting stations` : "CAMS model estimate";
+  const cat = pm!=null ? catOfPm(pm) : null, idx = pm!=null ? pmIndex(pm) : null;
+  const HAZE={Good:"rgba(0,0,0,0)",Satisfactory:"rgba(214,226,170,.18)",Moderate:"rgba(236,198,110,.30)",Poor:"rgba(232,150,80,.40)","Very Poor":"rgba(205,95,70,.48)",Severe:"rgba(150,60,50,.58)"};
+  const greet = h<5?"Good night":h<12?"Good morning":h<17?"Good afternoon":h<21?"Good evening":"Good night";
+  const calm = !cat?"Live readings are loading.":({Good:"Clean air. A good time to be outside.",Satisfactory:"Mostly clean air. Fine for almost everyone.",Moderate:"Some haze in the air. Sensitive people should take it easy.",Poor:"Polluted air. Limit long outdoor exertion.","Very Poor":"Heavily polluted. Stay indoors if you can.",Severe:"Hazardous air. Stay indoors."})[cat.name];
+  // Cleanest 2-hour window in the next 24 h, averaged across stations.
+  let win="";
+  if(st.length){ const hs=st.map(next24), n=Math.min(...hs.map(x=>x.length)), avg=[...Array(n)].map((_,i)=>hs.reduce((t,x)=>t+x[i].q50,0)/hs.length);
+    let bi=0,bv=1e9; for(let i=0;i<n-1;i++){ const hh=D(hs[0][i].time).getHours(); if(hh<6||hh>=20) continue; const v=avg[i]+avg[i+1]; if(v<bv){bv=v;bi=i;} }
+    const t0=D(hs[0][bi].time), t1=new Date(t0.getTime()+2*3600e3);
+    win=`Cleanest daytime hours ahead: <b>${t0.toLocaleDateString("en-IN",{weekday:"short"})} ${fmtH(t0)}–${fmtH(t1)}</b>`; }
+  // Scene: stars, clouds, wind lines, skyline.
+  const W=1200,H=330, windSpeed=w.wind||8, dur=Math.max(3,14-windSpeed*.35);
+  let g="";
+  if(phase==="night") for(let i=0;i<46;i++) g+=`<circle class="star" cx="${hash(i)*W}" cy="${hash(i+99)*160}" r="${.6+hash(i+7)*1.3}" fill="#fff" style="animation-delay:${-hash(i+3)*4}s"/>`;
+  else g+=`<circle cx="${W*.66}" cy="${phase==="dusk"?215:62}" r="${phase==="dusk"?46:34}" fill="${phase==="dusk"?"#ffd2a1":"#fff6d8"}" opacity=".85"/><circle cx="${W*.66}" cy="${phase==="dusk"?215:62}" r="${phase==="dusk"?84:66}" fill="#fff" opacity=".12"/>`;
+  if(phase==="night") g+=`<circle cx="${W*.66}" cy="58" r="22" fill="#f4f1e6" opacity=".9"/><circle cx="${W*.66+10}" cy="51" r="19" fill="${PAL[0]}"/>`;
+  for(let i=0;i<5;i++){ const y=40+hash(i+20)*120, sc=.7+hash(i+30)*.8, op=phase==="night"?.10:.45;
+    g+=`<g class="cloud" style="animation-duration:${80+hash(i+40)*80}s;animation-delay:${-hash(i+50)*120}s"><g transform="translate(0 ${y}) scale(${sc})" fill="#fff" opacity="${op}"><ellipse cx="60" cy="20" rx="60" ry="16"/><ellipse cx="95" cy="10" rx="38" ry="18"/><ellipse cx="35" cy="12" rx="28" ry="13"/></g></g>`; }
+  for(let i=0;i<5;i++){ const y=150+i*22+hash(i+60)*10;
+    g+=`<path class="wind" d="M-50 ${y} C 250 ${y-18}, 450 ${y+18}, 700 ${y} S 1100 ${y-14}, 1300 ${y}" stroke="#fff" stroke-width="${1.2+hash(i+70)}" opacity="${phase==="day"?.5:.3}" stroke-dasharray="${90+hash(i)*90} 700" style="animation-duration:${dur+hash(i+80)*3}s;animation-delay:${-hash(i+90)*6}s"/>`; }
+  const np=Math.round(Math.min(420,Math.max(18,(pm||20)*1.6))), pc=({Good:"#ffffff",Satisfactory:"#eef6d2",Moderate:"#ffe6a6",Poor:"#ffc98f","Very Poor":"#ffad8f",Severe:"#ff9a8a"})[cat?cat.name:"Good"];
+  let parts=""; for(let i=0;i<np;i++){ const x=hash(i+1500)*(W+80), y=hash(i+1600)*(H-40), r=.9+hash(i+1700)*2.2; parts+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(2)}" fill="${pc}" opacity="${(.18+hash(i+1800)*.4).toFixed(2)}"/>`; }
+  g+=`<g class="pt" style="animation-duration:${Math.max(14,40-windSpeed)}s;animation-direction:alternate">${parts}</g>`;
+  // skyline: back layer
+  const back=phase==="day"?"#7fb3c4":phase==="dusk"?"#4b4f78":"#13304a", front=phase==="day"?"#3e7f8c":phase==="dusk"?"#2c2f52":"#0a1f33";
+  let bx=0, bs=""; while(bx<W){ const bw=28+hash(bx)*46, bh=34+hash(bx+1)*70; bs+=`<rect x="${bx}" y="${H-bh}" width="${bw}" height="${bh}" rx="2"/>`; bx+=bw+3; }
+  g+=`<g fill="${back}" opacity=".75">${bs}</g>`;
+  // front layer with a domed civic building, towers and rain-trees
+  let fs="", lights=""; bx=0;
+  while(bx<W){ const bw=34+hash(bx+5)*40, bh=22+hash(bx+6)*48;
+    if(Math.abs(bx-430)<40){ fs+=`<rect x="380" y="${H-62}" width="150" height="62"/><rect x="430" y="${H-84}" width="50" height="24"/><path d="M432 ${H-84} Q455 ${H-124} 478 ${H-84}Z"/><rect x="453" y="${H-132}" width="4" height="10"/>`; bx=540; continue; }
+    fs+=`<rect x="${bx}" y="${H-bh}" width="${bw}" height="${bh}" rx="2"/>`;
+    if(phase!=="day") for(let k=0;k<3;k++) if(hash(bx+k*9)>.55) lights+=`<rect x="${bx+6+k*9}" y="${H-bh+8+hash(bx+k)*14}" width="3" height="4" fill="#ffd98a" opacity=".85"/>`;
+    bx+=bw+6; }
+  let trees=""; for(let i=0;i<22;i++){ const x=hash(i+200)*W, r=10+hash(i+210)*14; trees+=`<circle cx="${x}" cy="${H-r*.6}" r="${r}"/><circle cx="${x+r*.8}" cy="${H-r*.4}" r="${r*.75}"/>`; }
+  g+=`<g fill="${front}">${fs}</g>${lights}<g fill="${phase==="day"?"#2f6e5c":"#0c2a2a"}" opacity=".95">${trees}</g>`;
+  const pol = a.pm25!=null ? `<span class="glass"><b>${r0(a.pm25)}</b>PM2.5</span><span class="glass"><b>${r0(a.pm10)}</b>PM10</span><span class="glass"><b>${r0(a.no2)}</b>NO₂</span><span class="glass"><b>${r0(a.o3)}</b>O₃</span>` : "";
+  const wx = w.temp!=null ? `<span class="glass"><b>${Math.round(w.temp)}°</b>${esc(w.desc)}</span><span class="glass"><b>${r0(w.wind)}</b>km/h wind from the ${compass(w.wind_dir)}</span><span class="glass"><b>${r0(w.rh)}%</b>humidity</span>` : "";
+  return `<div class="bg" style="background:linear-gradient(180deg,${PAL[0]} 0%,${PAL[1]} 58%,${PAL[2]} 100%)"></div>
+    <div class="haze" style="background:linear-gradient(180deg,rgba(0,0,0,0) 0%,${cat?HAZE[cat.name]:"rgba(0,0,0,0)"} 55%,${cat?HAZE[cat.name]:"rgba(0,0,0,0)"} 100%)"></div>
+    ${l2()?`<div class="wordmark" lang="${lang2()}">${l2().word.dashboard}</div>`:""}
+    <svg class="scene" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMax slice" aria-hidden="true">${g}</svg>
+    <div class="content ${phase}">
+      <div style="flex:1;min-width:0">
+        <div class="greet">${greet}, Bengaluru. It's ${now.toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"long"})}.</div>
+        <h1>${cat?`The air is ${cat.name.toLowerCase()} right now`:"Bengaluru's air, hour by hour"}</h1>
+        <div class="lede">${calm} ${pm!=null?`Reading based on the ${src}.`:""}</div>
+        <div class="chips">${wx}${pol}</div>
+        ${win?`<div class="breath"><i></i>${win}</div>`:""}
+      </div>
+      <div class="reading"><div class="num">${pm!=null?r0(pm):"–"}</div><div class="unit">µg/m³ of PM2.5 in the air now</div>${cat?`<div class="idx"><span class="chip" style="background:${cat.hex}">${cat.name}</span> index ${idx}</div>`:""}</div>
+    </div>`;
+}
+// One row per station, placed on a shared PM2.5 scale (0–150 µg/m³, coloured by AQI band).
+function stationRow(s){
+  const MAX=150, pos=v=>Math.max(0,Math.min(100,(v||0)/MAX*100));
+  const bands=[0,30,60,90,120,150].slice(0,-1).map((lo,i)=>{ const hi=[30,60,90,120,150][i]; return `<i style="width:${(hi-lo)/MAX*100}%;background:${CATS[i].hex}"></i>`; }).join("");
+  const p=s.peak, c=catOf(p.category);
+  return `<button class="srow" onclick="location.hash='#/station/${encodeURIComponent(s.id)}'">
+    <div><div class="nm">${esc(shortName(s.name))}</div></div>
+    <div class="big" style="color:${c.hex}">${r0(p.q50)}<small>peak µg/m³</small></div>
+    <div class="scale">${bands}<span class="rng" style="left:${pos(p.q10)}%;width:${pos(p.q90)-pos(p.q10)}%"></span>${s.now_pm25!=null?`<span class="now" style="left:${pos(s.now_pm25)}%"></span>`:""}<span class="pk" style="left:${pos(p.q50)}%;background:${c.hex}"></span></div>
+    <div class="st">${p.category} around ${fmtT(p.time)}, now ${r0(s.now_pm25)} µg/m³${s.maxPoor>=.1?`, ${pct(s.maxPoor)} chance of Poor`:""}</div>
+  </button>`;
+}
+function drawMap(st){
+  if(window.L && $("map")){
+    if(S.map){ S.map.remove(); S.map=null; }
+    S.map=L.map("map",{scrollWheelZoom:false}).setView([12.97,77.59],11);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap"}).addTo(S.map);
+    st.forEach(s=>{ const c=catOf(s.peak.category);
+      const m=L.circleMarker([s.lat,s.lon],{radius:14,color:"#fff",weight:2.5,fillColor:c.hex,fillOpacity:.95}).addTo(S.map)
+        .bindTooltip(`<b>${esc(s.name)}</b><br>Peak ${r0(s.peak.q50)} µg/m³, ${s.peak.category}<br>${fmtT(s.peak.time)}`);
+      m.on("click",()=>location.hash="#/station/"+encodeURIComponent(s.id)); });
+    S.map.fitBounds(L.latLngBounds(st.map(s=>[s.lat,s.lon])).pad(.25),{maxZoom:12});
+  } else if($("mapFallback")){
+    $("map").hidden=true; $("mapFallback").hidden=false;
+    const la=st.map(s=>s.lat), lo=st.map(s=>s.lon), [a0,a1,o0,o1]=[Math.min(...la),Math.max(...la),Math.min(...lo),Math.max(...lo)];
+    const X=o=>70+(o-o0)/((o1-o0)||1)*460, Y=a=>370-(a-a0)/((a1-a0)||1)*320;
+    $("mapFallback").innerHTML=`<svg viewBox="0 0 600 410" width="100%" height="100%">${st.map(s=>`<g style="cursor:pointer" onclick="location.hash='#/station/${encodeURIComponent(s.id)}'"><circle cx="${X(s.lon)}" cy="${Y(s.lat)}" r="15" fill="${catOf(s.peak.category).hex}" stroke="#fff" stroke-width="3"/><text x="${X(s.lon)}" y="${Y(s.lat)+31}" text-anchor="middle" font-size="12" style="fill:var(--ink)">${esc(shortName(s.name))}</text></g>`).join("")}</svg>`;
+  }
+}
+
+/* ------------------------------------------------------------------ station page */
+function stationSelect(id, onchange){ return `<select id="stSel" onchange="${onchange}">${S.stations.map(s=>`<option value="${esc(s.id)}" ${s.id===id?"selected":""}>${esc(s.name)}</option>`).join("")}</select>`; }
+function pageStation(v, id){
+  const s=S.stations.find(z=>z.id===id) || S.stations.find(z=>z.id===S.sel) || S.stations[0];
+  S.sel=s.id;
+  const p=s.peak, c=catOf(p.category), next=next24(s);
+  const best=next.reduce((a,b)=>b.q50<a.q50?b:a,next[0]);
+  const adv=ADVICE[p.category]||ADVICE.Good;
+  v.innerHTML = head(esc(s.name), `Forecast from ${fmtT(s.issued)} for the next 48 hours, peak ${p.category.toLowerCase()} at ${fmtT(p.time)}.`, "", p.category, stationSelect(s.id,"location.hash='#/station/'+encodeURIComponent(this.value)")) + demoNote() + `
+  <div class="strip">
+    <div class="kpi"><div class="label">Now</div><div class="val" style="color:${s.nowCat?s.nowCat.hex:"inherit"}">${r0(s.now_pm25)} <span>µg/m³</span></div><div class="note">${s.nowCat?s.nowCat.name+", index "+pmIndex(s.now_pm25):"No reading"}</div></div>
+    <div class="kpi"><div class="label">Worst hour (next 24 h)</div><div class="val" style="color:${c.hex}">${r0(p.q50)} <span>µg/m³</span></div><div class="note">${fmtT(p.time)}, likely ${r0(p.q10)}–${r0(p.q90)}</div></div>
+    <div class="kpi"><div class="label">Cleanest hour (next 24 h)</div><div class="val" style="color:${catOfPm(best.q50).hex}">${r0(best.q50)} <span>µg/m³</span></div><div class="note">${fmtT(best.time)}</div></div>
+    <div class="kpi"><div class="label">Chance of Poor or worse</div><div class="val">${pct(s.maxPoor)}</div><div class="note">highest hourly chance in the next 24 h</div></div>
+  </div>
+  <div class="card" style="margin-bottom:16px">
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><h3 style="margin:0">PM2.5 forecast</h3><span class="chip" style="background:${c.hex}">Peak: ${p.category}</span>
+      <label class="toggle" style="margin-left:auto"><input type="checkbox" id="camsT"> Compare with CAMS model</label></div>
+    <div id="chartBox" style="margin-top:8px"></div>
+    <div class="small muted">Line: most likely value. Band: 80% range. Background: AQI category. <span id="chartNote"></span></div>
+    <h3 style="margin:18px 0 2px">Hour by hour</h3><div class="stripe" id="stripe"></div><div class="stripe-axis">${[0,6,12,18,24,30,36,42].map(i=>`<span>${s.hours[i]?fmtT(s.hours[i].time).replace(",",""):""}</span>`).join("")}</div>
+    <h3 style="margin:18px 0 2px">Weather the forecast uses</h3><div id="wxBox"></div>
+    <div class="small muted">Line: wind speed (km/h). Bars: rain (mm).</div>
+  </div>
+  <div class="row r2">
+    <div class="card drivers"><h3>Why the worst hour looks like this</h3><p class="sub" id="whyMeta">Working it out…</p><div id="drivers"></div></div>
+    <div class="card"><h3>What would change it</h3><p class="sub">The same forecast re-run with one thing changed.</p><div id="whatif"></div></div>
+  </div>
+  <div class="card"><h3>Health advice for the worst hour <span class="chip" style="background:${c.hex};margin-left:6px">${p.category}</span></h3><p class="sub">General guidance, not medical advice.</p>
+    <div class="advice">${GROUPS.map((g,i)=>`<div><b>${g.icon}${g.name}</b>${adv[i]}</div>`).join("")}</div></div>`;
+  drawStationChart(s,false);
+  $("stripe").innerHTML=s.hours.map((x,i)=>`<div data-i="${i}" style="background:${catOf(x.category).hex}"></div>`).join("");
+  $("stripe").addEventListener("mousemove",e=>{ const i=e.target.dataset.i; if(i==null) return tip(e); const x=s.hours[i]; tip(e,`<b>${fmtT(x.time)}</b><br>${r0(x.q50)} µg/m³ (${r0(x.q10)}–${r0(x.q90)})<br>${x.category}, Poor chance ${pct(x.p_poor)}${x.temp!=null?`<br>${r0(x.temp)}°, wind ${r0(x.wind)} km/h`:""}`); });
+  $("stripe").addEventListener("mouseleave",e=>tip(e));
+  const wc=lineChart({h:150,xTimes:s.hours.map(x=>x.time),series:[{values:s.hours.map(x=>x.wind),color:"#3b7dd8",width:2.2}],catBg:false,yLabel:"km/h",bars:{values:s.hours.map(x=>x.rain||0),max:5,color:"#5aa0e8"}});
+  $("wxBox").innerHTML=wc.svg;
+  attachHover($("wxBox"),wc.n,wc.L,wc.R,wc.w,i=>{ const x=s.hours[i]; return `<b>${fmtT(x.time)}</b><br>Wind ${r0(x.wind)} km/h, rain ${x.rain??0} mm<br>${r0(x.temp)}°, humidity ${r0(x.rh)}%`; });
+  $("camsT").onchange=e=>drawStationChart(s,e.target.checked);
+  loadExplain(s);
+}
+async function drawStationChart(s, withCams){
+  let cams=null;
+  if(withCams){ cams=S.cams[s.id] || (S.cams[s.id]=await api("/api/cams?station="+encodeURIComponent(s.id)).catch(()=>({error:"offline"}))); }
+  const times=s.hours.map(x=>x.time), series=[{values:s.hours.map(x=>x.q50),color:"#0f6e6e",width:3}];
+  let note="";
+  if(cams && cams.hourly){ const m=Object.fromEntries(cams.hourly.map(h=>[h.time,h.pm25])); series.push({values:times.map(t=>m[t.slice(0,16)]??null),color:"#7a4fd1",width:2,dash:"6 4"}); note="Dashed purple: CAMS model for this location. "; }
+  else if(cams && cams.error) note=`CAMS unavailable (${esc(cams.error)}). `;
+  const dots=s.hours.map((x,i)=>x.actual!=null?{i,v:x.actual}:null).filter(Boolean);
+  if(dots.length) note+="Dots: measured values (replay).";
+  const ch=lineChart({h:290,xTimes:times,series,bands:[{hi:s.hours.map(x=>x.q90),lo:s.hours.map(x=>x.q10),color:"#0f6e6e"}],dots});
+  $("chartBox").innerHTML=ch.svg; $("chartNote").textContent=note;
+  attachHover($("chartBox"),ch.n,ch.L,ch.R,ch.w,i=>{ const x=s.hours[i]; return `<b>${fmtT(x.time)}</b><br>Forecast ${r0(x.q50)} µg/m³ (${r0(x.q10)}–${r0(x.q90)})<br>${x.category}, index ${r0(x.aqi)}${x.actual!=null?`<br>Measured ${r0(x.actual)}`:""}`; });
+}
+async function loadExplain(s){
+  const e = S.explain[s.id] || (S.explain[s.id]=await api("/api/explain?station="+encodeURIComponent(s.id)).catch(()=>({error:"Could not load"})));
+  if(!$("drivers")) return;
+  if(e.error || !e.drivers){ $("whyMeta").textContent=e.error||"Not available"; return; }
+  $("whyMeta").innerHTML=`For ${fmtT(e.target_time)}. Method: ${esc(e.method)}.`;
+  const mx=Math.max(20,...e.drivers.map(d=>Math.abs(d.effect_pct)));
+  $("drivers").innerHTML=e.drivers.map(d=>{ const w=Math.abs(d.effect_pct)/mx*50, up=d.effect_pct>0; return `<div class="d"><span>${esc(d.factor)}</span>
+    <div class="bar"><i style="${up?`left:50%;width:${w}%;background:#f07f12`:`right:50%;width:${w}%;background:#2e9e4f`}"></i><i style="left:50%;width:1px;background:#9aa8b1"></i></div>
+    <b style="color:${up?"#c45f00":"#23803f"};text-align:right">${up?"+":""}${d.effect_pct}%</b><div class="why">${esc(d.text)}</div></div>`; }).join("") +
+    `<p class="small muted" style="margin-top:10px">Orange pushes pollution up, green pulls it down, compared with ${esc(e.baseline||"a typical hour")}.</p>`;
+  const base=e.what_if[0].pm25;
+  $("whatif").innerHTML=`<table><tr><th>Scenario</th><th>PM2.5</th><th>Change</th><th>Category</th></tr>${e.what_if.map((w,i)=>{ const c=catOfPm(w.pm25); return `<tr class="${i===0?"hl":""}"><td>${esc(w.scenario)}</td><td>${r0(w.pm25)} µg/m³</td><td>${i===0?"–":(w.change_pct>0?"+":"")+w.change_pct+"%"}</td><td><span class="chip" style="background:${c.hex}">${c.name}</span></td></tr>`; }).join("")}</table>
+  <p class="small muted" style="margin-top:10px">Wind and rain are the biggest natural cleaners of Bengaluru's air. If the weather forecast changes, so will this forecast.</p>`;
+}
+
+/* ------------------------------------------------------------------ planner */
+const ACTIVITIES=[["Morning walk or jog",1,"walk"],["School PE or sports class",2,"pe"],["Cricket or football match",3,"match"],["Outdoor construction shift",4,"work"],["Market or vending shift",6,"vend"]];
+function pagePlanner(v){
+  v.innerHTML = head("Plan outdoor time","Find the cleanest window in the next 48 hours for an outdoor activity.") + demoNote() + `
+  <div class="card" style="margin-bottom:16px"><div class="form">
+    <div><label>Place</label>${stationSelect(S.sel||S.stations[0].id,"S.sel=this.value;plan()")}</div>
+    <div><label>Activity</label><select id="act" onchange="$('dur').value=this.selectedOptions[0].dataset.h;plan()">${ACTIVITIES.map(a=>`<option data-h="${a[1]}">${a[0]}</option>`).join("")}</select></div>
+    <div><label>Hours needed</label><input type="number" id="dur" min="1" max="12" value="1" style="width:90px" oninput="plan()"></div>
+    <div><label>Allowed time</label><select id="win" onchange="plan()"><option value="day">Daytime (6 am–8 pm)</option><option value="any">Any time</option><option value="school">School hours (8 am–4 pm)</option></select></div>
+  </div></div>
+  <div class="row r2"><div class="card"><h3>Best windows</h3><p class="sub" id="planSub"></p><div class="windows" id="windows"></div></div>
+  <div class="card"><h3>Where they fall</h3><p class="sub">Forecast PM2.5 with the best windows shaded.</p><div id="planChart"></div><div id="planAdvice" style="margin-top:12px"></div></div></div>`;
+  plan();
+}
+function plan(){
+  const s=S.stations.find(z=>z.id===($("stSel")||{}).value)||S.stations[0]; S.sel=s.id;
+  const dur=Math.max(1,Math.min(12,+$("dur").value||1)), mode=$("win").value;
+  const ok=t=>{ const h=D(t).getHours(); return mode==="any"||(mode==="day"?h>=6&&h<20:h>=8&&h<16); };
+  const H=s.hours, cands=[];
+  const nowT=Date.now()-3600e3;
+  for(let i=0;i+dur<=H.length;i++){ const seg=H.slice(i,i+dur); if(D(seg[0].time).getTime()<nowT || !seg.every(x=>ok(x.time))) continue; const mean=seg.reduce((a,x)=>a+x.q50,0)/dur; cands.push({i,mean,poor:Math.max(...seg.map(x=>x.p_poor||0)),hi:Math.max(...seg.map(x=>x.q90))}); }
+  cands.sort((a,b)=>a.mean-b.mean);
+  const picks=[]; for(const c of cands){ if(picks.every(p=>Math.abs(p.i-c.i)>=dur+2)) picks.push(c); if(picks.length===3) break; }
+  const worst=cands.length?cands[cands.length-1]:null;
+  $("planSub").textContent = picks.length?`${dur}-hour slots at ${shortName(s.name)}, cleanest first.`:"No slot fits those hours. Try 'Any time'.";
+  const end=i=>new Date(D(H[i].time).getTime()+dur*3600e3);
+  $("windows").innerHTML=picks.map((p,k)=>{ const c=catOfPm(p.mean); return `<div class="w ${k===0?"best":""}"><div class="rank">${k+1}</div><div style="flex:1"><b>${fmtT(H[p.i].time)} – ${end(p.i).toLocaleTimeString("en-IN",{hour:"numeric",hour12:true})}</b>
+    <div class="small muted">Average ${r0(p.mean)} µg/m³, at most ${r0(p.hi)}, Poor chance ${pct(p.poor)}</div></div><span class="chip" style="background:${c.hex}">${c.name}</span></div>`; }).join("") +
+    (worst&&picks.length?`<p class="small muted">Avoid ${fmtT(H[worst.i].time)}: about ${r0(worst.mean)} µg/m³ on average, ${Math.round(worst.mean/picks[0].mean*10)/10}× the best slot.</p>`:"");
+  const ch=lineChart({w:560,h:240,xTimes:H.map(x=>x.time),series:[{values:H.map(x=>x.q50),color:"#0f6e6e",width:2.6}],bands:[{hi:H.map(x=>x.q90),lo:H.map(x=>x.q10),color:"#0f6e6e",opacity:.1}]});
+  let shade=""; picks.forEach((p,k)=>{ const x0=ch.x(p.i)-(ch.w-ch.L-ch.R)/(ch.n-1)/2, x1=ch.x(p.i+dur-1)+(ch.w-ch.L-ch.R)/(ch.n-1)/2; shade+=`<rect x="${x0}" y="14" width="${x1-x0}" height="196" fill="#0f6e6e" opacity="${k===0?.22:.11}"/><text x="${(x0+x1)/2}" y="28" text-anchor="middle" style="font-weight:700;fill:var(--ink)">${k+1}</text>`; });
+  $("planChart").innerHTML=ch.svg.replace("</svg>",shade+"</svg>");
+  const c0=picks.length?catOfPm(picks[0].mean).name:"Good";
+  $("planAdvice").innerHTML=`<div class="advice" style="grid-template-columns:1fr 1fr">${GROUPS.map((g,i)=>`<div><b>${g.icon}${g.name}</b>${(ADVICE[c0]||ADVICE.Good)[i]}</div>`).join("")}</div>`;
+}
+
+/* ------------------------------------------------------------------ alerts */
+const T = {
+  cat:{en:CATS.map(c=>c.name),kn:["ಉತ್ತಮ","ತೃಪ್ತಿಕರ","ಮಧ್ಯಮ","ಕಳಪೆ","ಅತಿ ಕಳಪೆ","ತೀವ್ರ"],hi:["अच्छी","संतोषजनक","मध्यम","खराब","बहुत खराब","गंभीर"]},
+  advice:{
+    en:["Normal outdoor activity is fine.","Children, elderly people and people with breathing problems should limit long outdoor exertion.","Avoid outdoor exertion. Wear an N95 mask if you must go out."],
+    kn:["ಸಾಮಾನ್ಯ ಹೊರಾಂಗಣ ಚಟುವಟಿಕೆ ಸರಿ.","ಮಕ್ಕಳು, ವೃದ್ಧರು ಮತ್ತು ಉಸಿರಾಟದ ತೊಂದರೆ ಇರುವವರು ದೀರ್ಘ ಹೊರಾಂಗಣ ಶ್ರಮ ಕಡಿಮೆ ಮಾಡಿ.","ಹೊರಾಂಗಣ ಶ್ರಮ ತಪ್ಪಿಸಿ. ಹೊರಗೆ ಹೋಗಲೇಬೇಕಾದರೆ N95 ಮಾಸ್ಕ್ ಧರಿಸಿ."],
+    hi:["सामान्य बाहरी गतिविधि ठीक है।","बच्चे, बुज़ुर्ग और सांस की तकलीफ़ वाले लोग बाहर लंबी मेहनत कम करें।","बाहर मेहनत से बचें। बाहर जाना ज़रूरी हो तो N95 मास्क पहनें।"]},
+};
+function alertText(lang, s){
+  const p=s.peak, ci=CATS.findIndex(c=>c.name===p.category), lvl=ci<=1?0:ci===2?1:2;
+  const d=D(p.time), day=d.toLocaleDateString(lang==="en"?"en-IN":lang==="kn"?"kn-IN":"hi-IN",{weekday:"long"}), hr=d.toLocaleTimeString(lang==="en"?"en-IN":lang==="kn"?"kn-IN":"hi-IN",{hour:"numeric",hour12:true});
+  const name=shortName(s.name), pm=Math.round(p.q50), ch=Math.round(s.maxPoor*100);
+  if(lang==="kn") return `ವಾಯುವಾಣಿ: ${name} ಪ್ರದೇಶದಲ್ಲಿ ${day} ${hr} ಸುಮಾರಿಗೆ ಗಾಳಿಯ ಗುಣಮಟ್ಟ "${T.cat.kn[ci]}" ಆಗಿರಲಿದೆ (PM2.5 ಸುಮಾರು ${pm}). ಕಳಪೆ ಆಗುವ ಸಾಧ್ಯತೆ ${ch}%. ${T.advice.kn[lvl]}`;
+  if(lang==="hi") return `वायुवाणी: ${name} में ${day} ${hr} के आसपास हवा की गुणवत्ता "${T.cat.hi[ci]}" रहेगी (PM2.5 लगभग ${pm})। खराब होने की संभावना ${ch}%। ${T.advice.hi[lvl]}`;
+  return `VayuVaani: Air near ${name} will be ${p.category.toUpperCase()} around ${day} ${hr} (PM2.5 about ${pm}). Chance of Poor or worse: ${ch}%. ${T.advice.en[lvl]}`;
+}
+function smsInfo(t){ const uni=/[^\x00-\x7F]/.test(t); const per=uni?70:160, multi=uni?67:153; const n=t.length<=per?1:Math.ceil(t.length/multi); return `${t.length} characters, ${uni?"Unicode":"plain text"}, ${n} SMS part${n>1?"s":""}`; }
+function pageAlerts(v){
+  const alertNow=S.stations.filter(s=>s.maxPoor>=.3);
+  v.innerHTML = head("Alerts","Preview the SMS and voice alerts VayuVaani would send. Nothing is sent from here (mock mode).") + demoNote() + `
+  <div class="row" style="grid-template-columns:auto 1fr;align-items:start">
+    <div class="phone"><div class="bar-top">VayuVaani SMS</div><div class="sender">VM-VAYUVN</div><div class="bubble" id="sms"></div><div class="small muted" style="margin:8px 4px" id="smsInfo"></div></div>
+    <div>
+      <div class="card" style="margin-bottom:16px"><div class="form">
+        <div><label>Place</label>${stationSelect(S.sel||S.stations[0].id,"S.sel=this.value;renderAlert()")}</div>
+        <div><label>Language</label><div class="tabs" style="margin:0">${[["en","English"],["kn","Kannada"],["hi","Hindi"]].map(([k,l])=>`<button data-lang="${k}" class="${S.lang===k?"on":""}">${l}</button>`).join("")}</div></div>
+        <div><label>Voice message</label><div style="display:flex;gap:8px"><button class="btn" id="speak">▶ Play voice</button><button class="btn ghost" id="copySms">Copy text</button></div></div>
+      </div><div class="small muted" id="voiceStatus" style="margin-top:10px"></div>
+      <p class="small muted" style="margin:6px 0 0">Voice clips are made with gTTS (Google Text-to-Speech), the same tool the missed-call service will use, so they need internet. Kannada and Hindi text was machine-written; check it with a native speaker before real use.</p></div>
+      <div class="card" style="margin-bottom:16px"><h3>Who would get an alert right now</h3><p class="sub">Rule: alert a ward when the chance of Poor or worse air in the next 24 hours is 30% or more.</p>
+        ${alertNow.length?`<table><tr><th>Station</th><th>When</th><th>Peak</th><th>Chance</th></tr>${alertNow.map(s=>`<tr><td>${esc(s.name)}</td><td>${fmtT(s.peak.time)}</td><td><span class="chip" style="background:${catOf(s.peak.category).hex}">${s.peak.category}</span></td><td>${pct(s.maxPoor)}</td></tr>`).join("")}</table>`:`<p class="muted">No station crosses the alert threshold in the next 24 hours.</p>`}</div>
+      <div class="card"><h3>How missed-call alerts work</h3><p class="sub">For people without a smartphone or internet. Planned for the next stage.</p>
+        <div class="flow"><div><b>1. Register</b>Send an SMS with your ward and language, once.</div><div><b>2. Missed call</b>Give a missed call to the VayuVaani number. It costs nothing.</div><div><b>3. Call back</b>The system looks up your ward's forecast.</div><div><b>4. Listen</b>A short voice message plays in Kannada, Hindi or English.</div></div></div>
+    </div>
+  </div>`;
+  document.querySelectorAll("[data-lang]").forEach(b=>b.onclick=()=>{ S.lang=b.dataset.lang; document.querySelectorAll("[data-lang]").forEach(x=>x.classList.toggle("on",x===b)); renderAlert(); });
+  $("speak").onclick=playVoice;
+  $("copySms").onclick=async()=>{ try{ await navigator.clipboard.writeText($("sms").textContent); $("voiceStatus").textContent="Text copied."; }catch(e){ $("voiceStatus").textContent="Couldn't copy; select the text in the phone instead."; } };
+  renderAlert();
+}
+let AUDIO=null;
+async function playVoice(){
+  const text=$("sms").textContent, lang=S.lang, names={en:"English",kn:"Kannada",hi:"Hindi"}, btn=$("speak"), st=$("voiceStatus");
+  if(AUDIO){ AUDIO.pause(); AUDIO=null; }
+  btn.disabled=true; st.textContent=`Making the ${names[lang]} voice clip…`;
+  try{
+    const r=await fetch(`/api/tts?lang=${lang}&text=${encodeURIComponent(text)}`);
+    if(!r.ok){ const e=await r.json().catch(()=>({})); throw new Error(e.error||"HTTP "+r.status); }
+    const url=URL.createObjectURL(await r.blob());
+    AUDIO=new Audio(url); await AUDIO.play();
+    st.innerHTML=`Playing the ${names[lang]} voice clip. <a href="${url}" download="vayuvaani-alert-${lang}.mp3">Download .mp3</a>`;
+  }catch(err){
+    // Fall back to the computer's own voices if gTTS isn't reachable.
+    const vs=(window.speechSynthesis?speechSynthesis.getVoices():[]).filter(v=>v.lang.toLowerCase().startsWith(lang));
+    if(vs.length){ const u=new SpeechSynthesisUtterance(text); u.voice=vs[0]; u.lang=vs[0].lang; speechSynthesis.cancel(); speechSynthesis.speak(u); st.textContent=`gTTS unavailable (${err.message}); playing with this computer's ${names[lang]} voice instead.`; }
+    else st.textContent=`Couldn't make the ${names[lang]} voice clip (${err.message}). Check the internet connection and try again.`;
+  }finally{ btn.disabled=false; }
+}
+function renderAlert(){ if($("voiceStatus")) $("voiceStatus").textContent=""; if(AUDIO){AUDIO.pause();AUDIO=null;} const s=S.stations.find(z=>z.id===($("stSel")||{}).value)||S.stations[0]; const t=alertText(S.lang,s); $("sms").textContent=t; $("smsInfo").textContent=smsInfo(t); }
+
+/* ------------------------------------------------------------------ model / accuracy */
+async function pageModel(v){
+  v.innerHTML=head("How accurate is VayuVaani?","Tested on the last 60 days, which the model never saw while learning.")+demoNote()+`<div class="card"><p class="muted">Loading…</p></div>`;
+  const e=S.accFull||(S.accFull=await api("/api/accuracy"));
+  if(!e||!e.model){ v.innerHTML=head("Accuracy","")+`<div class="card">No evaluation yet.</div>`; return; }
+  const a=e.poor_alerts;
+  v.innerHTML=head("How accurate is VayuVaani?",`Tested on ${e.rows.toLocaleString("en-IN")} forecasts from ${e.stations} stations over the last 60 days, which the model never saw while learning.`)+demoNote()+`
+  <div class="strip">
+    <div class="kpi"><div class="label">Average error</div><div class="val">${e.model.mae.toFixed(1)} <span>µg/m³</span></div><div class="note">"Stays the same" guess: ${e.persistence.mae.toFixed(1)}</div></div>
+    <div class="kpi"><div class="label">Better than "stays the same"</div><div class="val" style="color:var(--teal-2)">${Math.round(e.skill_vs_persistence*100)}%</div><div class="note">lower average error</div></div>
+    <div class="kpi"><div class="label">80% range was right</div><div class="val">${pct(e.interval_coverage)}</div><div class="note">target 80%, calibrated on held-out days</div></div>
+    <div class="kpi"><div class="label">AQI category correct</div><div class="val">${pct(e.category_accuracy)}</div><div class="note">hour by hour</div></div>
+  </div>
+  <div class="row r2">
+    <div class="card"><h3>Error by hours ahead</h3><p class="sub">Average error for each forecast lead time. Lower is better.</p><div id="hChart"></div><div class="legend"><span style="--c:#0f6e6e">VayuVaani</span><span style="--c:#c9a227">Stays the same</span></div></div>
+    <div class="card"><h3>Forecast vs measured (24 hours ahead)</h3><p class="sub">Each dot is one forecast. Closer to the diagonal is better.</p><div id="scatter"></div></div>
+  </div>
+  <div class="row r2">
+    <div class="card"><h3>Error by station</h3><p class="sub">Average error, µg/m³.</p><table><tr><th>Station</th><th>VayuVaani</th><th>Stays the same</th><th></th></tr>${(e.by_station||[]).map(r=>`<tr><td>${esc(r.name)}</td><td><b>${r.model.toFixed(1)}</b></td><td>${r.persistence.toFixed(1)}</td><td class="small muted">${Math.round((1-r.model/r.persistence)*100)}% better</td></tr>`).join("")}</table></div>
+    <div class="card"><h3>What the model relies on most</h3><p class="sub">How often the model used each kind of input (LightGBM split counts, grouped).</p><div id="feat"></div>
+      <h3 style="margin-top:16px">"Poor or worse" alerts</h3><p class="small" style="margin:4px 0 0">${a.alerts_sent.toLocaleString("en-IN")} alerts in the test period; ${pct(a.precision)} were right and they caught ${pct(a.recall)} of the ${a.actual_poor_hours.toLocaleString("en-IN")} poor hours.</p></div>
+  </div>
+  <div class="card"><h3>How it works</h3><p class="sub">From raw data to a forecast you can act on.</p><div class="steps-h">
+    <div><b>1. Collect</b>Hourly PM2.5/PM10 from CPCB stations (via OpenAQ), Open-Meteo weather, NASA FIRMS fires, festival calendar.</div>
+    <div><b>2. Clean</b>Remove impossible, stuck and spike readings; fill gaps of up to 3 hours.</div>
+    <div><b>3. Learn</b>LightGBM learns how pollution, wind, rain, time and events lead to PM2.5 1–48 hours later.</div>
+    <div><b>4. Range</b>Five quantile models give a likely range; calibration makes the 80% range honest.</div>
+    <div><b>5. Explain</b>SHAP values show which factors pushed each forecast up or down.</div></div></div>`;
+  const bh=e.by_hour||[];
+  // custom x axis (hours ahead)
+  const W=560,H=250,L=40,R=12,Tp=14,B=30, ymax=Math.max(...bh.map(r=>Math.max(r.model,r.persistence)))*1.15||10;
+  const X=h=>L+(h-1)/47*(W-L-R), Y=v=>H-B-v/ymax*(H-Tp-B);
+  let g=""; for(let v=0;v<=ymax;v+=ymax>40?10:5) g+=`<line x1="${L}" x2="${W-R}" y1="${Y(v)}" y2="${Y(v)}" style="stroke:var(--grid)"/><text x="${L-8}" y="${Y(v)+4}" text-anchor="end">${v}</text>`;
+  [1,6,12,18,24,30,36,42,48].forEach(h=>g+=`<text x="${X(h)}" y="${H-10}" text-anchor="middle">${h}h</text>`);
+  g+=`<path d="${bh.map((r,i)=>(i?"L":"M")+X(r.horizon)+","+Y(r.persistence)).join(" ")}" stroke="#c9a227" stroke-width="2.4" fill="none"/>`;
+  g+=`<path d="${bh.map((r,i)=>(i?"L":"M")+X(r.horizon)+","+Y(r.model)).join(" ")}" stroke="#0f6e6e" stroke-width="3" fill="none"/>`;
+  $("hChart").innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" style="height:${H}px">${g}</svg>`;
+  const sc=e.scatter||[], m=Math.max(...sc.flat(),50)*1.05, SW=520,SH=330, sx=v=>46+v/m*(SW-60), sy=v=>SH-30-v/m*(SH-44);
+  let sg=`<line x1="${sx(0)}" y1="${sy(0)}" x2="${sx(m)}" y2="${sy(m)}" stroke="#9aa8b1" stroke-dasharray="5 4"/>`;
+  for(let t=0;t<=m;t+=m>200?100:50) sg+=`<text x="${sx(t)}" y="${SH-12}" text-anchor="middle">${t}</text><text x="40" y="${sy(t)+4}" text-anchor="end">${t}</text>`;
+  sc.forEach(([p,y])=>sg+=`<circle cx="${sx(y)}" cy="${sy(p)}" r="2.6" fill="#0f6e6e" opacity=".35"/>`);
+  sg+=`<text x="${SW/2}" y="${SH}" text-anchor="middle">Measured µg/m³</text><text x="12" y="${SH/2}" transform="rotate(-90 12 ${SH/2})" text-anchor="middle">Forecast µg/m³</text>`;
+  $("scatter").innerHTML=`<svg class="chart" viewBox="0 0 ${SW} ${SH}" style="height:${SH}px">${sg}</svg>`;
+  // Sum split counts into the same plain-language groups used for explanations.
+  const FG=[["Recent pollution levels",["pm25_","pm10_","pm25_pm10"]],["Wind",["t_wind_","o_wind_"]],["Rain",["t_rain","o_rain"]],["Time of day",["t_hour_"]],["Weekday or weekend",["t_dow","t_weekend"]],["Season",["t_doy_"]],["Temperature and humidity",["t_temp","t_rh","o_temp","o_rh","t_pressure","t_cloud"]],["Fires in the region",["fires_","frp_"]],["Festivals and events",["t_event_"]],["Station location",["lat","lon"]],["Hours ahead",["horizon"]]];
+  const grp={}; Object.entries(e.top_features||{}).forEach(([k,val])=>{ const g=(FG.find(([,ps])=>ps.some(p=>k.startsWith(p)))||[k])[0]; grp[g]=(grp[g]||0)+val; });
+  const tf=Object.entries(grp).sort((a,b)=>b[1]-a[1]).slice(0,8), fm=Math.max(...tf.map(t=>t[1]),1);
+  const NAMES={pm25_lag0:"PM2.5 now",pm25_mean3:"PM2.5, last 3 h",pm25_mean6:"PM2.5, last 6 h",pm25_mean24:"PM2.5, last 24 h",pm25_trend3:"PM2.5 trend",horizon:"Hours ahead",t_hour_sin:"Time of day",t_hour_cos:"Time of day",t_wind_speed:"Wind at that hour",t_wind_mean_h:"Average wind until then",t_wind_u:"Wind direction (E–W)",t_wind_v:"Wind direction (N–S)",t_rh:"Humidity",t_temp:"Temperature",t_doy_sin:"Season",t_doy_cos:"Season",t_rain_sum_h:"Rain until then",pm25_std24:"PM2.5 variability",pm25_max24:"PM2.5 24 h maximum",pm10_mean24:"PM10, last 24 h",pm25_pm10_ratio:"PM2.5 / PM10 ratio",lat:"Station location",lon:"Station location",t_dow:"Day of week",fires_prev_3d:"Fires, last 3 days",t_pressure:"Air pressure",t_cloud:"Cloud cover",o_wind_speed:"Wind now"};
+  $("feat").innerHTML=!tf.length?`<p class="small muted">Not available with the built-in engine; install LightGBM to see this.</p>`:tf.map(([k,val])=>`<div style="display:grid;grid-template-columns:170px 1fr;gap:10px;align-items:center;margin:6px 0;font-size:13px"><span>${esc(NAMES[k]||k)}</span><div class="bar"><i style="left:0;width:${val/fm*100}%;background:#0f6e6e"></i></div></div>`).join("");
+}
+
+/* ------------------------------------------------------------------ about */
+function pageAbout(v){
+  v.innerHTML=head("About VayuVaani","Ward-Level Air Quality Forecasting and Multilingual Health Alert System")+`
+  <div class="row r2">
+    <div class="card"><h3>The problem</h3><p style="line-height:1.55;font-size:14px;margin:6px 0 0">People in Bengaluru usually learn the air is unhealthy only after they've breathed it. AQI apps show one city-wide number, need a smartphone and English, and don't say why pollution is rising or what each group should do. Outdoor workers, children, older people and people with breathing problems get the least useful warnings.</p>
+      <h3 style="margin-top:16px">What VayuVaani does</h3><p style="line-height:1.55;font-size:14px;margin:6px 0 0">It forecasts PM2.5 at every monitoring station 48 hours ahead, gives a likely range and the chance of Poor air, explains the main causes, suggests the cleanest hours to be outside, and turns this into SMS and missed-call voice alerts in Kannada, Hindi and English.</p></div>
+    <div class="card"><h3>Project</h3><p class="sub">Societal Based Mini Project, 24CSE57, Semester V, Sep–Dec 2026</p>
+      <div class="team"><div><b>Nishant Chakravarthy</b><span class="small muted">Student, CSE Section C</span></div><div><b>Nithin M</b><span class="small muted">Student, CSE Section C</span></div><div><b>Ms. Hitaishi H K</b><span class="small muted">Guide</span></div></div>
+      <p class="small muted" style="margin-top:12px">Department of Computer Science and Engineering, New Horizon College of Engineering, Bengaluru.</p>
+      <h3 style="margin-top:14px">Data sources</h3><ul style="font-size:13.5px;line-height:1.7;margin:4px 0 0;padding-left:18px">
+        <li><a href="https://openaq.org" target="_blank" rel="noopener">OpenAQ</a>: hourly CPCB/KSPCB station readings</li>
+        <li><a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a>: weather history and forecasts, and CAMS air quality</li>
+        <li><a href="https://firms.modaps.eosdis.nasa.gov" target="_blank" rel="noopener">NASA FIRMS</a>: satellite fire detections</li>
+        <li><a href="https://cpcb.nic.in" target="_blank" rel="noopener">CPCB</a>: National AQI categories and breakpoints</li></ul></div>
+  </div>
+  <div class="card" style="margin-bottom:16px"><h3>AQI categories (CPCB National AQI, PM2.5)</h3><p class="sub">VayuVaani colours hours by these bands. The official AQI uses 24-hour averages of several pollutants; VayuVaani shows the PM2.5 sub-index hour by hour.</p>
+    <table class="aqi-table"><tr><th>Category</th><th>AQI</th><th>PM2.5 (µg/m³)</th><th>Possible health impact</th></tr>
+    ${CATS.map((c,i)=>`<tr><td><span class="c" style="background:${c.hex}"></span>${c.name}</td><td>${c.aqi}</td><td>${i<5?`${PM_EDGES[i]+(i?1:0)}–${PM_EDGES[i+1]}`:"250+"}</td><td>${c.impact}</td></tr>`).join("")}</table></div>
+  <div class="card"><h3>Limits to keep in mind</h3><ul style="font-size:13.5px;line-height:1.7;margin:4px 0 0;padding-left:18px">
+    <li>Forecasts are estimates. The range shows the uncertainty; it grows further ahead.</li>
+    <li>Training uses observed weather; live forecasts use weather forecasts, which add some error.</li>
+    <li>CAMS is a coarse model (about 10–40 km), useful as a cross-check but not a street-level reading.</li>
+    <li>Health advice is general guidance, not medical advice.</li></ul></div>`;
+}
+
+/* ------------------------------------------------------------------ data loading */
+async function run(task){
+  if(task==="real" && !S.status.keys.openaq){ openSettings(); alert("Paste your OpenAQ key here, press Save, then click 'Rebuild with real data'."); return; }
+  closeSettings();
+  const r=await api("/api/run",{task}); if(!r.ok) alert(r.error);
+  poll();
+}
+async function loadData(){
+  const [f,e]=await Promise.all([api("/api/forecast"),api("/api/evaluation")]);
+  S.stations=f.stations||[]; S.offline=f.offline||[]; S.acc=e; S.accFull=null; S.explain={}; S.cams={};
+  if(S.stations.length) enrich();
+}
+async function poll(){
+  try{ S.status=await api("/api/status"); }catch(e){ setTimeout(poll,3000); return; }
+  renderShell();
+  const job=S.status.job;
+  if(!job.running && job.finished_at!==S.lastJobEnd){ S.lastJobEnd=job.finished_at; if(S.status.forecast_ready) await loadData(); route(); }
+  else if(!$("view").innerHTML) route();
+  if(job.running) setTimeout(poll,1500);
+}
+function openSettings(){ $("lang2Sel").value=lang2(); $("settings").classList.add("open"); }
+function closeSettings(){ $("settings").classList.remove("open"); }
+// Theme: remembered on this computer; defaults to the Windows setting.
+function getTheme(){ try{ const t=localStorage.getItem("vv-theme"); if(t) return t; }catch(e){} return matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"; }
+function applyTheme(t){ document.documentElement.dataset.theme=t; const moon='<svg width="14" height="14" viewBox="0 0 24 24" style="vertical-align:-2px"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="currentColor"/></svg>', sun='<svg width="14" height="14" viewBox="0 0 24 24" style="vertical-align:-2px" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>';
+  $("themeBtn").innerHTML = t==="dark"?sun+" Light mode":moon+" Dark mode"; }
+applyTheme(getTheme());
+$("themeBtn").onclick=()=>{ const t=document.documentElement.dataset.theme==="dark"?"light":"dark"; try{ localStorage.setItem("vv-theme",t); }catch(e){} applyTheme(t); };
+$("settingsBtn").onclick=openSettings; $("closeSettings").onclick=closeSettings;
+$("saveSettings").onclick=async()=>{ try{ localStorage.setItem("vv-lang2",$("lang2Sel").value); }catch(e){} route();
+  await api("/api/keys",{openaq:$("kOpenaq").value,firms:$("kFirms").value}); $("kOpenaq").value=""; $("kFirms").value=""; closeSettings(); poll(); };
+$("refreshBtn").onclick=()=>run("refresh");
+window.addEventListener("hashchange",()=>{ window.scrollTo(0,0); route(); });
+poll();
+setInterval(()=>{ fetch("/api/ping").catch(()=>{}); }, 10000);
+</script>
+</body>
+</html>
