@@ -3,10 +3,11 @@
 Ward-level air quality forecasting and multilingual health alerts for Bengaluru.
 Societal Based Mini Project (24CSE57), New Horizon College of Engineering.
 
-This is **step 1: the data pipeline and the forecast model.** It downloads
-pollution, weather, fire and event data, cleans it, and forecasts PM2.5 for every
-monitoring station for the next 48 hours, with a confidence range and the chance
-of "Poor or worse" air.
+It downloads pollution, weather, fire and event data, cleans it, and forecasts
+PM2.5 for every monitoring station for the next 48 hours, with a confidence range
+and the chance of "Poor or worse" air. It explains what is driving each forecast,
+suggests the cleanest hours to be outside, and previews SMS and voice alerts in
+English, Kannada and Hindi.
 
 ## Easiest way: the app (Windows)
 
