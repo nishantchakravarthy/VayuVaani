@@ -328,10 +328,14 @@ def accuracy_payload() -> dict:
     res = pd.read_csv(path, usecols=["station_id", "horizon", "pm25_q50", "pm25_q10", "pm25_q90", "actual", "persistence"])
     res = res.dropna(subset=["actual"])
     names = {}
+    spath = s.path("raw") / "stations.csv"
+    if spath.exists():  # includes stations that are offline right now
+        st = pd.read_csv(spath, usecols=["station_id", "name"]).drop_duplicates("station_id")
+        names.update(zip(st["station_id"], st["name"]))
     fpath = s.path("reports") / "latest_forecast.csv"
     if fpath.exists():
         f = pd.read_csv(fpath, usecols=["station_id", "name"]).drop_duplicates("station_id")
-        names = dict(zip(f["station_id"], f["name"]))
+        names.update(zip(f["station_id"], f["name"]))
     by_h = res.groupby("horizon").apply(lambda g: pd.Series({
         "model": float((g["pm25_q50"] - g["actual"]).abs().mean()),
         "persistence": float((g["persistence"] - g["actual"]).abs().mean()),

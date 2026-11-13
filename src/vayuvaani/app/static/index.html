@@ -549,16 +549,18 @@ function sceneAlerts(W,H){
   for(let i=0;i<4;i++) g+=`<circle class="ripple" cx="${cx}" cy="${cy}" r="22" fill="none" stroke="#fff" stroke-width="1.6" style="animation-delay:${-i*1.1}s"/>`;
   g+=`<rect x="${cx-15}" y="${cy-26}" width="30" height="52" rx="6" fill="#fff" fill-opacity=".92"/><rect x="${cx-11}" y="${cy-20}" width="22" height="36" rx="2" fill="#5f4688" fill-opacity=".85"/><circle cx="${cx}" cy="${cy+21}" r="2" fill="#5f4688"/>`;
   // one bubble per lane, so they never sit on top of each other
-  const msgs=[["EN",40],["SMS",50],["KN",40],["☎",36],["HI",40],["SMS",50]];
-  msgs.forEach(([t,w2],i)=>{ const x=560+i*68;
+  // bubbles rise beside the phone, clear of the title and subtitle
+  const msgs=[["EN",40],["KN",40],["HI",40],["SMS",50]];
+  msgs.forEach(([t,w2],i)=>{ const x=[cx-250,cx-190,cx-130,cx+100][i];
     g+=`<g class="rise" style="animation-duration:${8+i%3*2}s;animation-delay:${-i*1.7}s"><rect x="${x}" y="${H-30}" width="${w2}" height="20" rx="10" fill="#fff" fill-opacity=".16" stroke="#fff" stroke-opacity=".3"/><text x="${x+w2/2}" y="${H-16}" fill="#fff" fill-opacity=".85" font-size="10" text-anchor="middle">${t}</text></g>`; });
   return {bg:"linear-gradient(120deg,#33244f 0%,#5f4688 55%,#8d6fb8 100%)", g};
 }
 function sceneModel(W,H){
   let g="";
-  for(let x=560;x<W;x+=24) for(let y=14;y<H;y+=24) g+=`<circle cx="${x}" cy="${y}" r="1.1" fill="#fff" fill-opacity=".18"/>`;
+  const X0=Math.max(780, Math.round(W*.56));  // keep the left side clear for the title and subtitle
+  for(let x=X0+40;x<W;x+=24) for(let y=14;y<H;y+=24) g+=`<circle cx="${x}" cy="${y}" r="1.1" fill="#fff" fill-opacity=".18"/>`;
   const waves=[["#9fd8b9",.9,0],["#c3aee6",.7,1.7],["#f2c46b",.6,3.1]];
-  waves.forEach(([c,o,ph],k)=>{ let d=""; for(let x=520;x<=W+20;x+=10){ const y=H*.55+Math.sin(x/70+ph)*18*(1+k*.3)+Math.sin(x/23+ph*2)*5; d+=(x===520?"M":"L")+x+" "+y.toFixed(1)+" "; }
+  waves.forEach(([c,o,ph],k)=>{ let d=""; for(let x=X0;x<=W+20;x+=10){ const y=H*.55+Math.sin(x/70+ph)*18*(1+k*.3)+Math.sin(x/23+ph*2)*5; d+=(x===X0?"M":"L")+x+" "+y.toFixed(1)+" "; }
     g+=`<path d="${d}" fill="none" stroke="${c}" stroke-opacity="${o*.35}" stroke-width="6"/><path class="wind" d="${d}" stroke="${c}" stroke-opacity="${o}" stroke-width="2.2" stroke-dasharray="160 640" style="animation-duration:${8+k*2}s;animation-delay:${-k*2}s"/>`; });
   for(let i=0;i<12;i++){ const bh=10+hash(i+900)*42; g+=`<rect x="${880+i*22}" y="${H-bh}" width="14" height="${bh}" rx="2" fill="#fff" fill-opacity="${.08+hash(i+910)*.1}"/>`; }
   return {bg:"linear-gradient(120deg,#16241f 0%,#203a32 55%,#2d5446 100%)", g};
@@ -670,7 +672,7 @@ function skyHTML(L){
   // front layer with a domed civic building, towers and rain-trees
   let fs="", lights=""; bx=0;
   while(bx<W){ const bw=34+hash(bx+5)*40, bh=22+hash(bx+6)*48;
-    if(Math.abs(bx-430)<40){ fs+=`<rect x="380" y="${H-62}" width="150" height="62"/><rect x="430" y="${H-84}" width="50" height="24"/><path d="M432 ${H-84} Q455 ${H-124} 478 ${H-84}Z"/><rect x="453" y="${H-132}" width="4" height="10"/>`; bx=540; continue; }
+    if(Math.abs(bx-430)<40){ fs+=`<rect x="380" y="${H-62}" width="150" height="62"/><rect x="430" y="${H-84}" width="50" height="24"/><path d="M432 ${H-84} Q455 ${H-124} 478 ${H-84}Z"/><rect x="453" y="${H-116}" width="4" height="14"/>`; bx=540; continue; }
     fs+=`<rect x="${bx}" y="${H-bh}" width="${bw}" height="${bh}" rx="2"/>`;
     if(phase!=="day") for(let k=0;k<3;k++) if(hash(bx+k*9)>.55) lights+=`<rect x="${bx+6+k*9}" y="${H-bh+8+hash(bx+k)*14}" width="3" height="4" fill="#ffd98a" opacity=".85"/>`;
     bx+=bw+6; }
@@ -821,7 +823,7 @@ function plan(){
     <div class="small muted">Average ${r0(p.mean)} µg/m³, at most ${r0(p.hi)}, Poor chance ${pct(p.poor)}</div></div><span class="chip" style="background:${c.hex}">${c.name}</span></div>`; }).join("") +
     (worst&&picks.length?`<p class="small muted">Avoid ${fmtT(H[worst.i].time)}: about ${r0(worst.mean)} µg/m³ on average, ${Math.round(worst.mean/picks[0].mean*10)/10}× the best slot.</p>`:"");
   const ch=lineChart({w:560,h:240,xTimes:H.map(x=>x.time),series:[{values:H.map(x=>x.q50),color:"#0f6e6e",width:2.6}],bands:[{hi:H.map(x=>x.q90),lo:H.map(x=>x.q10),color:"#0f6e6e",opacity:.1}]});
-  let shade=""; picks.forEach((p,k)=>{ const x0=ch.x(p.i)-(ch.w-ch.L-ch.R)/(ch.n-1)/2, x1=ch.x(p.i+dur-1)+(ch.w-ch.L-ch.R)/(ch.n-1)/2; shade+=`<rect x="${x0}" y="14" width="${x1-x0}" height="196" fill="#0f6e6e" opacity="${k===0?.22:.11}"/><text x="${(x0+x1)/2}" y="28" text-anchor="middle" style="font-weight:700;fill:var(--ink)">${k+1}</text>`; });
+  let shade=""; picks.forEach((p,k)=>{ const x0=ch.x(p.i)-(ch.w-ch.L-ch.R)/(ch.n-1)/2, x1=ch.x(p.i+dur-1)+(ch.w-ch.L-ch.R)/(ch.n-1)/2; shade+=`<rect x="${x0}" y="14" width="${x1-x0}" height="196" fill="#0f6e6e" opacity="${k===0?.22:.11}"/><text x="${(x0+x1)/2}" y="204" text-anchor="middle" style="font-weight:700;fill:var(--ink)">${k+1}</text>`; });
   $("planChart").innerHTML=ch.svg.replace("</svg>",shade+"</svg>");
   const c0=picks.length?catOfPm(picks[0].mean).name:"Good";
   $("planAdvice").innerHTML=`<div class="advice" style="grid-template-columns:1fr 1fr">${GROUPS.map((g,i)=>`<div><b>${g.icon}${g.name}</b>${(ADVICE[c0]||ADVICE.Good)[i]}</div>`).join("")}</div>`;
@@ -905,7 +907,7 @@ async function pageModel(v){
     <div class="card"><h3>Forecast vs measured (24 hours ahead)</h3><p class="sub">Each dot is one forecast. Closer to the diagonal is better.</p><div id="scatter"></div></div>
   </div>
   <div class="row r2">
-    <div class="card"><h3>Error by station</h3><p class="sub">Average error, µg/m³.</p><table><tr><th>Station</th><th>VayuVaani</th><th>Stays the same</th><th></th></tr>${(e.by_station||[]).map(r=>`<tr><td>${esc(r.name)}</td><td><b>${r.model.toFixed(1)}</b></td><td>${r.persistence.toFixed(1)}</td><td class="small muted">${Math.round((1-r.model/r.persistence)*100)}% better</td></tr>`).join("")}</table></div>
+    <div class="card"><h3>Error by station</h3><p class="sub">Average error, µg/m³.</p><table><tr><th>Station</th><th>VayuVaani</th><th>Stays the same</th><th></th></tr>${(e.by_station||[]).map(r=>`<tr><td>${esc(r.name)}</td><td><b>${r.model.toFixed(1)}</b></td><td>${r.persistence.toFixed(1)}</td><td class="small muted">${(()=>{ const d=Math.round((1-r.model/r.persistence)*100); return d>=0?`${d}% better`:`${-d}% worse`; })()}</td></tr>`).join("")}</table></div>
     <div class="card"><h3>What the model relies on most</h3><p class="sub">How often the model used each kind of input (LightGBM split counts, grouped).</p><div id="feat"></div>
       <h3 style="margin-top:16px">"Poor or worse" alerts</h3><p class="small" style="margin:4px 0 0">${a.alerts_sent.toLocaleString("en-IN")} alerts in the test period; ${pct(a.precision)} were right and they caught ${pct(a.recall)} of the ${a.actual_poor_hours.toLocaleString("en-IN")} poor hours.</p></div>
   </div>
@@ -926,9 +928,9 @@ async function pageModel(v){
   $("hChart").innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" style="height:${H}px">${g}</svg>`;
   const sc=e.scatter||[], m=Math.max(...sc.flat(),50)*1.05, SW=520,SH=330, sx=v=>46+v/m*(SW-60), sy=v=>SH-30-v/m*(SH-44);
   let sg=`<line x1="${sx(0)}" y1="${sy(0)}" x2="${sx(m)}" y2="${sy(m)}" stroke="#9aa8b1" stroke-dasharray="5 4"/>`;
-  for(let t=0;t<=m;t+=m>200?100:50) sg+=`<text x="${sx(t)}" y="${SH-12}" text-anchor="middle">${t}</text><text x="40" y="${sy(t)+4}" text-anchor="end">${t}</text>`;
+  for(let t=0;t<=m;t+=m>200?100:50) sg+=`<text x="${sx(t)}" y="${SH-15}" text-anchor="middle">${t}</text><text x="40" y="${sy(t)+4}" text-anchor="end">${t}</text>`;
   sc.forEach(([p,y])=>sg+=`<circle cx="${sx(y)}" cy="${sy(p)}" r="2.6" fill="#0f6e6e" opacity=".35"/>`);
-  sg+=`<text x="${SW/2}" y="${SH}" text-anchor="middle">Measured µg/m³</text><text x="12" y="${SH/2}" transform="rotate(-90 12 ${SH/2})" text-anchor="middle">Forecast µg/m³</text>`;
+  sg+=`<text x="${SW/2}" y="${SH-2}" text-anchor="middle">Measured µg/m³</text><text x="12" y="${SH/2}" transform="rotate(-90 12 ${SH/2})" text-anchor="middle">Forecast µg/m³</text>`;
   $("scatter").innerHTML=`<svg class="chart" viewBox="0 0 ${SW} ${SH}" style="height:${SH}px">${sg}</svg>`;
   // Sum split counts into the same plain-language groups used for explanations.
   const FG=[["Recent pollution levels",["pm25_","pm10_","pm25_pm10"]],["Wind",["t_wind_","o_wind_"]],["Rain",["t_rain","o_rain"]],["Time of day",["t_hour_"]],["Weekday or weekend",["t_dow","t_weekend"]],["Season",["t_doy_"]],["Temperature and humidity",["t_temp","t_rh","o_temp","o_rh","t_pressure","t_cloud"]],["Fires in the region",["fires_","frp_"]],["Festivals and events",["t_event_"]],["Station location",["lat","lon"]],["Hours ahead",["horizon"]]];
