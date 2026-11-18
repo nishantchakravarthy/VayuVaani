@@ -45,3 +45,19 @@ def test_live_forecast_with_fake_apis(settings, monkeypatch):
     assert (pd.to_datetime(out["origin_time"]) == now - pd.Timedelta(hours=2)).all()
     assert out["pm25_q50"].notna().all()
     assert out["t_wind_speed"].notna().all() if "t_wind_speed" in out else True
+
+
+def test_live_reports_rejected_key(settings, monkeypatch):
+    import pytest
+    pipeline.fetch_demo(settings, "2026-03-01", "2026-04-15")
+    raw = settings.path("raw")
+    st = pd.read_csv(raw / "stations.csv")
+    st["pm25_sensor_id"], st["pm10_sensor_id"] = np.arange(len(st)) + 100, np.nan
+    st.to_csv(raw / "stations.csv", index=False)
+
+    def unauthorized(*a, **kw):
+        raise RuntimeError("401 Client Error: Unauthorized")
+
+    monkeypatch.setattr(openaq, "sensor_hours", unauthorized)
+    with pytest.raises(RuntimeError, match="rejected the API key"):
+        forecast.live(settings)

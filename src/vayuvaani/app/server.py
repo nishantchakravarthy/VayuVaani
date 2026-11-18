@@ -103,8 +103,11 @@ def _run_job(name: str, steps: list[tuple[str, callable]]) -> None:
 
 def _friendly_error(exc: Exception) -> str:
     text = str(exc)
+    if ("401" in text or "403" in text) and "FIRMS" in text:
+        return "NASA FIRMS rejected the map key. Paste the key from NASA's email again in Settings."
     if "401" in text or "403" in text:
-        return "The data service rejected the API key. Check that you pasted the right key in Settings."
+        return ("OpenAQ rejected the API key. Open Settings and paste your OpenAQ key again "
+                "(it's the 64-character key from your account at explore.openaq.org).")
     if "ConnectionError" in type(exc).__name__ or "Max retries" in text or "NameResolution" in text:
         return "Couldn't reach the internet. Check your connection and try again."
     return text or type(exc).__name__
@@ -404,6 +407,30 @@ def tts_audio(lang: str, text: str) -> bytes:
     return path.read_bytes()
 
 
+def check_keys(body: dict) -> str | None:
+    """Test new keys with one small request before saving them. Returns an error, or None."""
+    import requests
+    oa = str(body.get("openaq") or "").strip()
+    fk = str(body.get("firms") or "").strip()
+    if oa and fk and oa == fk:
+        return "The two keys are the same. The OpenAQ key and the NASA key are different keys."
+    try:
+        if oa:
+            r = requests.get("https://api.openaq.org/v3/parameters", headers={"X-API-Key": oa},
+                             params={"limit": 1}, timeout=15)
+            if r.status_code in (401, 403):
+                hint = " That looks like a NASA FIRMS key (32 characters)." if len(oa) == 32 else ""
+                return "OpenAQ didn't accept that key." + hint + " Copy the API key from your account at explore.openaq.org."
+        if fk:
+            r = requests.get("https://firms.modaps.eosdis.nasa.gov/mapserver/mapkey_status/",
+                             params={"MAP_KEY": fk}, timeout=15)
+            if r.ok and "invalid" in r.text[:200].lower():
+                return "NASA FIRMS didn't accept that map key. Copy it exactly from NASA's email."
+    except requests.RequestException:
+        return None  # offline: save anyway, the next update will tell
+    return None
+
+
 def save_keys(body: dict) -> None:
     s = load_settings()
     env_path = s.root / ".env"
@@ -494,7 +521,11 @@ class Handler(BaseHTTPRequestHandler):
             err = start_job(body.get("task", ""))
             return self._json({"ok": err is None, "error": err}, 200 if err is None else 409)
         if route == "/api/keys":
+            err = check_keys(body)
+            if err:
+                return self._json({"ok": False, "error": err})
             save_keys(body)
+            _AUTO.update(last=0.0, fails=0)  # a new key gets a fresh try straight away
             return self._json({"ok": True})
         return self._json({"error": "not found"}, 404)
 
@@ -503,6 +534,7 @@ _LAST_SEEN = time.time()
 
 
 AUTO_REFRESH_MIN = 30  # a forecast older than this is refreshed automatically
+_AUTO = {"last": 0.0, "fails": 0}  # after a failed update, wait 15, 30, then 60 minutes
 
 
 def _auto_refresh_loop() -> None:
@@ -520,8 +552,13 @@ def _auto_refresh_loop() -> None:
                 start_job("fires")  # tries once per key, not every minute
                 time.sleep(60)
                 continue
+            failed = JOB.name == "refresh" and JOB.error
+            wait = AUTO_REFRESH_MIN if not failed else min(60, 15 * 2 ** _AUTO["fails"])
             if (st["mode"] == "real" and st["keys"]["openaq"] and st["model_ready"]
-                    and not JOB.running and (age is None or age >= AUTO_REFRESH_MIN)):
+                    and not JOB.running and (age is None or age >= AUTO_REFRESH_MIN)
+                    and time.time() - _AUTO["last"] >= wait * 60):
+                _AUTO["fails"] = _AUTO["fails"] + 1 if failed else 0
+                _AUTO["last"] = time.time()
                 start_job("refresh")
         except Exception as exc:  # never let this thread take the app down
             log.debug("auto refresh skipped: %s", exc)

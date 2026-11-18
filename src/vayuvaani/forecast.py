@@ -84,6 +84,8 @@ def live(settings: Settings) -> pd.DataFrame:
         try:
             d = openaq.sensor_hours(settings, sid, start, end, retries=2, timeout=25)
         except Exception as exc:  # one slow or broken sensor shouldn't hold up the rest
+            if "401" in str(exc) or "403" in str(exc):
+                auth_failed.append(name)
             log.warning("Skipped %s %s (%s)", name, param, str(exc)[:80])
             return None
         if d.empty:
@@ -92,10 +94,13 @@ def live(settings: Settings) -> pd.DataFrame:
         d["station_id"], d["parameter"] = station_id, param
         return d.drop(columns="time_utc")
 
+    auth_failed: list[str] = []
     with ThreadPoolExecutor(max_workers=6) as pool:
         frames = [f for f in pool.map(fetch, jobs) if f is not None]
+    if not frames and auth_failed:
+        raise RuntimeError("401 OpenAQ rejected the API key. Paste your OpenAQ key again in Settings.")
     if not frames:
-        raise RuntimeError("No recent readings from OpenAQ.")
+        raise RuntimeError("No recent readings from OpenAQ. The service may be down; the app will try again later.")
     meas = pd.concat(frames, ignore_index=True)
     log.info("Latest readings from %d sensors in %.0f s", len(frames), time.time() - t0)
 
