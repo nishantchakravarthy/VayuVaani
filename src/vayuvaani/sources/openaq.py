@@ -32,7 +32,7 @@ def list_stations(settings: Settings) -> pd.DataFrame:
         resp = get(
             f"{cfg['base_url']}/locations",
             params={"bbox": bbox, "parameters_id": cfg["pm25_parameter_id"], "limit": PAGE_LIMIT, "page": page},
-            headers=_headers(),
+            headers=_headers(), retries=retries, timeout=timeout,
         ).json()
         results = resp.get("results", [])
         for loc in results:
@@ -63,7 +63,8 @@ def list_stations(settings: Settings) -> pd.DataFrame:
     return df
 
 
-def sensor_hours(settings: Settings, sensor_id: int, start: str, end: str) -> pd.DataFrame:
+def sensor_hours(settings: Settings, sensor_id: int, start: str, end: str,
+                 retries: int = 4, timeout: int = 60) -> pd.DataFrame:
     """Hourly mean values for one sensor between start and end (ISO dates)."""
     base = settings.sources["openaq"]["base_url"]
     rows, page = [], 1
@@ -71,7 +72,7 @@ def sensor_hours(settings: Settings, sensor_id: int, start: str, end: str) -> pd
         resp = get(
             f"{base}/sensors/{sensor_id}/hours",
             params={"datetime_from": start, "datetime_to": end, "limit": PAGE_LIMIT, "page": page},
-            headers=_headers(),
+            headers=_headers(), retries=retries, timeout=timeout,
         ).json()
         results = resp.get("results", [])
         for r in results:

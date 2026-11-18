@@ -9,6 +9,8 @@ replay(): for demos and testing: pretends "now" is a past hour and uses the
 from __future__ import annotations
 
 import logging
+import time
+from concurrent.futures import ThreadPoolExecutor
 
 import numpy as np
 import pandas as pd
@@ -68,30 +70,48 @@ def live(settings: Settings) -> pd.DataFrame:
     start = (now - pd.Timedelta(hours=HISTORY_HOURS + 24)).strftime("%Y-%m-%dT%H:%M:%S")
     end = now.strftime("%Y-%m-%dT%H:%M:%S")
 
-    # Recent PM readings.
-    frames = []
+    t0 = time.time()
+    # Recent PM readings: all sensors at once (a few in parallel, kind to the rate limit).
+    jobs = []
     for _, st in stations.iterrows():
         for param in ("pm25", "pm10"):
             sid = st.get(f"{param}_sensor_id")
-            if pd.isna(sid):
-                continue
-            d = openaq.sensor_hours(settings, int(sid), start, end)
-            if d.empty:
-                continue
-            d["time"] = d["time_utc"].dt.tz_convert(settings.timezone).dt.tz_localize(None)
-            d["station_id"], d["parameter"] = st["station_id"], param
-            frames.append(d.drop(columns="time_utc"))
+            if not pd.isna(sid):
+                jobs.append((st["station_id"], st["name"], param, int(sid)))
+
+    def fetch(job):
+        station_id, name, param, sid = job
+        try:
+            d = openaq.sensor_hours(settings, sid, start, end, retries=2, timeout=25)
+        except Exception as exc:  # one slow or broken sensor shouldn't hold up the rest
+            log.warning("Skipped %s %s (%s)", name, param, str(exc)[:80])
+            return None
+        if d.empty:
+            return None
+        d["time"] = d["time_utc"].dt.tz_convert(settings.timezone).dt.tz_localize(None)
+        d["station_id"], d["parameter"] = station_id, param
+        return d.drop(columns="time_utc")
+
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        frames = [f for f in pool.map(fetch, jobs) if f is not None]
     if not frames:
         raise RuntimeError("No recent readings from OpenAQ.")
     meas = pd.concat(frames, ignore_index=True)
+    log.info("Latest readings from %d sensors in %.0f s", len(frames), time.time() - t0)
 
-    # Weather: last 4 days plus next 3 days, from the forecast API.
-    wx_frames = []
-    for _, st in stations.iterrows():
-        w = weather.forecast(settings, st["lat"], st["lon"], past_days=4, days=3)
-        w["station_id"] = st["station_id"]
-        wx_frames.append(w)
-    wx = pd.concat(wx_frames, ignore_index=True)
+    # Weather: last 4 days plus next 3 days for every station, in one request.
+    t1 = time.time()
+    points = list(zip(stations["lat"], stations["lon"]))
+    try:
+        frames_wx = weather.forecast_many(settings, points, past_days=4, days=3)
+    except Exception as exc:
+        log.warning("Combined weather request failed (%s); asking per station", str(exc)[:80])
+        with ThreadPoolExecutor(max_workers=6) as pool:
+            frames_wx = list(pool.map(lambda p: weather.forecast(settings, p[0], p[1], past_days=4, days=3), points))
+    for w, sid in zip(frames_wx, stations["station_id"]):
+        w["station_id"] = sid
+    wx = pd.concat(frames_wx, ignore_index=True)
+    log.info("Weather forecast in %.0f s", time.time() - t1)
 
     try:
         fires = firms.daily_counts(settings, firms.download(
@@ -105,7 +125,9 @@ def live(settings: Settings) -> pd.DataFrame:
     history = drop_stale(settings, history, stations, now)
     # Pass all weather hours: if a station's latest reading is a few hours old,
     # the forecast starts from that reading and needs the weather in between.
-    return _predict(settings, history, wx)
+    out = _predict(settings, history, wx)
+    log.info("Forecast ready in %.0f s", time.time() - t0)
+    return out
 
 
 MAX_STALE_HOURS = 6

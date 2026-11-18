@@ -143,7 +143,7 @@ select,input[type=text],input[type=password],input[type=number]{font:inherit;pad
 .offline b{color:var(--ink)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}
   /* the progress spinner is information, not decoration: keep it turning, just slower */
-  .running .dot{animation:spin 1.6s linear infinite!important}}
+  .running .dot,#progress.slim::before{animation:spin 1.6s linear infinite!important}}
 @media (max-width:900px){.orb{display:none}.sky h1{font-size:26px}}
 
 /* page heroes (smaller sky banner on every other page) */
@@ -273,6 +273,11 @@ tr.hl td{font-weight:700;color:var(--teal)}
 .team b{display:block}
 /* progress */
 .steps{list-style:none;padding:0;margin:12px 0}
+#progress.slim{display:flex;align-items:center;gap:12px;padding:12px 18px}
+#progress.slim[hidden]{display:none}
+#progress.slim::before{content:"";width:16px;height:16px;flex:none;border-radius:50%;border:2.5px solid var(--teal);border-right-color:transparent;animation:spin 1s linear infinite}
+#progress.slim h3{font-size:14px!important;font-weight:600;margin:0}
+#progress.slim .sub,#progress.slim .steps,#progress.slim details{display:none}
 .steps li{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:14px}
 .dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;flex:none}
 .done .dot{background:var(--good);border-color:var(--good);color:#fff}
@@ -477,8 +482,10 @@ function renderNav(){
 function renderShell(){
   const s=S.status, job=s.job, busy=job.running;
   $("progress").hidden = !(busy || job.error);
+  // A routine update gets a slim one-line bar; setup and retraining show every step.
+  $("progress").classList.toggle("slim", job.name==="refresh" && !job.error);
   if(busy||job.error){
-    const titles={demo:"Setting up with demo data",real:"Setting up with real Bengaluru data",refresh:"Updating the forecast",retrain:"Retraining the model"};
+    const titles={demo:"Setting up with demo data",real:"Setting up with real Bengaluru data",refresh:"Updating to the latest readings… you're seeing the previous forecast until it's done",retrain:"Retraining the model"};
     $("progTitle").textContent = job.error ? "Something went wrong" : (titles[job.name]||"Working…");
     $("steps").innerHTML = job.steps.map(st=>`<li class="${st.status}"><span class="dot">${st.status==="done"?"✓":st.status==="failed"?"!":""}</span>${esc(st.label)}</li>`).join("");
     $("progError").hidden=!job.error; $("progError").textContent=job.error||"";
@@ -486,7 +493,8 @@ function renderShell(){
   }
   $("modePill").hidden=!s.mode; $("modePill").className="pill"+(s.mode==="demo"?" demo":"");
   $("modePill").textContent = s.mode==="demo"?"Demo data (not real)":"Live station data";
-  $("updated").textContent = s.forecast_updated ? "Forecast updated "+s.forecast_updated : "";
+  const age=s.forecast_age_min;
+  $("updated").textContent = s.forecast_updated ? "Forecast updated "+(age==null?s.forecast_updated:age<1?"just now":age<60?age+" min ago":s.forecast_updated) : "";
   $("refreshBtn").hidden=!(s.forecast_ready&&s.mode); $("refreshBtn").disabled=busy;
   document.querySelectorAll("[data-run]").forEach(b=>b.disabled=busy);
   $("kOpenaqState").textContent = s.keys.openaq?"· saved":""; $("kFirmsState").textContent = s.keys.firms?"· saved":"";
@@ -984,7 +992,8 @@ async function poll(){
   const job=S.status.job;
   if(!job.running && job.finished_at!==S.lastJobEnd){ S.lastJobEnd=job.finished_at; if(S.status.forecast_ready) await loadData(); route(); }
   else if(!$("view").innerHTML) route();
-  if(job.running) setTimeout(poll,1500);
+  // While working, check often; otherwise check once a minute so automatic updates show up.
+  clearTimeout(S.pollT); S.pollT=setTimeout(poll, job.running?1500:60000);
 }
 function openSettings(){ $("lang2Sel").value=lang2(); $("settings").classList.add("open"); }
 function closeSettings(){ $("settings").classList.remove("open"); }

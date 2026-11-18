@@ -46,6 +46,24 @@ def forecast(settings: Settings, lat: float, lon: float, past_days: int = 3, day
     return _to_frame(get(cfg["forecast_url"], params=params).json(), cfg["hourly"])
 
 
+def forecast_many(settings: Settings, points: list[tuple[float, float]], past_days: int = 3,
+                  days: int = 3, retries: int = 3, timeout: int = 30) -> list[pd.DataFrame]:
+    """Forecast for several places in ONE request (Open-Meteo accepts comma-separated
+    coordinates and returns a list). Much faster than one request per station."""
+    cfg = settings.sources["open_meteo"]
+    params = {
+        "latitude": ",".join(f"{lat:.4f}" for lat, _ in points),
+        "longitude": ",".join(f"{lon:.4f}" for _, lon in points),
+        "hourly": ",".join(cfg["hourly"]),
+        "timezone": settings.timezone,
+        "past_days": past_days, "forecast_days": days,
+    }
+    payload = get(cfg["forecast_url"], params=params, retries=retries, timeout=timeout).json()
+    if isinstance(payload, dict):
+        payload = [payload]
+    return [_to_frame(p, cfg["hourly"]) for p in payload]
+
+
 def for_stations(settings: Settings, stations: pd.DataFrame, start: str, end: str) -> pd.DataFrame:
     """Archive weather for every station. Stations closer than ~3 km share a grid cell,
     so results are cached by rounded coordinates."""

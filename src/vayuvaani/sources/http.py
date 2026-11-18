@@ -14,7 +14,7 @@ _session.headers["User-Agent"] = "VayuVaani/0.1 (student project)"
 
 
 def get(url: str, params=None, headers=None, retries: int = 4, timeout: int = 60) -> requests.Response:
-    """GET with retries. Waits and retries on 429 and 5xx responses."""
+    """GET with retries. Waits and retries on 408, 429 and 5xx responses."""
     delay = 2.0
     for attempt in range(1, retries + 1):
         try:
@@ -26,7 +26,7 @@ def get(url: str, params=None, headers=None, retries: int = 4, timeout: int = 60
             time.sleep(delay)
             delay *= 2
             continue
-        if resp.status_code == 429 or resp.status_code >= 500:
+        if resp.status_code in (408, 429) or resp.status_code >= 500:
             if attempt == retries:
                 resp.raise_for_status()
             wait = float(resp.headers.get("Retry-After", delay))

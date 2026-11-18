@@ -20,12 +20,12 @@ def test_live_forecast_with_fake_apis(settings, monkeypatch):
 
     now = pd.Timestamp.now(tz=settings.timezone).tz_localize(None).floor("h")
 
-    def fake_hours(settings, sensor_id, start, end):
+    def fake_hours(settings, sensor_id, start, end, **kw):
         t = pd.date_range(pd.Timestamp(start), now - pd.Timedelta(hours=2), freq="h")
         utc = t.tz_localize(settings.timezone).tz_convert("UTC")
         return pd.DataFrame({"time_utc": utc, "value": 40 + 10 * np.sin(np.arange(len(t)) / 4)})
 
-    def fake_weather(settings, lat, lon, past_days=3, days=3):
+    def fake_weather(settings, lat, lon, past_days=3, days=3, **kw):
         t = pd.date_range(now.normalize() - pd.Timedelta(days=past_days), periods=24 * (past_days + days), freq="h")
         return pd.DataFrame({"time": t, "temperature_2m": 25.0, "relative_humidity_2m": 60.0,
                              "precipitation": 0.0, "wind_speed_10m": 8.0, "wind_direction_10m": 90.0,
@@ -33,6 +33,9 @@ def test_live_forecast_with_fake_apis(settings, monkeypatch):
 
     monkeypatch.setattr(openaq, "sensor_hours", fake_hours)
     monkeypatch.setattr(weather, "forecast", fake_weather)
+    monkeypatch.setattr(weather, "forecast_many",
+                        lambda settings, points, past_days=3, days=3, **kw:
+                        [fake_weather(settings, a, b, past_days, days) for a, b in points])
     monkeypatch.delenv("FIRMS_MAP_KEY", raising=False)
 
     out = forecast.live(settings)

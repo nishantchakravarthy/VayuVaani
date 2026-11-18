@@ -186,6 +186,7 @@ def status() -> dict:
         "model_ready": (models / "forecaster.joblib").exists(),
         "forecast_ready": fc.exists(),
         "forecast_updated": time.strftime("%d %b %Y, %I:%M %p", time.localtime(fc.stat().st_mtime)) if fc.exists() else None,
+        "forecast_age_min": round((time.time() - fc.stat().st_mtime) / 60) if fc.exists() else None,
         "job": JOB.snapshot(),
     }
 
@@ -469,6 +470,23 @@ class Handler(BaseHTTPRequestHandler):
 _LAST_SEEN = time.time()
 
 
+AUTO_REFRESH_MIN = 30  # a forecast older than this is refreshed automatically
+
+
+def _auto_refresh_loop() -> None:
+    """Keep the forecast fresh: update right after the app opens, then every half hour."""
+    while True:
+        try:
+            st = status()
+            age = st["forecast_age_min"]
+            if (st["mode"] == "real" and st["keys"]["openaq"] and st["model_ready"]
+                    and not JOB.running and (age is None or age >= AUTO_REFRESH_MIN)):
+                start_job("refresh")
+        except Exception as exc:  # never let this thread take the app down
+            log.debug("auto refresh skipped: %s", exc)
+        time.sleep(60)
+
+
 def _find_app_browser():
     """Edge (built into Windows) or Chrome, used only as a window with no tabs or address bar."""
     import shutil
@@ -529,6 +547,7 @@ def main(open_browser: bool = True) -> None:
         return
     print(f"VayuVaani is running at {url}")
     threading.Thread(target=server.serve_forever, daemon=True).start()
+    threading.Thread(target=_auto_refresh_loop, daemon=True).start()
     if not open_browser:
         try:
             while True:
