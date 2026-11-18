@@ -225,17 +225,20 @@ nav a .t{line-height:1.15}
 .scale .pk{border:2px solid var(--card);box-shadow:0 0 0 1px var(--ink)}
 .scale .rng{position:absolute;top:2px;height:6px;border-radius:3px;background:var(--ink);opacity:.22}
 .srow .st{grid-column:1/-1;font-size:12.5px;color:var(--muted)}
-.list{max-height:520px}
 /* particles in the dashboard sky: density follows the live PM2.5 */
 .pt{animation:drift2 linear infinite}
 @keyframes drift2{from{transform:translate(0,0)}to{transform:translate(-60px,-18px)}}
 @media (max-width:1100px){.strip{grid-template-columns:1fr 1fr}.strip .kpi:nth-child(3){border-left:0}.strip .kpi:nth-child(n+3){border-top:1px solid var(--line)}}
 /* map & list */
 #map,#mapFallback{height:410px;border-radius:10px}
+/* the map grows to match the station list beside it, so there's no empty gap under it */
+@media (min-width:1101px){.r-map>.card:first-child{display:flex;flex-direction:column}.r-map #map,.r-map #mapFallback{flex:1;min-height:410px;height:auto}}
+/* axis labels at the very edge of a chart stay visible instead of being cut off */
+.card svg{overflow:visible}
 #mapFallback{background:var(--teal-soft)}
 .legend{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted);margin-top:10px}
 .legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;background:var(--c);vertical-align:-1px}
-.list{max-height:452px;overflow:auto;margin:0 -6px;padding:0 6px}
+.list{margin:0 -6px;padding:0 6px}  /* no inner scroll box: the page scrolls, nothing traps the wheel */
 .station{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--line);border-radius:11px;margin-bottom:8px;background:var(--card);color:var(--ink);width:100%;text-align:left}
 .station:hover{border-color:var(--ghost-border);background:var(--hover)}
 .swatch{width:46px;height:46px;border-radius:11px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:15px;flex:none;line-height:1}
@@ -453,6 +456,13 @@ const D = s => new Date(s);
 const fmtT = s => D(s).toLocaleString("en-IN",{weekday:"short",hour:"numeric",hour12:true});
 const fmtH = s => D(s).toLocaleTimeString("en-IN",{hour:"numeric",hour12:true});
 const shortName = n => String(n).replace(/\s*[-,]\s*(Bengaluru|Bangalore).*$/i,"").replace(/\s*\(.*\)\s*$/,"");
+// Short names, but say who runs the station when two share a name (CPCB and KSPCB both have a BTM Layout).
+function uniqueNames(names){
+  const seen={}; names.forEach(n=>{ const k=shortName(n); (seen[k]=seen[k]||[]).push(n); });
+  return Object.entries(seen).map(([k,v])=>{ if(v.length<2) return k;
+    const ag=[...new Set(v.map(n=>(String(n).match(/\b(CPCB|KSPCB|IMD|IITM)\b/i)||[])[1]).filter(Boolean))];
+    return ag.length?`${k} (${ag.join(", ")})`:k; });
+}
 async function api(path, body){
   const opt = body ? {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)} : {};
   const r = await fetch(path,opt); return r.json();
@@ -757,7 +767,7 @@ function pageDashboard(v){
   const nowAvg = st.filter(s=>s.now_pm25!=null).reduce((a,s,_,arr)=>a+s.now_pm25/arr.length,0);
   const off=S.offline||[];
   v.innerHTML = `<section class="sky" id="sky">${skyHTML(S.live)}</section>` + demoNote() +
-  (off.length?`<div class="offline"><b>${st.length} stations reporting</b>, ${off.length} offline (no reading in the last 6 hours): ${off.map(o=>esc(shortName(o.name))).join(", ")}. They come back automatically when their readings resume.</div>`:"") + `
+  (off.length?`<div class="offline"><b>${st.length} stations reporting</b>, ${off.length} offline (no reading in the last 6 hours): ${uniqueNames(off.map(o=>o.name)).map(esc).join(", ")}. They come back automatically when their readings resume.</div>`:"") + `
   <div class="strip">
     <div class="kpi"><div class="label">Cleanest place in the next 24 h</div><div class="val" style="color:${catOf(st[st.length-1].peak.category).hex}">${r0(st[st.length-1].peak.q50)} <span>µg/m³ at worst</span></div><div class="note">${esc(shortName(st[st.length-1].name))}</div></div>
     <div class="kpi"><div class="label">Worst place in the next 24 h</div><div class="val" style="color:${catOf(worst.peak.category).hex}">${r0(worst.peak.q50)} <span>µg/m³</span></div><div class="note">${esc(shortName(worst.name))}, ${fmtT(worst.peak.time)}</div></div>
@@ -875,6 +885,7 @@ function drawMap(st){
         .bindTooltip(`<b>${esc(s.name)}</b><br>Peak ${r0(s.peak.q50)} µg/m³, ${s.peak.category}<br>${fmtT(s.peak.time)}`);
       m.on("click",()=>location.hash="#/station/"+encodeURIComponent(s.id)); });
     S.map.fitBounds(L.latLngBounds(st.map(s=>[s.lat,s.lon])).pad(.25),{maxZoom:12});
+    setTimeout(()=>{ if(S.map){ S.map.invalidateSize(); S.map.fitBounds(L.latLngBounds(st.map(s=>[s.lat,s.lon])).pad(.25),{maxZoom:12}); } },60);  // after the map has stretched
   } else if($("mapFallback")){
     $("map").hidden=true; $("mapFallback").hidden=false;
     const la=st.map(s=>s.lat), lo=st.map(s=>s.lon), [a0,a1,o0,o1]=[Math.min(...la),Math.max(...la),Math.min(...lo),Math.max(...lo)];
@@ -1195,7 +1206,7 @@ const SM={el:null,target:0,raf:0,last:0};
 function smoothStop(){ cancelAnimationFrame(SM.raf); SM.raf=0; }
 function scrollerFor(n,dy){
   for(;n && n.nodeType===1 && n!==document.body && n!==document.documentElement;n=n.parentElement){
-    if(n.classList.contains("leaflet-container")||n.tagName==="SELECT"||n.tagName==="TEXTAREA") return null;   // the map zooms, lists scroll natively
+    if(n.tagName==="SELECT"||n.tagName==="TEXTAREA") return null;   // these scroll natively (the map zooms with its buttons, so the wheel scrolls the page)
     const oy=getComputedStyle(n).overflowY;
     if((oy==="auto"||oy==="scroll") && n.scrollHeight>n.clientHeight+1 && (dy<0? n.scrollTop>0 : n.scrollTop+n.clientHeight<n.scrollHeight-1)) return n;
   }
@@ -1230,6 +1241,9 @@ addEventListener("keydown",e=>{
 // A drag on the scrollbar or a jump elsewhere: let it win.
 addEventListener("mousedown",smoothStop,{passive:true});
 
+// A hover tooltip shouldn't stay behind when the page moves under the mouse.
+addEventListener("scroll",()=>tip(null),{passive:true,capture:true});
+addEventListener("wheel",()=>tip(null),{passive:true});
 // While the page is scrolling, heavy effects hold still so scrolling stays smooth.
 let scrollT=null;
 addEventListener("scroll",()=>{ const h=document.documentElement; if(!h.classList.contains("scrolling")) h.classList.add("scrolling");
