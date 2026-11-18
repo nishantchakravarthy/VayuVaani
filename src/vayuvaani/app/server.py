@@ -30,6 +30,7 @@ from urllib.parse import parse_qs, urlparse
 import numpy as np
 
 from .. import aqi, explain, forecast, pipeline, train
+from ..sources import firms
 from ..config import PROJECT_ROOT, load_settings
 from ..model import QuantileForecaster
 from ..sources import live
@@ -152,6 +153,19 @@ def start_job(task: str) -> str | None:
             ("Training the forecast model (then retraining on all data)", lambda: train.run(s, pipeline.load_processed(s))),
             ("Making a forecast", last),
         ]
+    elif task == "fires":
+        if not os.getenv("FIRMS_MAP_KEY"):
+            return "Paste a NASA FIRMS key in Settings first."
+        if not (s.path("raw") / "measurements.csv.gz").exists():
+            return "Set up real data first."
+        # remember this key was tried, so the automatic check doesn't retry it every minute
+        (s.path("raw") / "fires_tried.txt").write_text(os.getenv("FIRMS_MAP_KEY", "")[-6:], encoding="utf-8")
+        steps = [
+            ("Downloading NASA fire detections for the whole training period", lambda: _download_fires(s)),
+            ("Cleaning and merging", lambda: pipeline.build(s)),
+            ("Retraining the model with fire data", lambda: train.run(s, pipeline.load_processed(s))),
+            ("Making a live forecast", lambda: forecast.live(s)),
+        ]
     elif task == "refresh":
         mode = mode_file.read_text(encoding="utf-8").strip() if mode_file.exists() else ""
         if mode == "real":
@@ -168,6 +182,23 @@ def start_job(task: str) -> str | None:
 
 
 # ------------------------------------------------------------------ data for the page
+
+def _download_fires(s) -> None:
+    """Fetch FIRMS fires for the same dates as the station data and save them."""
+    hourly = pipeline.load_processed(s)
+    start, end = hourly["time"].min().date().isoformat(), hourly["time"].max().date().isoformat()
+    fires = firms.daily_counts(s, firms.download(s, start, end))
+    fires.to_csv(s.path("raw") / "fires_daily.csv", index=False)
+    log.info("Fire data: %d days with fires near Bengaluru (%s to %s)", len(fires), start, end)
+
+
+def _fire_days(s) -> int:
+    f = s.path("raw") / "fires_daily.csv"
+    try:
+        return max(0, sum(1 for _ in open(f, encoding="utf-8")) - 1) if f.exists() else 0
+    except OSError:
+        return 0
+
 
 def _clean(v):
     if isinstance(v, float) and (math.isnan(v) or math.isinf(v)):
@@ -186,6 +217,7 @@ def status() -> dict:
         "model_ready": (models / "forecaster.joblib").exists(),
         "forecast_ready": fc.exists(),
         "forecast_updated": time.strftime("%d %b %Y, %I:%M %p", time.localtime(fc.stat().st_mtime)) if fc.exists() else None,
+        "fire_days": _fire_days(s),
         "forecast_age_min": round((time.time() - fc.stat().st_mtime) / 60) if fc.exists() else None,
         "job": JOB.snapshot(),
     }
@@ -479,6 +511,15 @@ def _auto_refresh_loop() -> None:
         try:
             st = status()
             age = st["forecast_age_min"]
+            s = load_settings()
+            marker = s.path("raw") / "fires_tried.txt"
+            key = os.getenv("FIRMS_MAP_KEY", "")
+            tried = marker.read_text(encoding="utf-8").strip() if marker.exists() else ""
+            if (st["mode"] == "real" and key and st["fire_days"] == 0 and not JOB.running
+                    and tried != key[-6:]):
+                start_job("fires")  # tries once per key, not every minute
+                time.sleep(60)
+                continue
             if (st["mode"] == "real" and st["keys"]["openaq"] and st["model_ready"]
                     and not JOB.running and (age is None or age >= AUTO_REFRESH_MIN)):
                 start_job("refresh")

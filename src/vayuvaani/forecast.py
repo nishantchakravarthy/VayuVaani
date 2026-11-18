@@ -117,8 +117,8 @@ def live(settings: Settings) -> pd.DataFrame:
         fires = firms.daily_counts(settings, firms.download(
             settings, (now - pd.Timedelta(days=5)).date().isoformat(), now.date().isoformat(),
             source=settings.sources["firms"]["source_recent"]))
-    except RuntimeError:
-        log.warning("FIRMS_MAP_KEY not set; fire features will be zero.")
+    except Exception as exc:  # no key, bad key or FIRMS down: forecast without fires
+        log.warning("No fire data (%s); fire features will be zero.", str(exc)[:90])
         fires = pd.DataFrame(columns=["date", "fire_count", "fire_frp"])
 
     history = _recent_table(settings, stations, meas, wx[wx["time"] <= now], fires)

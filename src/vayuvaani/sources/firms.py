@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import io
 import logging
+from concurrent.futures import ThreadPoolExecutor
 
 import numpy as np
 import pandas as pd
@@ -28,18 +29,28 @@ def download(settings: Settings, start: str, end: str, source: str | None = None
     start_d, end_d = pd.Timestamp(start), pd.Timestamp(end)
     # Standard-processing data lags a few months; use near-real-time for recent dates.
     recent_cutoff = pd.Timestamp.now().normalize() - pd.Timedelta(days=90)
-    frames = []
+    chunks = []
     day = start_d
     while day <= end_d:
         n = min(CHUNK_DAYS, (end_d - day).days + 1)
         src = source or (cfg["source_history"] if day < recent_cutoff else cfg["source_recent"])
-        url = f"{cfg['base_url']}/{key}/{src}/{area}/{n}/{day.date()}"
-        text = get(url).text
-        if text.strip() and not text.lower().startswith("invalid"):
-            df = pd.read_csv(io.StringIO(text))
-            if not df.empty:
-                frames.append(df)
+        chunks.append(f"{cfg['base_url']}/{key}/{src}/{area}/{n}/{day.date()}")
         day += pd.Timedelta(days=n)
+
+    def fetch(url):
+        text = get(url, retries=3, timeout=60).text
+        head = text.strip()[:200].lower()
+        if head.startswith("invalid") or "invalid map_key" in head:
+            raise RuntimeError("403 NASA FIRMS rejected the MAP_KEY. Check the key in Settings.")
+        if not text.strip():
+            return None
+        df = pd.read_csv(io.StringIO(text))
+        return df if not df.empty else None
+
+    if len(chunks) > 3:
+        log.info("Downloading NASA fire detections: %d requests", len(chunks))
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        frames = [f for f in pool.map(fetch, chunks) if f is not None]
     if not frames:
         return pd.DataFrame(columns=["latitude", "longitude", "acq_date", "frp"])
     fires = pd.concat(frames, ignore_index=True)
