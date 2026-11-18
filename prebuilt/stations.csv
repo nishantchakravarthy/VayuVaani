@@ -1,0 +1,15 @@
+station_id,name,lat,lon,provider,is_monitor,pm25_sensor_id,pm10_sensor_id
+openaq_412,"Peenya, Bengaluru - KSPCB",13.0339,77.51321111,CPCB,True,13852,
+openaq_594,"BTM Layout, Bengaluru - KSPCB",12.912811110000002,77.60921944,CPCB,True,13836,
+openaq_2592,"BWSSB Kadabesanahalli, Bengaluru - KSPCB",12.93890556,77.69727222,CPCB,True,13898,
+openaq_5547,"BWSSB Kadabesanahalli, Bengaluru - CPCB",12.9352049,77.6814488,caaqm,True,14641,1303004.0
+openaq_5548,"BTM Layout, Bengaluru - CPCB",12.9135218,77.5950804,CPCB,True,14635,1305377.0
+openaq_5607,"Peenya, Bengaluru - CPCB",13.0270199,77.494094,CPCB,True,12235370,12235369.0
+openaq_6973,"Jayanagar 5th Block, Bengaluru - KSPCB",12.920984,77.584908,CPCB,True,12235267,20172.0
+openaq_6974,"Bapuji Nagar, Bengaluru - KSPCB",12.951913,77.539784,CPCB,True,12235240,20166.0
+openaq_6975,"Silk Board, Bengaluru - KSPCB",12.917348,77.622813,CPCB,True,12235285,12235284.0
+openaq_6983,"Hombegowda Nagar, Bengaluru - KSPCB",12.938539,77.5901,CPCB,True,20199,12235257.0
+openaq_6984,"Hebbal, Bengaluru - KSPCB",13.029152,77.585901,CPCB,True,20212,20213.0
+openaq_3409385,"RVCE-Mailasandra, Bengaluru - KSPCB",12.921418,77.502466,CPCB,True,12237573,12237572.0
+openaq_3409388,"Kasturi Nagar, Bengaluru - KSPCB",13.003872,77.664217,CPCB,True,12237600,12237599.0
+openaq_3409393,"Shivapura_Peenya, Bengaluru - KSPCB",13.0246342,77.5080115,CPCB,True,12237645,12237644.0

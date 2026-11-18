@@ -132,6 +132,16 @@ def start_job(task: str) -> str | None:
             ("Making a forecast", lambda: forecast.replay(s)),
             ("Finishing", set_mode("demo")),
         ]
+    elif task == "quick":
+        if not os.getenv("OPENAQ_API_KEY"):
+            return "Add your OpenAQ API key in Settings first."
+        if not _prebuilt_ready():
+            return "The ready-made model is missing. Use 'Rebuild with real data' instead."
+        steps = [
+            ("Setting up the ready-made model (trained on 2 years of Bengaluru data)", lambda: _install_prebuilt(s)),
+            ("Getting the latest readings and making a forecast", lambda: forecast.live(s)),
+            ("Finishing", set_mode("real")),
+        ]
     elif task == "real":
         if not os.getenv("OPENAQ_API_KEY"):
             return "Add your OpenAQ API key in Settings first."
@@ -186,6 +196,24 @@ def start_job(task: str) -> str | None:
 
 # ------------------------------------------------------------------ data for the page
 
+PREBUILT = PROJECT_ROOT / "prebuilt"
+PREBUILT_FILES = {"forecaster.joblib": "models", "evaluation.json": "reports",
+                  "test_predictions.csv.gz": "reports", "stations.csv": "raw"}
+
+
+def _prebuilt_ready() -> bool:
+    return all((PREBUILT / f).exists() for f in PREBUILT_FILES)
+
+
+def _install_prebuilt(s) -> None:
+    import shutil
+    for name, where in PREBUILT_FILES.items():
+        dest = s.path(where)
+        dest.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(PREBUILT / name, dest / name)
+    log.info("Installed the ready-made model")
+
+
 def _download_fires(s) -> None:
     """Fetch FIRMS fires for the same dates as the station data and save them."""
     hourly = pipeline.load_processed(s)
@@ -221,12 +249,36 @@ def status() -> dict:
         "forecast_ready": fc.exists(),
         "forecast_updated": time.strftime("%d %b %Y, %I:%M %p", time.localtime(fc.stat().st_mtime)) if fc.exists() else None,
         "fire_days": _fire_days(s),
+        "prebuilt": _prebuilt_ready(),
         "forecast_age_min": round((time.time() - fc.stat().st_mtime) / 60) if fc.exists() else None,
         "job": JOB.snapshot(),
     }
 
 
+_CACHE: dict = {}
+
+
+def _cached(key, files, fn):
+    """Reuse a computed answer until one of its input files changes."""
+    sig = tuple(f.stat().st_mtime if f.exists() else None for f in files)
+    hit = _CACHE.get(key)
+    if hit and hit[0] == sig:
+        return hit[1]
+    value = fn()
+    _CACHE[key] = (sig, value)
+    return value
+
+
+def _report_files(*names):
+    s = load_settings()
+    return [s.path("reports") / n for n in names]
+
+
 def forecast_payload() -> dict:
+    return _cached("forecast", _report_files("latest_forecast.csv", "latest_features.csv"), _forecast_payload)
+
+
+def _forecast_payload() -> dict:
     s = load_settings()
     path = s.path("reports") / "latest_forecast.csv"
     if not path.exists():
@@ -292,6 +344,12 @@ def _live_error(exc: Exception) -> str:
 
 
 def explain_payload(station_id: str, target_time: str | None) -> dict:
+    s = load_settings()
+    files = [s.path("models") / "forecaster.joblib"] + _report_files("latest_features.csv")
+    return _cached(("explain", station_id, target_time), files, lambda: _explain_payload(station_id, target_time))
+
+
+def _explain_payload(station_id: str, target_time: str | None) -> dict:
     fc = _model()
     path = load_settings().path("reports") / "latest_features.csv"
     if fc is None or not path.exists():
@@ -356,6 +414,12 @@ def cams_payload(station_id: str) -> dict:
 
 
 def accuracy_payload() -> dict:
+    s = load_settings()
+    files = _report_files("evaluation.json", "test_predictions.csv.gz") + [s.path("raw") / "stations.csv"]
+    return _cached("accuracy", files, _accuracy_payload)
+
+
+def _accuracy_payload() -> dict:
     s = load_settings()
     ev = evaluation_payload()
     path = s.path("reports") / "test_predictions.csv.gz"
@@ -533,6 +597,15 @@ class Handler(BaseHTTPRequestHandler):
 _LAST_SEEN = time.time()
 
 
+def _warm_up() -> None:
+    """Load the model and prepare the first answers while the window opens."""
+    for fn in (forecast_payload, _model, accuracy_payload):
+        try:
+            fn()
+        except Exception as exc:
+            log.debug("warm-up skipped %s: %s", getattr(fn, "__name__", fn), exc)
+
+
 AUTO_REFRESH_MIN = 30  # a forecast older than this is refreshed automatically
 _AUTO = {"last": 0.0, "fails": 0}  # after a failed update, wait 15, 30, then 60 minutes
 
@@ -626,6 +699,7 @@ def main(open_browser: bool = True) -> None:
     print(f"VayuVaani is running at {url}")
     threading.Thread(target=server.serve_forever, daemon=True).start()
     threading.Thread(target=_auto_refresh_loop, daemon=True).start()
+    threading.Thread(target=_warm_up, daemon=True).start()
     if not open_browser:
         try:
             while True:

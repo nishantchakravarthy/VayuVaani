@@ -15,6 +15,8 @@ Double-click `VayuVaani.bat`. The first time, it sets everything up (3 to 10 min
 
 In the app, choose **Try it with demo data** or **Use real Bengaluru data** (paste your free OpenAQ key in Settings first). Everything else is buttons.
 
+**Use real Bengaluru data** starts from the ready-made model in `prebuilt/` (trained on about 2 years of real data), so a new computer is forecasting in about a minute. To train your own model on fresh data, use **Rebuild with real data** in Settings (20 minutes or more). On slower computers, set **Animations** to **Light** in Settings; the app also picks this by itself if the screen can't keep up.
+
 Pages: Today's air, Stations, Plan outdoors, Alerts (SMS and voice in English, Kannada and Hindi), Accuracy and About. Settings also has a dark mode and an optional second language (Kannada or Hindi) for the menu labels.
 
 ## Setup for the command line

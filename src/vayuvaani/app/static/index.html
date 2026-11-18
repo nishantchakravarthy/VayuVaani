@@ -106,7 +106,7 @@ select,input[type=text],input[type=password],input[type=number]{font:inherit;pad
 .sky h1{font-size:34px;margin:4px 0 6px;font-weight:700;letter-spacing:-.4px;line-height:1.15}
 .sky h1 b{font-weight:800}
 .sky .lede{font-size:15px;opacity:.92;max-width:620px;line-height:1.5}
-.glass{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:12px}
+.glass{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.28);border-radius:12px}
 .sky.day .glass{background:rgba(255,255,255,.55);border-color:rgba(255,255,255,.7)}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .chips .glass{padding:7px 11px;font-size:13px}
@@ -141,6 +141,11 @@ select,input[type=text],input[type=password],input[type=number]{font:inherit;pad
 
 .offline{font-size:13px;color:var(--muted);background:var(--card);border:1px dashed var(--dash);border-radius:12px;padding:9px 14px;margin-bottom:16px}
 .offline b{color:var(--ink)}
+/* Light animations: for slower computers (chosen in Settings, or picked automatically). */
+html.lite .sky *,html.lite .phero *,html.lite .wordmark{animation:none!important}
+html.lite *{transition:none!important}
+/* Paused: the window is in the background, or nobody has touched it for a while. */
+html.paused .sky *,html.paused .phero *{animation-play-state:paused!important}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}
   /* the progress spinner is information, not decoration: keep it turning, just slower */
   .running .dot,#progress.slim::before{animation:spin 1.6s linear infinite!important}}
@@ -347,6 +352,8 @@ footer{font-size:12px;color:var(--faint);margin-top:26px;line-height:1.5}
     <input id="kFirms" type="password" placeholder="Paste key" autocomplete="off">
     <div class="hint">Adds NASA satellite fire detections (crop and garbage burning) to the forecast. Request a free key at <a href="https://firms.modaps.eosdis.nasa.gov/api/map_key/" target="_blank" rel="noopener">firms.modaps.eosdis.nasa.gov</a>; it arrives by email. After you save it, the app downloads past fires and retrains by itself (about 10 minutes).</div>
     <div id="keyError" class="error" hidden></div>
+    <label for="motionSel">Animations</label>
+    <select id="motionSel" style="width:100%"><option value="auto">Automatic (lighter on slower computers)</option><option value="full">Full</option><option value="lite">Light (smoother on older computers)</option></select>
     <label for="lang2Sel">Second language for menu labels</label>
     <select id="lang2Sel" style="width:100%"><option value="none">None (English only)</option><option value="kn">Kannada (ಕನ್ನಡ)</option><option value="hi">Hindi (हिंदी)</option></select>
     <div class="hint">Shows the menu and page names in a second language alongside English. Alerts can always be previewed in all three languages.</div>
@@ -486,7 +493,7 @@ function renderShell(){
   // A routine update gets a slim one-line bar; setup and retraining show every step.
   $("progress").classList.toggle("slim", job.name==="refresh" && !job.error);
   if(busy||job.error){
-    const titles={demo:"Setting up with demo data",real:"Setting up with real Bengaluru data",refresh:"Updating to the latest readings… you're seeing the previous forecast until it's done",retrain:"Retraining the model",fires:"Adding NASA fire data and retraining (about 10 minutes)"};
+    const titles={demo:"Setting up with demo data",real:"Setting up with real Bengaluru data",quick:"Setting up real Bengaluru data (about a minute)",refresh:"Updating to the latest readings… you're seeing the previous forecast until it's done",retrain:"Retraining the model",fires:"Adding NASA fire data and retraining (about 10 minutes)"};
     $("progTitle").textContent = job.error ? "Something went wrong" : (titles[job.name]||"Working…");
     $("steps").innerHTML = job.steps.map(st=>`<li class="${st.status}"><span class="dot">${st.status==="done"?"✓":st.status==="failed"?"!":""}</span>${esc(st.label)}</li>`).join("");
     $("progError").hidden=!job.error; $("progError").textContent=job.error||"";
@@ -512,7 +519,14 @@ function route(){
   bindRun();
 }
 function bindRun(){ document.querySelectorAll("[data-run]").forEach(b=>b.onclick=()=>run(b.dataset.run)); }
-function demoNote(){ return S.status.mode==="demo" ? `<div class="warn"><b>Demo mode.</b> Stations and readings here are made up so you can try the app. Live weather and the CAMS estimate on the dashboard are real. Add an OpenAQ key in Settings and rebuild with real data for real Bengaluru stations.</div>` : ""; }
+function demoNote(){ return staleNote() + demoNote0(); }
+function staleNote(){
+  const st=S.status, age=st.forecast_age_min, j=st.job||{};
+  if(st.mode!=="real" || age==null || age<180) return "";
+  const why = (j.name==="refresh"||j.name==="quick") && j.error ? ` The last update failed: ${esc(j.error)}` : (j.running ? " Updating now." : "");
+  return `<div class="warn"><b>This forecast is out of date.</b> It was made ${esc(st.forecast_updated)}, so some hours shown may already have passed.${why}</div>`;
+}
+function demoNote0(){ return S.status.mode==="demo" ? `<div class="warn"><b>Demo mode.</b> Stations and readings here are made up so you can try the app. Live weather and the CAMS estimate on the dashboard are real. Add an OpenAQ key in Settings and rebuild with real data for real Bengaluru stations.</div>` : ""; }
 function skyPhase(){
   const w=(S.live&&S.live.weather)||{}, d=new Date(), h=d.getHours()+d.getMinutes()/60;
   const toH=t=>{ if(!t) return null; const x=D(t); return x.getHours()+x.getMinutes()/60; };
@@ -600,7 +614,9 @@ function welcomeHTML(){
     <h2>Welcome to VayuVaani</h2>
     <p>VayuVaani forecasts PM2.5 air pollution at every monitoring station in Bengaluru for the next 48 hours, shows how sure each forecast is and why, and turns it into health advice and alerts for the people most at risk.</p>
     <div class="choices">
-      <div class="choice"><h3>Use real Bengaluru data</h3><p>Downloads 2 years of CPCB station, weather and fire data and trains on it. Needs a free OpenAQ key. Takes 15–30 minutes.</p><button class="btn" data-run="real">Set up real data</button></div>
+      ${S.status&&S.status.prebuilt
+        ? `<div class="choice"><h3>Use real Bengaluru data</h3><p>Uses a model already trained on 2 years of CPCB station, weather and NASA fire data, then fetches today's readings. Needs a free OpenAQ key. Ready in about a minute.</p><button class="btn" data-run="quick">Set up real data</button></div>`
+        : `<div class="choice"><h3>Use real Bengaluru data</h3><p>Downloads 2 years of CPCB station, weather and fire data and trains on it. Needs a free OpenAQ key. Takes 15–30 minutes.</p><button class="btn" data-run="real">Set up real data</button></div>`}
       <div class="choice"><h3>Try it with demo data</h3><p>Made-up stations that behave like Bengaluru's. No sign-up needed. Takes 2–5 minutes.</p><button class="btn ghost" data-run="demo">Start demo</button></div>
     </div></div>`;
 }
@@ -672,7 +688,7 @@ function skyHTML(L){
     g+=`<g class="cloud" style="animation-duration:${80+hash(i+40)*80}s;animation-delay:${-hash(i+50)*120}s"><g transform="translate(0 ${y}) scale(${sc})" fill="#fff" opacity="${op}"><ellipse cx="60" cy="20" rx="60" ry="16"/><ellipse cx="95" cy="10" rx="38" ry="18"/><ellipse cx="35" cy="12" rx="28" ry="13"/></g></g>`; }
   for(let i=0;i<5;i++){ const y=150+i*22+hash(i+60)*10;
     g+=`<path class="wind" d="M-50 ${y} C 250 ${y-18}, 450 ${y+18}, 700 ${y} S 1100 ${y-14}, 1300 ${y}" stroke="#fff" stroke-width="${1.2+hash(i+70)}" opacity="${phase==="day"?.5:.3}" stroke-dasharray="${90+hash(i)*90} 700" style="animation-duration:${dur+hash(i+80)*3}s;animation-delay:${-hash(i+90)*6}s"/>`; }
-  const np=Math.round(Math.min(420,Math.max(18,(pm||20)*1.6))), pc=({Good:"#ffffff",Satisfactory:"#eef6d2",Moderate:"#ffe6a6",Poor:"#ffc98f","Very Poor":"#ffad8f",Severe:"#ff9a8a"})[cat?cat.name:"Good"];
+  const np=Math.round(Math.min(motionLite()?90:260,Math.max(18,(pm||20)*1.6))), pc=({Good:"#ffffff",Satisfactory:"#eef6d2",Moderate:"#ffe6a6",Poor:"#ffc98f","Very Poor":"#ffad8f",Severe:"#ff9a8a"})[cat?cat.name:"Good"];
   let parts=""; for(let i=0;i<np;i++){ const x=hash(i+1500)*(W+80), y=hash(i+1600)*(H-40), r=.9+hash(i+1700)*2.2; parts+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(2)}" fill="${pc}" opacity="${(.18+hash(i+1800)*.4).toFixed(2)}"/>`; }
   g+=`<g class="pt" style="animation-duration:${Math.max(14,40-windSpeed)}s;animation-direction:alternate">${parts}</g>`;
   // skyline: back layer
@@ -977,7 +993,7 @@ function pageAbout(v){
 
 /* ------------------------------------------------------------------ data loading */
 async function run(task){
-  if(task==="real" && !S.status.keys.openaq){ openSettings(); alert("Paste your OpenAQ key here, press Save, then click 'Rebuild with real data'."); return; }
+  if((task==="real"||task==="quick") && !S.status.keys.openaq){ openSettings(); alert("Paste your OpenAQ key here, press Save, then click 'Rebuild with real data'."); return; }
   closeSettings();
   const r=await api("/api/run",{task}); if(!r.ok) alert(r.error);
   poll();
@@ -996,8 +1012,29 @@ async function poll(){
   // While working, check often; otherwise check once a minute so automatic updates show up.
   clearTimeout(S.pollT); S.pollT=setTimeout(poll, job.running?1500:60000);
 }
-function openSettings(){ $("lang2Sel").value=lang2(); $("settings").classList.add("open"); }
+function openSettings(){ $("lang2Sel").value=lang2(); $("motionSel").value=motionPref(); $("settings").classList.add("open"); }
 function closeSettings(){ $("settings").classList.remove("open"); }
+// Animations: "auto" measures the frame rate once and switches to light mode on a slow computer.
+function motionPref(){ try{ return localStorage.getItem("vv-motion")||"auto"; }catch(e){ return "auto"; } }
+function motionLite(){ const p=motionPref(); if(p!=="auto") return p==="lite"; try{ return localStorage.getItem("vv-motion-auto")==="lite"; }catch(e){ return false; } }
+function applyMotion(){ document.documentElement.classList.toggle("lite", motionLite()); }
+function measureFps(){
+  if(motionPref()!=="auto") return;
+  try{ if(localStorage.getItem("vv-motion-auto")) return; }catch(e){ return; }
+  if(document.documentElement.classList.contains("paused")) return setTimeout(measureFps, 5000);  // measure while it's on screen
+  let frames=0, t0=0;
+  const step=t=>{ if(!t0) t0=t; frames++; if(t-t0<2000) return requestAnimationFrame(step);
+    const fps=frames*1000/(t-t0); const lite=fps<45;
+    try{ localStorage.setItem("vv-motion-auto", lite?"lite":"full"); }catch(e){}
+    if(lite){ applyMotion(); route(); } };
+  setTimeout(()=>requestAnimationFrame(step), 2500);  // measure after the first screen has settled
+}
+// Pause decorative animations when the window is in the background or idle for 2 minutes.
+let idleT=null;
+function wake(){ document.documentElement.classList.toggle("paused", document.hidden || !document.hasFocus()); clearTimeout(idleT); idleT=setTimeout(()=>document.documentElement.classList.add("paused"),120000); }
+["mousemove","keydown","wheel","pointerdown","focus","blur","visibilitychange"].forEach(ev=>window.addEventListener(ev,wake,{passive:true}));
+document.addEventListener("visibilitychange",wake);
+applyMotion(); wake(); measureFps();
 // Theme: remembered on this computer; defaults to the Windows setting.
 function getTheme(){ try{ const t=localStorage.getItem("vv-theme"); if(t) return t; }catch(e){} return matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"; }
 function applyTheme(t){ document.documentElement.dataset.theme=t; const moon='<svg width="14" height="14" viewBox="0 0 24 24" style="vertical-align:-2px"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="currentColor"/></svg>', sun='<svg width="14" height="14" viewBox="0 0 24 24" style="vertical-align:-2px" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>';
@@ -1005,7 +1042,7 @@ function applyTheme(t){ document.documentElement.dataset.theme=t; const moon='<s
 applyTheme(getTheme());
 $("themeBtn").onclick=()=>{ const t=document.documentElement.dataset.theme==="dark"?"light":"dark"; try{ localStorage.setItem("vv-theme",t); }catch(e){} applyTheme(t); };
 $("settingsBtn").onclick=openSettings; $("closeSettings").onclick=closeSettings;
-$("saveSettings").onclick=async()=>{ try{ localStorage.setItem("vv-lang2",$("lang2Sel").value); }catch(e){} route();
+$("saveSettings").onclick=async()=>{ try{ localStorage.setItem("vv-lang2",$("lang2Sel").value); localStorage.setItem("vv-motion",$("motionSel").value); }catch(e){} applyMotion(); route();
   const newFirms=$("kFirms").value.trim();
   const newOpenaq=$("kOpenaq").value.trim();
   $("saveSettings").disabled=true; $("saveSettings").textContent="Checking…";

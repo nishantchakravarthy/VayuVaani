@@ -1,0 +1,106 @@
+{
+  "rows": 65174,
+  "model": {
+    "mae": 10.627393429338037,
+    "rmse": 19.14131941956118,
+    "n": 65174
+  },
+  "persistence": {
+    "mae": 13.883740412843569,
+    "rmse": 24.845303742208756,
+    "n": 65174
+  },
+  "same_hour": {
+    "mae": 14.075660774889315,
+    "rmse": 25.088264583392633,
+    "n": 58047
+  },
+  "interval_coverage": 0.6901678583484212,
+  "interval_target": 0.8,
+  "category_accuracy": 0.7609783042317488,
+  "poor_alerts": {
+    "actual_poor_hours": 1475,
+    "alert_probability": 0.3,
+    "alerts_sent": 84,
+    "precision": 0.8690476190476191,
+    "recall": 0.04949152542372881
+  },
+  "by_horizon": {
+    "1-6h": {
+      "model_mae": 8.432380296096525,
+      "persistence_mae": 9.545850885668276,
+      "same_hour_mae": 12.468701625912718
+    },
+    "7-12h": {
+      "model_mae": 10.151590393641579,
+      "persistence_mae": 13.443079590182913,
+      "same_hour_mae": 12.292589473919255
+    },
+    "13-24h": {
+      "model_mae": 10.39774518008666,
+      "persistence_mae": 13.619769959349593,
+      "same_hour_mae": 12.150689613052391
+    },
+    "25-48h": {
+      "model_mae": 11.546337176984554,
+      "persistence_mae": 15.458737478775296,
+      "same_hour_mae": 16.0919126136957
+    }
+  },
+  "skill_vs_persistence": 0.2345439259648755,
+  "backend": "lightgbm",
+  "train_rows": 442621,
+  "train_until": "2026-09-10 23:00:00",
+  "test_from": "2026-09-12 23:00:00",
+  "stations": 8,
+  "top_features": {
+    "t_pressure": 2194,
+    "t_temp": 1929,
+    "t_rh": 1638,
+    "t_wind_v": 1625,
+    "frp_prev_3d": 1622,
+    "t_wind_u": 1579,
+    "pm25_std24": 1477,
+    "pm25_mean24": 1419,
+    "pm25_lag0": 1409,
+    "pm25_pm10_ratio": 1331,
+    "fires_prev_3d": 1306,
+    "pm25_max24": 1264,
+    "t_wind_mean_h": 1244,
+    "t_wind_speed": 1132,
+    "lat": 1120,
+    "fires_prev_day": 1094,
+    "pm10_mean24": 1063,
+    "t_dow": 1048,
+    "t_rain_sum_h": 1008,
+    "horizon": 877,
+    "t_rain6": 868,
+    "t_hour_sin": 825,
+    "lon": 789,
+    "t_hour_cos": 736,
+    "pm10_lag0": 733,
+    "t_cloud": 664,
+    "pm25_lag48": 600,
+    "pm25_lag3": 524,
+    "pm25_lag12": 523,
+    "pm25_lag24": 379,
+    "pm25_trend3": 345,
+    "pm25_lag6": 342,
+    "o_temp": 314,
+    "t_rain": 256,
+    "o_wind_speed": 229,
+    "pm25_lag1": 229,
+    "pm25_mean3": 222,
+    "pm25_mean6": 218,
+    "t_event_dry_season": 217,
+    "o_rh": 194,
+    "o_rain6": 185,
+    "pm25_lag2": 181,
+    "t_event_fireworks": 107,
+    "t_weekend": 53,
+    "t_event_holiday": 49,
+    "t_event_festival": 39
+  },
+  "live_range_widen": 0.173,
+  "final_model_rows": 498709
+}
