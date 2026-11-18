@@ -165,9 +165,10 @@ html.lite .sky *,html.lite .phero *,html.lite .wordmark{animation:none!important
 html.lite *{transition:none!important}
 /* Paused: the window is in the background, or nobody has touched it for a while. */
 html.paused .sky *,html.paused .phero *{animation-play-state:paused!important}
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}
-  /* the progress spinner is information, not decoration: keep it turning, just slower */
-  .running .dot,#progress.slim::before{animation:spin 1.6s linear infinite!important}}
+/* Page change: the new page fades up gently. */
+#view.enter{animation:pageIn .32s cubic-bezier(.2,.7,.2,1) both}
+html[data-q=low] #view.enter{animation-duration:.18s}
+@keyframes pageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @media (max-width:900px){.orb{display:none}.sky h1{font-size:26px}}
 
 /* page heroes (smaller sky banner on every other page) */
@@ -372,7 +373,7 @@ footer{font-size:12px;color:var(--faint);margin-top:26px;line-height:1.5}
     <div class="hint">Adds NASA satellite fire detections (crop and garbage burning) to the forecast. Request a free key at <a href="https://firms.modaps.eosdis.nasa.gov/api/map_key/" target="_blank" rel="noopener">firms.modaps.eosdis.nasa.gov</a>; it arrives by email. After you save it, the app downloads past fires and retrains by itself (about 10 minutes).</div>
     <div id="keyError" class="error" hidden></div>
     <label for="motionSel">Graphics quality <span class="muted" id="qualNow"></span></label>
-    <select id="motionSel" style="width:100%"><option value="auto">Automatic (matched to this computer)</option><option value="high">High: richest visuals, for a dedicated graphics card</option><option value="medium">Medium: balanced</option><option value="low">Low: smoothest on older or basic computers</option></select>
+    <select id="motionSel" style="width:100%"><option value="auto">Automatic (matched to this computer)</option><option value="high">High: richest visuals, for a dedicated graphics card</option><option value="medium">Medium: balanced</option><option value="low">Low: still visuals, smoothest on older or basic computers</option></select>
     <label for="lang2Sel">Second language for menu labels</label>
     <select id="lang2Sel" style="width:100%"><option value="none">None (English only)</option><option value="kn">Kannada (ಕನ್ನಡ)</option><option value="hi">Hindi (हिंदी)</option></select>
     <div class="hint">Shows the menu and page names in a second language alongside English. Alerts can always be previewed in all three languages.</div>
@@ -534,8 +535,10 @@ function route(){
   const v=$("view");
   if(!S.status){ v.innerHTML=""; return; }
   if(!ready() && page!=="about"){ v.innerHTML = welcomeHTML(); bindRun(); return; }
+  const key=(page||"dashboard")+"/"+(arg||""), changed=key!==S.lastPage; S.lastPage=key;
   ({dashboard:pageDashboard, station:pageStation, planner:pagePlanner, alerts:pageAlerts, model:pageModel, about:pageAbout}[page||"dashboard"] || pageDashboard)(v, arg && decodeURIComponent(arg));
   bindRun();
+  if(changed){ smoothStop(); scrollTo(0,0); v.classList.remove("enter"); void v.offsetWidth; v.classList.add("enter"); }
 }
 function bindRun(){ document.querySelectorAll("[data-run]").forEach(b=>b.onclick=()=>run(b.dataset.run)); }
 function demoNote(){ return staleNote() + demoNote0(); }
@@ -1186,6 +1189,47 @@ document.addEventListener("mousemove",e=>{
   if(wm) wm.style.transform=`translate(${(x*18).toFixed(1)}px,${(y*8).toFixed(1)}px)`;
 },{passive:true});
 document.addEventListener("mouseout",e=>{ const h=e.target.closest&&e.target.closest(".phero"); if(h && !h.contains(e.relatedTarget)){ h.querySelectorAll("svg.scene,.wordmark").forEach(n=>n.style.transform=""); } },{passive:true});
+// Smooth scrolling. Windows turns Chromium's own smooth scrolling off when "Animation effects"
+// is off, so the page jumped about 150 px per wheel notch. This eases every scroll instead.
+const SM={el:null,target:0,raf:0,last:0};
+function smoothStop(){ cancelAnimationFrame(SM.raf); SM.raf=0; }
+function scrollerFor(n,dy){
+  for(;n && n.nodeType===1 && n!==document.body && n!==document.documentElement;n=n.parentElement){
+    if(n.classList.contains("leaflet-container")||n.tagName==="SELECT"||n.tagName==="TEXTAREA") return null;   // the map zooms, lists scroll natively
+    const oy=getComputedStyle(n).overflowY;
+    if((oy==="auto"||oy==="scroll") && n.scrollHeight>n.clientHeight+1 && (dy<0? n.scrollTop>0 : n.scrollTop+n.clientHeight<n.scrollHeight-1)) return n;
+  }
+  return document.scrollingElement;
+}
+function smoothBy(el,dy){
+  const max=el.scrollHeight-el.clientHeight;
+  if(SM.el!==el || !SM.raf) { SM.el=el; SM.target=el.scrollTop; }
+  SM.target=Math.max(0,Math.min(max,SM.target+dy));
+  if(!SM.raf){ SM.last=performance.now(); SM.raf=requestAnimationFrame(smoothStep); }
+}
+function smoothStep(t){
+  const el=SM.el, dt=Math.min(64,t-SM.last); SM.last=t;
+  const k=1-Math.pow(1-(document.documentElement.dataset.q==="low"?.3:.2), dt/16.7);   // same feel at any frame rate
+  const cur=el.scrollTop, d=SM.target-cur;
+  if(Math.abs(d)<1){ el.scrollTop=SM.target; SM.raf=0; return; }
+  el.scrollTop=cur+d*k; SM.raf=requestAnimationFrame(smoothStep);
+}
+addEventListener("wheel",e=>{
+  if(e.ctrlKey || e.defaultPrevented || Math.abs(e.deltaX)>Math.abs(e.deltaY) || $("settings").classList.contains("open")) return;
+  const el=scrollerFor(e.target,e.deltaY); if(!el) return;
+  e.preventDefault();
+  smoothBy(el, e.deltaY*(e.deltaMode===1?40:e.deltaMode===2?innerHeight*.9:1));
+},{passive:false});
+addEventListener("keydown",e=>{
+  const tg=e.target; if(e.altKey||e.ctrlKey||e.metaKey||/INPUT|TEXTAREA|SELECT/.test(tg.tagName)||tg.isContentEditable) return;
+  const el=document.scrollingElement, page=innerHeight*.85;
+  const dy={PageDown:page,PageUp:-page," ":e.shiftKey?-page:page,ArrowDown:90,ArrowUp:-90,End:1e7,Home:-1e7}[e.key];
+  if(dy==null || (e.key===" " && tg.tagName==="BUTTON")) return;
+  e.preventDefault(); smoothBy(el,dy);
+});
+// A drag on the scrollbar or a jump elsewhere: let it win.
+addEventListener("mousedown",smoothStop,{passive:true});
+
 // While the page is scrolling, heavy effects hold still so scrolling stays smooth.
 let scrollT=null;
 addEventListener("scroll",()=>{ const h=document.documentElement; if(!h.classList.contains("scrolling")) h.classList.add("scrolling");
