@@ -19,6 +19,24 @@ In the app, choose **Try it with demo data** or **Use real Bengaluru data** (pas
 
 Pages: Today's air, Stations, Plan outdoors, Alerts (SMS and voice in English, Kannada and Hindi), Accuracy and About. Settings also has a dark mode and an optional second language (Kannada or Hindi) for the menu labels.
 
+## On every device
+
+| Device | How |
+|---|---|
+| **Windows** | Double-click `VayuVaani.bat`. |
+| **macOS** | Double-click `VayuVaani.command`. The first time, macOS may say it's from an unidentified developer: right-click it, choose **Open**, then **Open** again. Needs Python 3.10–3.13 ([python.org](https://www.python.org/downloads/macos/) or `brew install python@3.12`); the launcher installs OpenMP for the model with Homebrew if needed. |
+| **Linux** | Run `./vayuvaani.sh` (or `bash vayuvaani.sh`). Needs Python 3.10–3.13 with venv (`sudo apt install python3 python3-venv` on Ubuntu/Debian). The first run adds VayuVaani to your app menu. |
+| **Android and iPhone/iPad, at home** | On the computer running VayuVaani, open **Settings**, tick **Open on your phone**, and reopen the app. On the phone (same Wi-Fi), open the address Settings shows, such as `http://192.168.1.5:8765`. Phones can look at everything; keys, updates and training stay on the computer. Windows may ask once whether to allow VayuVaani on private networks: choose **Allow**. |
+| **Any phone, tablet or computer, anywhere** | The **web version**: the same app as a website that updates itself every hour (GitHub Actions + GitHub Pages) and installs to the home screen (**Add to Home Screen** on iPhone, **Install app** on Android). Setup below. |
+
+### Web version setup (one time)
+
+1. On GitHub, open this repository's **Settings > Secrets and variables > Actions** and add a secret `OPENAQ_API_KEY` with your OpenAQ key (and optionally `FIRMS_MAP_KEY`).
+2. In **Settings > Pages**, set **Source** to **GitHub Actions**.
+3. In the **Actions** tab, open **Web version** and click **Run workflow**.
+
+The site appears at `https://<username>.github.io/VayuVaani/` and refreshes every hour. GitHub pauses scheduled runs after 60 days without any commits; click **Run workflow** to restart them. In the web version, voice alerts use the phone's own voices.
+
 ## Setup for the command line
 
 Needs Python 3.10 or newer.

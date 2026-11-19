@@ -36,6 +36,22 @@ from ..model import QuantileForecaster
 from ..sources import live
 
 HOST = "127.0.0.1"
+ASSETS = {"manifest.webmanifest": "application/manifest+json", "sw.js": "text/javascript",
+          "icon-192.png": "image/png", "icon-512.png": "image/png", "icon-maskable.png": "image/png"}
+LAN_FLAG = PROJECT_ROOT / "data" / "phone_access.on"   # present = also listen on the Wi-Fi network
+
+
+def lan_addresses() -> list[str]:
+    """This computer's address on the local network, for opening the app on a phone."""
+    import socket
+    ips = set()
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sk:
+            sk.connect(("10.255.255.255", 1))  # no packet is sent; this just picks the Wi-Fi interface
+            ips.add(sk.getsockname()[0])
+    except OSError:
+        pass
+    return [f"http://{ip}:{PORT}" for ip in sorted(ips) if not ip.startswith("127.")]
 PORT = int(os.environ.get("VAYUVAANI_PORT", "8765"))
 STATIC = Path(__file__).parent / "static"
 KEY_NAMES = {"openaq": "OPENAQ_API_KEY", "firms": "FIRMS_MAP_KEY", "datagov": "DATA_GOV_IN_API_KEY"}
@@ -250,6 +266,7 @@ def status() -> dict:
         "forecast_updated": time.strftime("%d %b %Y, %I:%M %p", time.localtime(fc.stat().st_mtime)) if fc.exists() else None,
         "fire_days": _fire_days(s),
         "prebuilt": _prebuilt_ready(),
+        "phone": {"on": LAN_FLAG.exists(), "serving": SERVING_LAN, "urls": lan_addresses() if SERVING_LAN else []},
         "forecast_age_min": round((time.time() - fc.stat().st_mtime) / 60) if fc.exists() else None,
         "job": JOB.snapshot(),
     }
@@ -541,10 +558,14 @@ class Handler(BaseHTTPRequestHandler):
         try:
             if route in ("/", "/index.html"):
                 self._send(200, (STATIC / "index.html").read_bytes(), "text/html; charset=utf-8")
+            elif route.lstrip("/") in ASSETS:
+                name = route.lstrip("/")
+                self._send(200, (STATIC / name).read_bytes(), ASSETS[name])
             elif route == "/api/ping":
                 return self._json({"ok": True})
             elif route == "/api/status":
-                self._json(status())
+                local = self.client_address[0] in ("127.0.0.1", "::1", "::ffff:127.0.0.1")
+                self._json({**status(), "local": local})
             elif route == "/api/forecast":
                 self._json(forecast_payload())
             elif route == "/api/evaluation":
@@ -571,7 +592,10 @@ class Handler(BaseHTTPRequestHandler):
             self._json({"error": str(exc)}, 500)
 
     def do_POST(self):
-        # Only accept requests from the app's own page.
+        # Changes (keys, training, settings) are only accepted from this computer itself,
+        # even when phones on the Wi-Fi can view the app.
+        if self.client_address[0] not in ("127.0.0.1", "::1", "::ffff:127.0.0.1"):
+            return self._json({"error": "Changes can only be made on the computer running VayuVaani."}, 403)
         origin = self.headers.get("Origin")
         if origin and origin not in (f"http://{HOST}:{PORT}", f"http://localhost:{PORT}"):
             return self._json({"error": "forbidden"}, 403)
@@ -584,6 +608,14 @@ class Handler(BaseHTTPRequestHandler):
         if route == "/api/run":
             err = start_job(body.get("task", ""))
             return self._json({"ok": err is None, "error": err}, 200 if err is None else 409)
+        if route == "/api/phone":
+            on = bool(body.get("on"))
+            LAN_FLAG.parent.mkdir(parents=True, exist_ok=True)
+            if on:
+                LAN_FLAG.write_text("on", encoding="utf-8")
+            elif LAN_FLAG.exists():
+                LAN_FLAG.unlink()
+            return self._json({"ok": True, "restart": on != SERVING_LAN})
         if route == "/api/keys":
             err = check_keys(body)
             if err:
@@ -638,6 +670,9 @@ def _auto_refresh_loop() -> None:
         time.sleep(60)
 
 
+SERVING_LAN = False
+
+
 def _find_app_browser():
     """Edge (built into Windows) or Chrome, used only as a window with no tabs or address bar."""
     import shutil
@@ -647,10 +682,15 @@ def _find_app_browser():
         if base:
             cands += [Path(base) / "Microsoft/Edge/Application/msedge.exe",
                       Path(base) / "Google/Chrome/Application/chrome.exe"]
+    if sys.platform == "darwin":
+        for app in ("Google Chrome", "Microsoft Edge", "Brave Browser", "Chromium"):
+            cands.append(Path("/Applications") / f"{app}.app" / "Contents" / "MacOS" / app)
+            cands.append(Path.home() / "Applications" / f"{app}.app" / "Contents" / "MacOS" / app)
     for c in cands:
         if c.exists():
             return str(c)
-    for name in ("msedge", "google-chrome", "chromium", "chrome"):
+    for name in ("msedge", "microsoft-edge", "microsoft-edge-stable", "google-chrome", "google-chrome-stable",
+                 "chromium", "chromium-browser", "brave-browser", "chrome"):
         found = shutil.which(name)
         if found:
             return found
@@ -689,8 +729,10 @@ def main(open_browser: bool = True) -> None:
     load_settings()  # loads .env into the environment
 
     url = f"http://{HOST}:{PORT}"
+    global SERVING_LAN
+    SERVING_LAN = LAN_FLAG.exists()
     try:
-        server = ThreadingHTTPServer((HOST, PORT), Handler)
+        server = ThreadingHTTPServer(("0.0.0.0" if SERVING_LAN else HOST, PORT), Handler)
     except OSError:
         # Already running (e.g. opened twice): just show the window.
         if open_browser:
